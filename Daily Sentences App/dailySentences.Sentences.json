@@ -1,0 +1,140 @@
+[{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e2"
+  },
+  "quote": "The only way to do great work is to love what you do.",
+  "author": "Steve Jobs"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e3"
+  },
+  "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+  "author": "Winston Churchill"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e4"
+  },
+  "quote": "Believe you can and you're halfway there.",
+  "author": "Theodore Roosevelt"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e5"
+  },
+  "quote": "The best way to predict the future is to create it.",
+  "author": "Peter Drucker"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e6"
+  },
+  "quote": "Your time is limited, don't waste it living someone else's life.",
+  "author": "Steve Jobs"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e7"
+  },
+  "quote": "It does not matter how slowly you go as long as you do not stop.",
+  "author": "Confucius"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e8"
+  },
+  "quote": "You miss 100% of the shots you don't take.",
+  "author": "Wayne Gretzky"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63e9"
+  },
+  "quote": "The only limit to our realization of tomorrow is our doubts of today.",
+  "author": "Franklin D. Roosevelt"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63ea"
+  },
+  "quote": "Act as if what you do makes a difference. It does.",
+  "author": "William James"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63eb"
+  },
+  "quote": "The harder the conflict, the greater the triumph.",
+  "author": "George Washington"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63ec"
+  },
+  "quote": "Dream big and dare to fail.",
+  "author": "Norman Vaughan"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63ed"
+  },
+  "quote": "Do not wait to strike till the iron is hot; but make it hot by striking.",
+  "author": "William Butler Yeats"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63ee"
+  },
+  "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+  "author": "Ralph Waldo Emerson"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63ef"
+  },
+  "quote": "Don't watch the clock; do what it does. Keep going.",
+  "author": "Sam Levenson"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f0"
+  },
+  "quote": "It always seems impossible until it's done.",
+  "author": "Nelson Mandela"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f1"
+  },
+  "quote": "Success usually comes to those who are too busy to be looking for it.",
+  "author": "Henry David Thoreau"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f2"
+  },
+  "quote": "Opportunities don't happen, you create them.",
+  "author": "Chris Grosser"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f3"
+  },
+  "quote": "If you want to lift yourself up, lift up someone else.",
+  "author": "Booker T. Washington"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f4"
+  },
+  "quote": "The future belongs to those who believe in the beauty of their dreams.",
+  "author": "Eleanor Roosevelt"
+},
+{
+  "_id": {
+    "$oid": "66cc8ff3430099d019eb63f5"
+  },
+  "quote": "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+  "author": "Roy T. Bennett"
+}]
