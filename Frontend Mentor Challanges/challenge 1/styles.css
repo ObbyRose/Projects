@@ -70,7 +70,8 @@
 .main__links :hover {
    background-color: hsl(75, 94%, 57%);
    border-color:hsl(75, 94%, 57%);
-   color: hsl(0, 0%, 12%);;
+   color: hsl(0, 0%, 12%);
+   font-weight: 700;
    transition: all 0.3s ease-in;
-    cursor: pointer;
+   cursor: pointer;
 }
