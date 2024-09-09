@@ -65,4 +65,12 @@
     background-color: hsl(0, 0%, 20%); 
     margin: 0.5rem;
     text-align: center;
-  }
+}
+
+.main__links :hover {
+   background-color: hsl(75, 94%, 57%);
+   border-color:hsl(75, 94%, 57%);
+   color: hsl(0, 0%, 12%);;
+   transition: all 0.3s ease-in;
+    cursor: pointer;
+}
