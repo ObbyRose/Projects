@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: figtree;
+    
+}
+
+p{
+  font-size: 16px;
+}
+
+.main {
+  background-color: hsl(47, 88%, 63%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  border: solid 2px;
+  background-color: white;
+  border-color: hsl(0, 0%, 7%);
+  border-radius: 12px;
+  -webkit-box-shadow: 10px 10px 0px 0px hsl(0, 0%, 7%);
+  -moz-box-shadow: 10px 10px 0px 0px hsl(0, 0%, 7%);
+  box-shadow: 10px 10px 0px 0px hsl(0, 0%, 7%);
+  width: 27rem;
+  height: 35rem;
+}
+.main-preview{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-inline: 28px;
+}
+
+#main-card {
+  width: 26rem;
+  border-radius: 36px;
+  padding: 24px;
+}
+
+.learn{
+  font-weight: 800;
+  border: solid 4px hsl(47, 88%, 63%);
+  background-color: hsl(47, 88%, 63%);
+  border-radius: 4px;
+  width: fit-content;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.date{
+margin-bottom: 16px;
+font-weight: 500;
+color: hsl(0, 0%, 7%);
+}
+
+.main-content h1{
+margin-bottom: 16px;
+font-weight: 700;
+color: hsl(0, 0%, 7%);
+}
+
+.content {
+margin-bottom: 16px;
+font-weight: 500;
+color: hsl(0, 0%, 42%);
+}
+
+#Greg {
+  width: 2rem;
+}
+
+.author{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: hsl(0, 0%, 7%);
+}
