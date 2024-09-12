@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'Young-serif' ;
+    src: url(./assets/fonts/young-serif/YoungSerif-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url(./assets/fonts/outfit/Outfit-VariableFont_wght.ttf);
+}
+
+:root {
+    --White: hsl(0, 0%, 100%);
+    --Stone-100: hsl(30, 54%, 90%);
+    --Stone-150: hsl(30, 18%, 87%);
+    --Stone-600: hsl(30, 10%, 34%);
+    --Stone-900: hsl(24, 5%, 18%);
+    --Brown-800: hsl(14, 45%, 36%);
+    --Rose-800: hsl(332, 51%, 32%);
+    --Rose-50: hsl(330, 100%, 98%);
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+html p {
+    font-size: 16px;
+}
+
+html {
+    font-family: 'Outfit';
+}
+
+html h1 {
+    font-family: 'Young serif';
+}
+
+html h2 {
+
+    font-family: "Young serif";
+    margin-bottom: 1rem;
+}
+
+html h3{
+color: var(--Rose-800);
+
+}
+
+hr{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.main {
+    background-color: var(--Rose-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.main-container .main-content{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 2rem;
+    background-color: var(--White);
+}
+
+.main-content h2 {
+    color: var(--Brown-800);
+    font-family: 'Young serif';
+}
+.ul-list h2 {
+    
+}
+
+.ul-list li {
+ margin-bottom: 1rem;
+ color: var(--Stone-600);
+}
+
+.main-preperation{
+    padding: 2rem;
+    background-color: var(--Rose-50);
+    border-radius: 1rem;
+}
+
+.main-preperation ul{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--Rose-50);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    gap: 1rem  ;
+}
+
+.main-preperation li {
+    color: var(--Stone-600);
+}
+
+.ul-list {
+    padding-left: 1rem;
+
+}
+
+.ul-list li {
+    padding-left: 1rem;
+}
+
+.ul-list p {
+    color: var(--Stone-600);
+}
+
+li::marker{
+    color: var(--Brown-800);
+}
+
+hr{
+    border: solid 1px var(--Stone-600);
+}
+
+.main-nutrition-values{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+
