@@ -44,7 +44,6 @@ html h1 {
 }
 
 html h2 {
-
     font-family: "Young serif";
     margin-bottom: 1rem;
 }
@@ -78,9 +77,6 @@ hr{
 .main-content h2 {
     color: var(--Brown-800);
     font-family: 'Young serif';
-}
-.ul-list h2 {
-    
 }
 
 .ul-list li {
@@ -124,14 +120,24 @@ li::marker{
     color: var(--Brown-800);
 }
 
+
 hr{
     border: solid 1px var(--Stone-600);
 }
 
-.main-nutrition-values{
+.main-nutrition-content {
+    margin-top: 1rem;
+}
+
+.main-nutrition-names p {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+ 
+.main-nutrition-names p span{
+ color:  var(--Brown-800);
 }
 
 /* for the table do span /span and then hr */
