@@ -50,15 +50,22 @@
     color: var(--Slate-900);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 375px) {
     /* Desktop Styles */
 
     .main{
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
         width: 100%;
-
+        padding: 3rem 1rem;
+    }
+    
+    .main-container {
+        display: flex;
+        justify-content: center;
+        width: 21rem;
+        padding: 2rem;
+        height: fit-content;
     }
   }
