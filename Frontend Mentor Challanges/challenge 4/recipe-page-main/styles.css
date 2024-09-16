@@ -58,14 +58,6 @@ hr{
     margin-top: 1rem;
 }
 
-.main {
-    background-color: var(--Rose-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-}
-
 .main-container .main-content{
     display: flex;
     flex-direction: column;
@@ -141,6 +133,29 @@ hr{
 }
 
 /* for the table do span /span and then hr */
+
+@media (min-width: 800px) {
+    .main {
+        background-color: var(--Rose-50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5rem 15rem; /* Add padding to prevent the container from hitting the edges */
+    }
+
+    .main-container img {
+        border-radius: 12px;
+    }
+
+    .main-container {
+        padding: 1.5rem;
+        margin: auto;
+        border-radius: 12px;
+        background-color: var(--White); /* Make sure this has a background for visibility */
+        overflow: hidden; /* Ensure content doesn't overflow outside rounded corners */
+    }
+    
+}
 
 
 
