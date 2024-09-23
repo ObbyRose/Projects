@@ -1,0 +1,148 @@
+@font-face {
+    font-family: "Barlow Semi Condensed";
+    src: url(./design/fonts/BarlowSemiCondensed-Regular.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --Moderate-violet: hsl(263, 55%, 52%);
+    --Moderate-violet-50: #9568bb;
+    --Very-dark-grayish-blue: hsl(217, 19%, 35%);
+    --Very-dark-blackish-blue: hsl(219, 29%, 14%);
+    --White: hsl(0, 0%, 100%);
+    
+    --Light-gray: hsl(0, 0%, 81%);
+    --Light-grayish-blue: hsl(210, 46%, 95%);
+    
+}
+
+html, body {
+    height: 100%;
+    font-family:"Barlow Semi Condensed";
+    font-size: 13px;
+    
+}
+
+.flex-center{
+    display: flex;
+    justify-content:center ;
+    align-content: center;
+    background-color: var(--Light-grayish-blue);
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+.main-grid{
+    display: grid;
+    gap: 16px;
+    color: var(--White);
+}
+
+.daniel{
+    position:relative;
+    background-color: var(--Moderate-violet);
+    border-radius: 12px;
+    padding: 2rem 2rem;
+    z-index: 0;
+}
+
+.info {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.info-text p {
+    color: var(--Light-gray);
+}
+
+.info-text h1 {
+    font-size: 1.25rem;
+}
+
+.paragraph-bold {
+    position: relative;
+    font-weight: 600;
+    font-size: 1.64rem;
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.paragraph-lower {
+    color: var(--Light-gray);
+    font-weight: 500;
+}
+
+#img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.daniel #img {
+border: 3px solid var(--Moderate-violet-50);
+}
+
+#daniel-bg-img{
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+
+}
+
+.johnathan{
+    background-color: var(--Very-dark-grayish-blue);
+    padding: 2rem 2rem;
+    border-radius: 12px;
+}
+
+.jeanette {
+    background-color: var(--White);
+    padding: 2rem 2rem;
+    border-radius: 12px;
+    color: var(--Very-dark-grayish-blue);
+}
+
+.patrick {
+    background-color: var(--Very-dark-blackish-blue);
+    padding: 2rem 2rem;
+    border-radius: 12px;
+}
+
+.patrick #img {
+    border: 3px solid var(--Moderate-violet);
+}
+
+.kira{
+    background-color: var(--White);
+    padding: 2rem 2rem;
+    border-radius: 12px;
+    color: var(--Very-dark-grayish-blue);
+}
+
+.jeanette p, .kira p {
+    color: var(--Very-dark-grayish-blue);
+}
+
+@media (min-width: 1024px) {
+
+    .main-grid{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .daniel, .patrick {
+        grid-column: span 2;
+  }
+  .kira {
+    grid-row: 1/span 2;
+    grid-column-start:4 ;
+  }
+    
+}
