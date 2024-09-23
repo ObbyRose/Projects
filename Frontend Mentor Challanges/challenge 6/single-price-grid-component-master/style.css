@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "Karla";
+    src: url(./design/font/Karla-VariableFont_wght.ttf);
+}
+
+:root {
+    --Cyan: #2bb3b1;
+    --Cyan-light: #4abebd;
+    --Bright-Yellow: #d3e76d;
+    --Light-Gray: hsl(204, 43%, 93%);
+    --Grayish-Blue: hsl(218, 22%, 67%);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "karla";
+}
+
+body {
+    font-size: 16px;
+}
+
+.main-grid {
+ display: flex;
+ justify-content: center;
+ align-content: center;
+ background-color: var(--Light-Gray);
+ padding:  1rem 1rem;
+ height: 100vh;
+}
+
+.main-grid-container {
+    display: grid;
+}
+
+.main-grid-1 {
+    background-color: white;
+    color: var(--Grayish-Blue);
+    font-weight: 700;
+    padding: 1rem 1rem;
+    
+}
+
+.main-grid-1 h2{
+    color: var(--Cyan);
+}
+.grid-1-main-p {
+    color: var(--Bright-Yellow);
+}
+
+.main-grid-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--Cyan);
+    padding: 1rem 1rem;
+    color: var(--Light-Gray);
+}
+.main-grid-2 p span {
+    color: var(--Grayish-Blue);
+}
+.main-grid-2 a {
+ background-color: #bfdf32;
+ color: white;
+ text-align: center;
+ border-radius: 12px;
+ padding: 12px;
+ text-decoration: none;
+}
+
+.main-grid-3 {
+    background-color: var(--Cyan-light);
+    color: var(--Light-Gray);
+    padding: 1rem 1rem;
+}
+
