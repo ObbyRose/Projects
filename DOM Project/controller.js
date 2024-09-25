@@ -1,8 +1,9 @@
 import { createId, EmployeeService } from "./model.js";
-import { renderEmployees, toggleForm,cancelForm, clearForm, editForm, 
-        saveEmployeeBtn, cancelBtn, departmentSelect, currentEmployeeId, 
+import { renderEmployees, toggleForm, clearForm, editForm, 
+        saveEmployeeBtn, cancelBtn, currentEmployeeId, 
         addButton,firstNameInput,lastNameInput,salaryInput,startDateInput,ageInput,
-        departmentFormSelect, nameFilter, salaryFilterInput, departmentFilter } from "./view.js";
+        departmentFormSelect, nameFilter, salaryFilterInput, departmentFilter, 
+        startDateQuery} from "./view.js";
 
 function init() {
     const employees = EmployeeService.getEmployees();
@@ -62,7 +63,7 @@ salaryFilter.addEventListener('input', () => {
 //filtering logic
 function filterEmployees() {
     const nameQuery = nameFilter.value;
-    const dateQuery = startDateInput.value;
+    const dateQuery = startDateQuery.value;
     const departmentQuery = departmentFilter.value;
     const maxSalary = parseFloat(salaryFilterInput.value);
 
@@ -80,12 +81,17 @@ function filterEmployees() {
         filteredEmployees = filteredEmployees.filter(emp => emp.department === departmentQuery);
     }
 
-    if (maxSalary) //made it so the default of all salaries is 0 meaning no filter is applied
+    if (maxSalary) //Made it so the default of all salaries is 0 meaning no filter is applied
     filteredEmployees = filteredEmployees.filter(emp => emp.salary <= maxSalary);
 
-    // Filter by start date if a date is selected
+    // Filter by start date 
     if (dateQuery) {
-        filteredEmployees = filteredEmployees.filter(emp => emp.startDate === dateQuery);
+        filteredEmployees = filteredEmployees.filter(emp => {
+            const employeeStartDate = new Date(emp.startDateFilter);
+            const selectedStartDate = new Date(dateQuery);
+
+            return employeeStartDate >= selectedStartDate;
+        });
     }
 
     // Render the filtered employee list
