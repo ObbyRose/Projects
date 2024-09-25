@@ -87,7 +87,7 @@ function filterEmployees() {
     // Filter by start date 
     if (dateQuery) {
         filteredEmployees = filteredEmployees.filter(emp => {
-            const employeeStartDate = new Date(emp.startDateFilter);
+            const employeeStartDate = new Date(emp.startDate);
             const selectedStartDate = new Date(dateQuery);
 
             return employeeStartDate >= selectedStartDate;
