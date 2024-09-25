@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+</head>
+<body>
+    <div class="flex-center">
+        <h1>Employee Management System</h1>
+        <div class="filter">
+            <button id="Add">Add Employee</button>
+            <p>Filter by:</p>
+            <input type="text" id="nameFilter" placeholder="Search By name">
+            <input type="date" id="startDateFilter">
+            <select name="" id="departmentFilter">
+                <option value="">All Departments</option>
+                <option value="hr">HR</option>
+                <option value="engineering">Engineering</option>
+                <option value="finance">Finance</option>
+            </select>
+            <label for="salaryFilter">Max Salary: <span id="salaryValue">$0</span></label>
+            <input type="range" id="salaryFilter" min="0" max="200000" value="0" step="500">
+            <div id="employeeForm" class="hidden">
+                <h2 id="formTitle">Add Employee</h2>
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <input type="number" id="age" placeholder="Age" required max="99">
+                <input type="date" id="startDate" required>
+                <select id="departmentForm">
+                    <option value="engineering">Engineering</option>
+                    <option value="hr">HR</option>
+                    <option value="finance">Finance</option>
+                </select>
+                <input type="number" id="salary" placeholder="Salary" required>
+                <button id="saveEmployeeBtn">Save</button>
+                <button id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+        <div class="employee-list"></div>
+    </div>  
+    <script type="module" src="controller.js"></script>
+</body>
+</html>

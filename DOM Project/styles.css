@@ -1,0 +1,188 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.flex-center {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #4A90E2;
+    margin-bottom: 20px;
+}
+
+/* Filter Section */
+.filter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); */
+    margin-bottom: 20px;
+}
+
+.filter input[type="text"],
+.filter input[type="date"],
+.filter select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#Add {
+    background-color: #4A90E2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+#Add:hover {
+    background-color: #357ABD;
+}
+
+label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/* Salary Slider */
+#salaryFilter {
+    width: 200px;
+    margin: 0 10px;
+}
+
+#salaryValue {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: #4A90E2;
+}
+
+/* Employee Form */
+#employeeForm {
+    display: hidden;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+#employeeForm input,
+#employeeForm select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#saveEmployeeBtn,
+#cancelBtn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#saveEmployeeBtn {
+    background-color: #4A90E2;
+    color: white;
+}
+
+#cancelBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+#saveEmployeeBtn:hover {
+    background-color: #357ABD;
+}
+
+#cancelBtn:hover {
+    background-color: #d32f2f;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Employee List */
+.employee-card {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.employee-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.employee-card p {
+    margin-bottom: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+.employee-card .edit-btn,
+.employee-card .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.employee-card .edit-btn {
+    background-color: #ffb74d;
+    color: white;
+}
+
+.employee-card .delete-btn {
+    background-color: #e57373;
+    color: white;
+}
+
+.employee-card .edit-btn:hover {
+    background-color: #ffa726;
+}
+
+.employee-card .delete-btn:hover {
+    background-color: #ef5350;
+}
