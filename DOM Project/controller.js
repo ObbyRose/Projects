@@ -51,7 +51,6 @@ document.querySelector('.employee-list').addEventListener('click', (e) => {
 
 nameFilter.addEventListener('input', filterEmployees);
 
-
 departmentFilter.addEventListener('change', filterEmployees);
 
 startDateQuery.addEventListener(`change`, filterEmployees)
@@ -64,7 +63,7 @@ salaryFilter.addEventListener('input', () => {
 
 //filtering logic
 function filterEmployees() {
-    const nameQuery = nameFilter.value;
+    const nameQuery = nameFilter.value.trim().toLowerCase();
     const dateQuery = startDateQuery.value;
     const departmentQuery = departmentFilter.value;
     const maxSalary = parseFloat(salaryFilterInput.value);
