@@ -1,5 +1,5 @@
 export const addButton = document.getElementById('Add');
-const employeeForm = document.getElementById('employeeForm');
+export const employeeForm = document.getElementById('employeeForm');
 export const saveEmployeeBtn = document.getElementById('saveEmployeeBtn');
 export const cancelBtn = document.getElementById('cancelBtn');
 export const firstNameInput = document.getElementById('firstName');

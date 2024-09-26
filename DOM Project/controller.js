@@ -3,14 +3,14 @@ import { renderEmployees, toggleForm, clearForm, editForm,
         saveEmployeeBtn, cancelBtn, currentEmployeeId, 
         addButton,firstNameInput,lastNameInput,salaryInput,startDateInput,ageInput,
         departmentFormSelect, nameFilter, salaryFilterInput, departmentFilter, 
-        startDateQuery} from "./view.js";
+        startDateQuery , employeeForm} from "./view.js";
 
 function init() {
     const employees = EmployeeService.getEmployees();
     renderEmployees(employees);
 }
 // Add Employee
-saveEmployeeBtn.addEventListener(`click`, () => {
+employeeForm.addEventListener(`submit`, () => {
     const employee = {
         id: currentEmployeeId || createId.makeId(),
         firstName: firstNameInput.value,
@@ -39,13 +39,18 @@ document.querySelector('.employee-list').addEventListener('click', (e) => {
     }
 });
 
-// Edit Employee
+// Edit Employee // TO DO: Make the edit not be done in the form but on the card itself and make the edit/save button the functional button to edit and save the new info
 document.querySelector('.employee-list').addEventListener('click', (e) => {
     if (e.target.classList.contains('edit-btn')) {
         const id = e.target.getAttribute('data-id');
         const employee = EmployeeService.getEmployees().find(emp => emp.id === id);
         employeeForm.classList.toggle(`hidden`)
         editForm(employee);
+    }
+    if (e.target.textContent === 'Edit') {
+        e.target.textContent = 'Save';
+    }else if (e.target.textContent === 'Save') {
+        e.target.textContent = 'Edit'
     }
 });
 
