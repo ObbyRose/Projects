@@ -54,6 +54,8 @@ nameFilter.addEventListener('input', filterEmployees);
 
 departmentFilter.addEventListener('change', filterEmployees);
 
+startDateQuery.addEventListener(`change`, filterEmployees)
+
 
 salaryFilter.addEventListener('input', () => {
     salaryValue.textContent = `$${salaryFilter.value}`;
