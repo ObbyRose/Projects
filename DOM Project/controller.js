@@ -47,11 +47,11 @@ document.querySelector('.employee-list').addEventListener('click', (e) => {
         employeeForm.classList.toggle(`hidden`)
         editForm(employee);
     }
-    if (e.target.textContent === 'Edit') {
-        e.target.textContent = 'Save';
-    }else if (e.target.textContent === 'Save') {
-        e.target.textContent = 'Edit'
-    }
+    // if (e.target.textContent === 'Edit') {
+    //     e.target.textContent = 'Save';
+    // }else if (e.target.textContent === 'Save') {
+    //     e.target.textContent = 'Edit'
+    // }
 });
 
 nameFilter.addEventListener('input', filterEmployees);
