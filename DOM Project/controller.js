@@ -100,7 +100,7 @@ function filterEmployees() {
         });
     }
 
-\
+
     renderEmployees(filteredEmployees);
 }
 
