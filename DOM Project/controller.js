@@ -66,14 +66,14 @@ salaryFilter.addEventListener('input', () => {
     filterEmployees();
 });
 
-//filtering logic
+
 function filterEmployees() {
     const nameQuery = nameFilter.value.trim().toLowerCase();
     const dateQuery = startDateQuery.value;
     const departmentQuery = departmentFilter.value;
     const maxSalary = parseFloat(salaryFilterInput.value);
 
-    // Get filtered employees based on all criteria
+    // the filtering based on the selected criteria
     let filteredEmployees = EmployeeService.getEmployees();
 
     if (nameQuery) {
@@ -100,17 +100,15 @@ function filterEmployees() {
         });
     }
 
-    // Render the filtered employee list
+\
     renderEmployees(filteredEmployees);
 }
 
-// Cancel Button
 cancelBtn.addEventListener('click', () => {
     employeeForm.classList.add(`hidden`)
     clearForm()
 })
 
-// Add Employee Button
 addButton.addEventListener('click', toggleForm());
 
 
