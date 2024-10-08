@@ -31,6 +31,11 @@ p {
     font-weight: 400;
 }
 
+h1 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
 .main{
 display: flex;
 align-items: center;
@@ -78,13 +83,6 @@ a:hover {
     background-color: var(--color-Orange);
 }
 
-h1 {
-    font-weight: 700;
-}
-
-p {
-    font-weight: 400;
-}
 
 .main-content {
     display: flex;
@@ -115,4 +113,8 @@ p {
 
 #submitBtn:hover {
     background-color: var(--color-White);
+}
+
+.hidden {
+    /* display: none; */
 }
