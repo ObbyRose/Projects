@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family:'overpass' ;
+    src: url(./fonts/Overpass-VariableFont_wght.ttf);
+}
+
+:root {
+    --color-Orange: hsl(25, 97%, 53%);
+    --color-White: hsl(0, 0%, 100%);
+    --color-Light-Grey: hsl(217, 12%, 63%);
+    --color-lighter-Dark-Blue: hsl(212, 19%, 20%);
+    --color-Dark-Blue: hsl(216, 20%, 15%);
+    --color-Very-Dark-Blue: hsl(216, 12%, 8%);
+}
+
+html, body {
+    font-family: 'overpass';
+    font-size: 15px;
+    height: 100%;
+    color: var(--color-White);
+}
+
+
+p {
+    color: var(--color-Light-Grey);
+    font-weight: 400;
+}
+
+.main{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+background-color: var(--color-Very-Dark-Blue);
+}
+
+.main-container {
+    background-color: var(--color-Dark-Blue);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 25rem;
+    height: 23.5rem;
+}
+
+.star-icon  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    height: 38px;
+    width: 38px;
+    background-color: var(--color-lighter-Dark-Blue);
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--color-Light-Grey);
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px;
+    height: 38px;
+    width: 38px;
+    font-weight: 700;
+    background-color: var(--color-lighter-Dark-Blue);
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--color-Light-Grey);
+}
+
+a:hover {
+    background-color: var(--color-Orange);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+p {
+    font-weight: 400;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+.main-rating {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.main-content-container{
+    justify-content: center;
+    align-items: center;
+}
+
+
+#submitBtn{
+    background-color: var(--color-Orange);
+    border-color: transparent;
+    border-radius: 1rem;
+    color: var(--color-Very-Dark-Blue);
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+#submitBtn:hover {
+    background-color: var(--color-White);
+}
