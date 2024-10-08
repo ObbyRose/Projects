@@ -42,6 +42,11 @@ align-items: center;
 justify-content: center;
 height: 100vh;
 background-color: var(--color-Very-Dark-Blue);
+padding: 0.8rem;
+}
+
+.checked {
+    background-color: var(--color-White);
 }
 
 .main-container {
@@ -49,7 +54,7 @@ background-color: var(--color-Very-Dark-Blue);
     border-radius: 12px;
     padding: 2rem;
     width: 25rem;
-    height: 23.5rem;
+    height: 24rem;
 }
 
 .star-icon  {
@@ -116,5 +121,33 @@ a:hover {
 }
 
 .hidden {
-    /* display: none; */
+    display: none;
+}
+.thank-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.thank-img {
+    margin-bottom: 1.5rem;
+}
+
+.thank-rating {
+    background-color: var(--color-lighter-Dark-Blue);
+    width: fit-content;
+    color: var(--color-Orange);
+    border-radius: 2rem;
+    padding: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.thank-rating p {
+    color: var(--color-Orange);
+    font-weight: 400;
+    padding: 0.2rem;
+}
+
+.thank-content {
+    text-align: center;
 }

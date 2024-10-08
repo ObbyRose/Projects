@@ -20,11 +20,10 @@
   <!-- Rating state start -->
 <div class="main">
   <div class="main-container">
-    <div class="hidden">
+    <div class="main-content">
     <div class="star-icon">
       <img src="./images/icon-star.svg" alt="">
     </div>
-      <div class="main-content">
         <div class="main-content-container">
           <h1>How did we do?</h1>
           <p>Please let us know how we did with your support request. All feedback is appreciated 
@@ -32,28 +31,35 @@
           </p>
         </div>
         <div class="main-rating">
-          <a href="#" onclick="toggleColor()"><span>1</span></a>
-          <a href="#" onclick="toggleColor()"><span>2</span></a>
-          <a href="#" onclick="toggleColor()"><span>3</span></a>
-          <a href="#" onclick="toggleColor()" ><span>4</span></a>
-          <a href="#" onclick="toggleColor()"><span>5</span></a>
+          <a type="button" href="#"><span>1</span></a>
+          <a type="button" href="#"><span>2</span></a>
+          <a type="button" href="#"><span>3</span></a>
+          <a type="button" href="#"><span>4</span></a>
+          <a type="button" href="#"><span>5</span></a>
         </div>
         <button class="submitButton" type="submit" id="submitBtn">SUBMIT</button>
       </div>
-    </div>
   <!-- Rating state end -->
 
   <!-- Thank you state start -->
-
-  <!-- You selected Add rating here out of 5 -->
-
-  <!-- Thank you!
-
-  We appreciate you taking the time to give a rating. If you ever need more support, 
-  don’t hesitate to get in touch! -->
-
-  <!-- Thank you state end -->
-  
+  <div class="hidden">
+  <div class="thank-content hidden">
+    <div class="thank-img">
+      <img src="./images/illustration-thank-you.svg" alt="">
+    </div>
+      <div class="thank-rating">
+        <p>You selected <span id="rate"></span> out of 5</p>
+      </div>
+      <div class="thank-head">
+        <h1>Thank you!</h1>
+      </div>
+      <div class="thank-paragraph">
+        <p>We appreciate you taking the time to give a rating. If you ever need more support, 
+          don’t hesitate to get in touch!
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
   <!-- <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
