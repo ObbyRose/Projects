@@ -40,12 +40,12 @@ hr {
 .main {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Aligns content to the top */
     padding: 0;
     height: 100vh;
     position: relative;
     background-color: var(--Light-pink);
-    overflow: hidden;
+    overflow: auto;
 }
 
 .background {
@@ -75,9 +75,6 @@ h4:hover {
     cursor: pointer;
 }
 
-.plus-minus:hover {
-    cursor: pointer;
-}
 
 .main-container {
     display: flex;
@@ -89,6 +86,11 @@ h4:hover {
     width: 18rem;
     border-radius: 12px;
     z-index: 2;
+    margin-top:7rem;
+}
+
+.paragraph {
+    margin-top: 0.5rem;
 }
 
 .main-header {
