@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
-
     <link
       rel="icon"
       type="image/png"
@@ -13,12 +11,6 @@
     />
     <link rel="stylesheet" href="style.css" />
     <title>Frontend Mentor | FAQ accordion</title>
-
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <!-- <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style> -->
   </head>
   <body>
     <div class="main">
@@ -34,12 +26,14 @@
         </div>
         <div class="questions">
           <div class="question">
-            <h4>What is Frontend Mentor, and how will it help me?</h4>
-            <div class="plus-minus">
-              <img src="./assets/images/icon-plus.svg" alt="" />
-              <img src="./assets/images/icon-minus.svg" alt="" class="hidden" />
+            <div class="question-header">
+              <h4>What is Frontend Mentor, and how will it help me?</h4>
+              <div class="plus-minus">
+                <img src="./assets/images/icon-plus.svg" alt="Plus" class="plus" />
+                <img src="./assets/images/icon-minus.svg" alt="Minus" class="minus hidden" />
+              </div>
             </div>
-            <div class="hidden">
+            <div class="paragraph hidden">
               <p>
                 Frontend Mentor offers realistic coding challenges to help
                 developers improve their frontend coding skills with projects in
@@ -51,12 +45,14 @@
           <hr />
 
           <div class="question">
-            <h4>Is Frontend Mentor free?</h4>
-            <div class="plus-minus">
-              <img src="./assets/images/icon-plus.svg" alt="" />
-              <img src="./assets/images/icon-minus.svg" alt="" class="hidden" />
+            <div class="question-header">
+              <h4>Is Frontend Mentor free?</h4>
+              <div class="plus-minus">
+                <img src="./assets/images/icon-plus.svg" alt="Plus" class="plus" />
+                <img src="./assets/images/icon-minus.svg" alt="Minus" class="minus hidden" />
+              </div>
             </div>
-            <div class="hidden">
+            <div class="paragraph hidden">
               <p>
                 Yes, Frontend Mentor offers both free and premium coding
                 challenges, with the free option providing access to a range of
@@ -67,12 +63,14 @@
           <hr />
 
           <div class="question">
-            <h4>Can I use Frontend Mentor projects in my portfolio?</h4>
-            <div class="plus-minus">
-              <img src="./assets/images/icon-plus.svg" alt="" />
-              <img src="./assets/images/icon-minus.svg" alt="" class="hidden" />
+            <div class="question-header">
+              <h4>Can I use Frontend Mentor projects in my portfolio?</h4>
+              <div class="plus-minus">
+                <img src="./assets/images/icon-plus.svg" alt="Plus" class="plus" />
+                <img src="./assets/images/icon-minus.svg" alt="Minus" class="minus hidden" />
+              </div>
             </div>
-            <div class="hidden">
+            <div class="paragraph hidden">
               <p>
                 Yes, you can use projects completed on Frontend Mentor in your
                 portfolio. It's an excellent way to showcase your skills to
@@ -83,14 +81,16 @@
           <hr />
 
           <div class="question">
-            <h4>
-              How can I get help if I'm stuck on a Frontend Mentor challenge?
-            </h4>
-            <div class="plus-minus">
-              <img src="./assets/images/icon-plus.svg" alt="" />
-              <img src="./assets/images/icon-minus.svg" alt="" class="hidden" />
+            <div class="question-header">
+              <h4>
+                How can I get help if I'm stuck on a Frontend Mentor challenge?
+              </h4>
+              <div class="plus-minus">
+                <img src="./assets/images/icon-plus.svg" alt="Plus" class="plus" />
+                <img src="./assets/images/icon-minus.svg" alt="Minus" class="minus hidden" />
+              </div>
             </div>
-            <div class="hidden">
+            <div class="paragraph hidden">
               <p>
                 The best place to get help is inside Frontend Mentor's Discord
                 community. There's a help channel where you can ask questions
@@ -102,9 +102,5 @@
       </div>
     </div>
     <script src="./main.js"></script>
-    <!-- <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Tal Maman</a>.
-  </div> -->
   </body>
 </html>
