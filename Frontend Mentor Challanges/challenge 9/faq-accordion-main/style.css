@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Work Sans";
+    src: url(./assets/fonts/WorkSans-VariableFont_wght.ttf);
+}
+
+:root {
+--White: hsl(0, 0%, 100%);
+--Light-pink: hsl(275, 100%, 97%);
+--Grayish-purple: hsl(292, 16%, 49%);
+--Dark-purple: hsl(292, 42%, 14%);
+--pinkish: rgb(179, 44, 230);
+}
+
+html, body {
+    height: 100%;
+    font-family: "Work Sans";
+    color: var(--Dark-purple);
+}
+
+p{
+    font-size: 16px;
+    color: var(--Grayish-purple);
+}
+
+hr {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* No padding to avoid pushing content */
+    height: 100vh; /* Full height of the viewport */
+    position: relative;
+    background-color: var(--Light-pink);
+    overflow: hidden;
+}
+
+.background{
+    position: absolute;
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 33%; /* Adjust height as needed (e.g., 40% of the main height) */
+    object-fit: cover; /* Ensure the image covers its container */
+    z-index: 1; /* Lower z-index to position it behind */
+}
+
+.question  {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+h4:hover  {
+    color: var(--pinkish);
+    cursor: pointer;
+}
+
+.plus-minus:hover {
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    background-color: var(--White);
+    padding: 1rem;
+    width: 18rem;
+    border-radius: 12px;
+    z-index: 2;
+}
+
+.main-header {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
