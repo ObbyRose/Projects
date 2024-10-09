@@ -40,7 +40,7 @@ hr {
 .main {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligns content to the top */
+    align-items: flex-start; 
     padding: 0;
     height: 100vh;
     position: relative;
@@ -66,8 +66,8 @@ hr {
 
 .question-header {
     display: flex;
-    justify-content: space-between; /* Space between h4 and icons */
-    align-items: center; /* Center the icons vertically */
+    justify-content: space-between; 
+    align-items: center;
 }
 
 h4:hover {
@@ -98,3 +98,22 @@ h4:hover {
     gap: 12px;
     margin-bottom: 1.5rem;
 }
+
+@media (min-width: 376px) {
+    .main-container {
+        width: 20rem; 
+    }
+}
+
+@media (min-width: 480px) {
+    .main-container {
+        width: 22rem;
+    }
+}
+
+@media (min-width: 600px) {
+    .main-container {
+        width: 35rem; 
+    }
+}
+
