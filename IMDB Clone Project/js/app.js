@@ -1,4 +1,3 @@
-
         const ball = document.querySelector(".toggle-ball");
         const items = document.querySelectorAll(
         ".movie-list,.navbar-container,.toggle"
