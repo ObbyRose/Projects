@@ -1,4 +1,3 @@
-import { apiKey } from "./api.js";
 
         const ball = document.querySelector(".toggle-ball");
         const items = document.querySelectorAll(
@@ -11,7 +10,7 @@ import { apiKey } from "./api.js";
         ball.classList.toggle("active");
         });
 
-    import { apiKey } from "./api.js";
+import { apiKey } from "./api.js";
 
 const movieListContainer = document.querySelector('.movie-list');
 
