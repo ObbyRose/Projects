@@ -1,8 +1,8 @@
+import { apiKey } from "./api.js";
 
-        //TOGGLE
         const ball = document.querySelector(".toggle-ball");
         const items = document.querySelectorAll(
-        ".container,.movie-list-title,.navbar-container,.sidebar,.left-menu-icon,.toggle"
+        ".movie-list,.navbar-container,.toggle"
         );
         ball.addEventListener("click", () => {
         items.forEach((item) => {
@@ -11,8 +11,8 @@
         ball.classList.toggle("active");
         });
 
+    import { apiKey } from "./api.js";
 
-const apiKey = 'bc9cc7077af3c32b467bb4fdb3138875';
 const movieListContainer = document.querySelector('.movie-list');
 
 async function fetchMovies() {
