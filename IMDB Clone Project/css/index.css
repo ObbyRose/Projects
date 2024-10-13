@@ -23,6 +23,7 @@ body {
     background-color: var(--darker-gray);
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
 
 .navbar-container {
@@ -125,7 +126,7 @@ li:hover {
     position: relative;
     color: white;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .displayed-movie img {
@@ -133,9 +134,7 @@ li:hover {
     border-radius: 8px;
 }
 
-.displayed-movie:hover {
-    border-radius: 8px;
-}
+
 
 .movie-details {
     display: none;
@@ -150,6 +149,7 @@ li:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: auto;
 }
 
 .displayed-movie:hover .movie-details {
@@ -158,6 +158,8 @@ li:hover {
     justify-content: center;
     align-items: center;
     gap: 12px;
+    border-radius: 8px;
+    font-size: 12px;
 }
 
 .add-to-favorites {
@@ -166,7 +168,7 @@ li:hover {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .add-to-favorites:hover {

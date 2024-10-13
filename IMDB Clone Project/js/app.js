@@ -11,7 +11,6 @@
         ball.classList.toggle("active");
         });
 
-        // app.js
 
 const apiKey = 'bc9cc7077af3c32b467bb4fdb3138875';
 const movieListContainer = document.querySelector('.movie-list');
