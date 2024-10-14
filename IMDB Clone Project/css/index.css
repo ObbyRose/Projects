@@ -6,7 +6,6 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    font-size: 10px;
 }
 
 :root {
@@ -221,6 +220,8 @@ li:hover {
 }
 
 .movies-container .displayed-movie {
+        width: 100%; 
+    border-radius: 8px;
     position: relative;
     color: white;
     border-radius: 8px;
@@ -277,11 +278,17 @@ li:hover {
     border: transparent;
 }
 
-
-
-
 @media only screen and (max-width: 940px) {
     .menu-container {
         display: none;
     }
+
+    .logo{
+        margin-right: 1rem;
+    }
+
+    .movies-container {
+        display: flex;
+    }
+
 }
