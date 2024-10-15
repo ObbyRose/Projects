@@ -10,7 +10,7 @@ body {
 
 :root {
     --darker-gray: #121212;
-    --base-yellow: #f5c518;
+    --base-yellow: #ff002b;
 }
 
 .navbar {
@@ -36,8 +36,8 @@ body {
 }
 
 .logo {
-    height: 3rem;
-    width: 3rem;
+    height: 7rem;
+    width: 7rem;
 }
 
 .menu-container {
@@ -129,6 +129,7 @@ a:hover {
 }
 
 .main-container {
+    width: 100%;
     background-color: var(--darker-gray);
     color: white;
     padding: 2rem;
