@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +7,7 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    /* scroll-behavior: smooth; */
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -47,15 +48,29 @@ body {
 }
 
 .menu-list {
-    display: flex;
+    display: flex; 
     list-style: none;
+    margin: 0; /* Reset margin */
+}
+
+/* Show menu list when active */
+.menu-list.active {
+    flex-direction: column; 
+    position: absolute; 
+    background-color: var(--darker-gray); 
+    width: 100%; 
+    top: 50px; 
+    left: 0; 
+    padding: 1rem 0; 
+    display: flex; /* Ensure it shows when active */
 }
 
 .menu-list-item {
     margin-right: 30px;
+    padding: 10px; /* Added padding for better click area */
 }
 
-a{
+a {
     text-decoration: none;
     cursor: pointer;
 }
@@ -150,13 +165,14 @@ a:hover {
     color: white; 
     font-size: 14px;
 }
-h1{
+
+h1 {
     z-index: 100;
     color: var(--base-yellow);
     margin-left: 1rem;
-
 }
-.title{
+
+.title {
     background-color: var(--base-yellow);
     width: fit-content;
     padding: 0.2rem;
@@ -190,7 +206,6 @@ h1{
     max-width: 40%;
     max-height: 40%;
     border-radius: 4px;
-    object-fit: contain; 
 }
 
 .arrow {
@@ -230,7 +245,10 @@ h1{
 }
 
 /* Movie List Styles */
-
+.movies-container {
+    z-index: 2;
+    margin-top: 3rem;
+}
 
 .movies-container .movie-list {
     display: grid;
@@ -246,11 +264,6 @@ h1{
     border-radius: 8px;
     position: relative;
     color: white;
-}
-
-.movies-container{
-    z-index: 2;
-    margin-top: 3rem;
 }
 
 .movies-container .displayed-movie img {
@@ -325,17 +338,50 @@ h1{
     z-index: 0;
 }
 
+/* Menu Button Styles */
+.menu-button {
+    display: none; 
+    margin-right: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 /* Responsive Styles */
 @media only screen and (max-width: 940px) {
     .menu-container {
-        display: none;
+        display: none; 
     }
 
-    .logo {
-        margin-right: 1rem;
+    .menu-button {
+        display: block; 
+        color: white; 
     }
 
-    .movies-container {
-        display: flex;
+    .navbar-container {
+        justify-content: space-between; 
+    }
+
+    .menu-list {
+        display: flex; 
+        flex-direction: column;
+        position: absolute; 
+        background-color: var(--darker-gray); 
+        top: 50px; 
+        right: 0; 
+        width: 100%; 
+        display: none; 
+        z-index: 1000;
+    }
+
+    .menu-list.active {
+        display: flex; /* Show menu list when active */
+    }
+
+    .menu-list-item {
+        padding: 10px 20px; 
+        text-align: center; 
     }
 }
