@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/about.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:wght@100;300;400;500;700,900|Sen:wght@400;700,800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>About - IMDB Clone</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img class="logo" src="./images/imdb_logo.png" alt="IMDB Logo">
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <a href="./index.html" class="menu-list-item">Home</a>
+                    <a href="./about.html" class="menu-list-item active">About</a>
+                    <a class="menu-list-item">Favorites</a>
+                </ul>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search...">
+            </div>
+
+            <div class="toggle-mode">
+                <i class="fas fa-moon toggle-icon"></i>
+                <i class="fas fa-sun toggle-icon"></i>
+                <div class="toggle-ball"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="main-container">
+            <h1>About This Project</h1>
+            <p>This is an IMDb clone designed to showcase the ability to fetch and display movie data from The Movie Database (TMDb) API. The application features a movie slider, popular movies section, and the ability to add movies to a favorites list.</p>
+
+            <h2>Features</h2>
+            <ul>
+                <li>Movie Slider showcasing popular movies.</li>
+                <li>Search functionality for finding movies.</li>
+                <li>Dark and light mode toggle.</li>
+                <li>Responsive design for various screen sizes.</li>
+            </ul>
+
+            <h2>Technologies Used</h2>
+            <p>The project is built using:</p>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript (ES6)</li>
+                <li>TMDb API</li>
+            </ul>
+
+            <h2>Future Enhancements</h2>
+            <p>In future iterations, features such as user authentication, movie reviews, and a personalized favorites list will be added.</p>
+        </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>
