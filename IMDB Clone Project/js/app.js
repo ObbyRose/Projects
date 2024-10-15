@@ -83,7 +83,7 @@ function displayAllMovies(movies) {
         movieItem.innerHTML = `
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
             <div class="movie-details">
-                <h3>${movie.title}</h3>
+                <h3 class="">${movie.title}</h3>
                 <p>Rating: ${movie.vote_average}</p>
                 <p>Genres: ${getMovieGenres(movie.genre_ids)}</p>
                 <button class="add-to-favorites">Add to Favorites</button>
