@@ -8,12 +8,13 @@ const movieListContainer = document.querySelector(".movie-list");
 const leftArrow = document.getElementById("leftArrow");
 const rightArrow = document.getElementById("rightArrow");
 const toggleBall = document.querySelector(".toggle-ball");
-const items = document.querySelectorAll(".navbar-container, .toggle-mode, .movie-slider");
+const items = document.querySelectorAll(".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button");
 
 let currentSlide = 0;
 let movies = [];
 let genres = {};
 
+// Fetch genres
 async function fetchGenres() {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`);
@@ -27,6 +28,7 @@ async function fetchGenres() {
     }
 }
 
+// Fetch movies
 async function fetchMovies() {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
@@ -39,10 +41,12 @@ async function fetchMovies() {
     }
 }
 
+// Get movie genres
 function getMovieGenres(genreIds) {
     return genreIds.map(id => genres[id]).join(", ");
 }
 
+// Display movies in slider
 function displayMovies(movies) {
     movieSlider.innerHTML = movies.map(movie => `
         <div class="displayed-slider">
@@ -61,6 +65,7 @@ function displayMovies(movies) {
     `).join('');
 }
 
+// Display all movies in the movie list
 function displayAllMovies(movies) {
     movieListContainer.innerHTML = movies.map(movie => `
         <div class="displayed-movie">
@@ -75,6 +80,7 @@ function displayAllMovies(movies) {
     `).join('');
 }
 
+// Slide movies
 function slide(direction) {
     const totalSlides = movieSlider.childElementCount;
     currentSlide = direction === "left" 
@@ -84,9 +90,11 @@ function slide(direction) {
     movieSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
+// Arrow event listeners
 rightArrow.addEventListener("click", () => slide("right"));
 leftArrow.addEventListener("click", () => slide("left"));
 
+// Toggle light mode
 toggleBall.addEventListener("click", () => {
     const isLightMode = document.body.classList.toggle("light-mode");
     items.forEach(item => item.classList.toggle("light-mode"));
@@ -106,6 +114,7 @@ homeLink.addEventListener("click", (event) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+// Menu button functionality
 const menuButton = document.querySelector('.menu-button');
 const menuList = document.querySelector('.menu-list');
 
@@ -113,6 +122,7 @@ menuButton.addEventListener('click', () => {
     menuList.classList.toggle('active');
 });
 
+// Handle menu item clicks
 const menuItems = document.querySelectorAll('.menu-list-item');
 menuItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -122,6 +132,7 @@ menuItems.forEach(item => {
     });
 });
 
+// On window load
 window.onload = async () => {
     const lightMode = localStorage.getItem("lightMode");
     if (lightMode === "true") {

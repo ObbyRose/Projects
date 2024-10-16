@@ -48,31 +48,30 @@ body {
 }
 
 .menu-list {
-    display: flex; 
-    list-style: none;
-    margin: 0; /* Reset margin */
+    max-height: 0; 
+    flex-direction: column;
+    position: absolute;
+    background-color: var(--darker-gray);
+    top: 50px;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
-/* Show menu list when active */
 .menu-list.active {
-    flex-direction: column; 
-    position: absolute; 
-    background-color: var(--darker-gray); 
-    width: 100%; 
-    top: 50px; 
-    left: 0; 
-    padding: 1rem 0; 
-    display: flex; /* Ensure it shows when active */
+    max-height: 500px;
+    display: flex;
+    list-style-type: none;
 }
 
 .menu-list-item {
     margin-right: 30px;
-    padding: 10px; /* Added padding for better click area */
+    padding: 10px;
 }
 
 a {
-    text-decoration: none;
     cursor: pointer;
+    padding: 0;
 }
 
 a:hover {
@@ -312,12 +311,26 @@ h1 {
     background-color: #f0b30a;
 }
 
-/* Light Mode Styles */
-.navbar-container.light-mode,
-.slider-container.light-mode {
+body.light-mode {
     background-color: white;
     color: black;
 }
+
+.navbar-container.light-mode,
+.slider-container.light-mode,
+.main.light-mode,
+.movie-list.light-mode,
+.active.light-mode li {
+    background-color: white;
+    color: black;
+}
+
+.movie-list.light-mode .displayed-movie{
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
+    -moz-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
+    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
+}
+
 
 .toggle-ball.active {
     right: 20px;
@@ -340,24 +353,35 @@ h1 {
 
 /* Menu Button Styles */
 .menu-button {
-    display: none; 
+    display: none;
     margin-right: 2rem;
     background: none;
     border: none;
     color: white;
-    font-size: 24px;
+    font-size: 24px; 
     cursor: pointer;
+}
+
+.menu-button.light-mode{
+    color: var(--darker-gray);
 }
 
 /* Responsive Styles */
 @media only screen and (max-width: 940px) {
-    .menu-container {
-        display: none; 
+    .menu-list {
+        display: none;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0;
     }
 
     .menu-button {
-        display: block; 
-        color: white; 
+        display: block;
     }
 
     .navbar-container {
@@ -365,19 +389,14 @@ h1 {
     }
 
     .menu-list {
-        display: flex; 
-        flex-direction: column;
+        display: none; /* Hide by default */
+        flex-direction: column; 
         position: absolute; 
         background-color: var(--darker-gray); 
         top: 50px; 
         right: 0; 
         width: 100%; 
-        display: none; 
         z-index: 1000;
-    }
-
-    .menu-list.active {
-        display: flex; /* Show menu list when active */
     }
 
     .menu-list-item {
