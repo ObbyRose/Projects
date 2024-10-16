@@ -47,16 +47,11 @@ body {
     flex: 6;
 }
 
-.menu-list {
-    max-height: 0; 
-    flex-direction: column;
-    position: absolute;
-    background-color: var(--darker-gray);
-    top: 50px;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-}
+    .menu-list {
+        display: flex;
+        list-style: none;
+    }
+
 
 .menu-list.active {
     max-height: 500px;
@@ -71,7 +66,7 @@ body {
 
 a {
     cursor: pointer;
-    padding: 0;
+    text-decoration: none;
 }
 
 a:hover {
