@@ -332,6 +332,53 @@ body.light-mode {
     background-color: var(--base-yellow);
 }
 
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    color: black;
+}
+
+/* Search Results */
+.search-results {
+    position: absolute;
+    top: 45px; 
+    width: 25vw;
+    background-color: var(--darker-gray);
+    border-radius: 8px;
+    list-style: none;
+    padding: 1rem;
+    max-height: 300px; 
+    overflow-y: auto; 
+    z-index: 1000;
+}
+
+.search-results li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+
+.search-results li:hover {
+    background-color: #343434;
+    cursor: pointer;
+}
+
+.search-results img {
+    width: 40px;
+    height: 60px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.search-results p {
+    margin: 0;
+    font-size: 16px;
+}
+
 /* Video Background Styles */
 .video-background {
     display: flex;

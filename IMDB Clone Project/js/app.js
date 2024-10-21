@@ -9,13 +9,16 @@
     const rightArrow = document.getElementById("rightArrow");
     const toggleBall = document.querySelector(".toggle-ball");
     const items = document.querySelectorAll(
-    ".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button"
+    ".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button, .main-container"
     );
+    const searchInput = document.getElementById("searchInput");
+    const searchResultsContainer = document.getElementById("searchResults");
 
     let currentSlide = 0;
     let movies = [];
     let genres = {};
 
+    // Fetch genres
     async function fetchGenres() {
     try {
         const response = await fetch(
@@ -31,6 +34,7 @@
     }
     }
 
+    // Fetch movies
     async function fetchMovies() {
     try {
         const response = await fetch(
@@ -45,27 +49,25 @@
     }
     }
 
+    // Get movie genres
     function getMovieGenres(genreIds) {
     return genreIds.map((id) => genres[id]).join(", ");
     }
 
+    // Display movies in slider
     function displayMovies(movies) {
     movieSlider.innerHTML = movies
         .map(
         (movie) => `
                 <div class="displayed-slider">
                     <div class="movie-slider-text">
-                        <img src="https://image.tmdb.org/t/p/w500${
-                        movie.poster_path
-                        }" alt="${movie.title}">
+                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                         <div class="movie-info" style="margin-left: 10px;">
                             <p class="title">${movie.title}</p>
                             <div class="movie-rating">
                                 <p>${movie.overview}</p>
                                 <p>Rating: ${movie.vote_average}</p>
-                                <p><span>${getMovieGenres(
-                                movie.genre_ids
-                                )}</span></p>
+                                <p><span>${getMovieGenres(movie.genre_ids)}</span></p>
                             </div>
                         </div>
                     </div>
@@ -75,14 +77,13 @@
         .join("");
     }
 
+    // Display all movies in list
     function displayAllMovies(movies) {
     movieListContainer.innerHTML = movies
         .map(
         (movie) => `
                 <div class="displayed-movie">
-                    <img src="https://image.tmdb.org/t/p/w500${
-                    movie.poster_path
-                    }" alt="${movie.title}">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                     <div class="movie-details">
                         <h3>${movie.title}</h3>
                         <p>Rating: ${movie.vote_average}</p>
@@ -95,6 +96,7 @@
         .join("");
     }
 
+    // Movie slider navigation
     function slide(direction) {
     const totalSlides = movieSlider.childElementCount;
     currentSlide =
@@ -108,6 +110,7 @@
     rightArrow.addEventListener("click", () => slide("right"));
     leftArrow.addEventListener("click", () => slide("left"));
 
+    // Light mode toggle
     toggleBall.addEventListener("click", () => {
     const isLightMode = document.body.classList.toggle("light-mode");
     items.forEach((item) => item.classList.toggle("light-mode"));
@@ -115,16 +118,19 @@
     localStorage.setItem("lightMode", isLightMode);
     });
 
+    // Scroll to movies list
     moviesLink.addEventListener("click", (event) => {
     event.preventDefault();
     moviesList.scrollIntoView({ behavior: "smooth" });
     });
 
+    // Scroll to top
     homeLink.addEventListener("click", (event) => {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    // Menu toggle
     const menuButton = document.querySelector(".menu-button");
     const menuList = document.querySelector(".menu-list");
 
@@ -132,6 +138,7 @@
     menuList.classList.toggle("active");
     });
 
+    // Highlight active menu item
     const menuItems = document.querySelectorAll(".menu-list-item");
     menuItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -141,6 +148,7 @@
     });
     });
 
+    // Apply light mode on load
     window.onload = async () => {
     const lightMode = localStorage.getItem("lightMode");
     if (lightMode === "true") {
@@ -152,3 +160,42 @@
     await fetchGenres();
     fetchMovies();
     };
+
+    // Search functionality
+    searchInput.addEventListener("input", async function () {
+    const query = searchInput.value.trim();
+    if (query.length > 2) {
+        const movies = await searchMovies(query);
+        displaySearchResults(movies);
+    } else {
+        searchResultsContainer.innerHTML = ""; // Clear results if input is less than 3 characters
+    }
+    });
+
+    // Fetch movies based on search input
+    async function searchMovies(query) {
+    try {
+        const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+        );
+        const data = await response.json();
+        return data.results;
+    } catch (error) {
+        console.error("Error fetching movie data:", error);
+        return [];
+    }
+    }
+
+    // Display search results
+    function displaySearchResults(movies) {
+    searchResultsContainer.innerHTML = ""; // Clear previous results
+
+    movies.slice(0, 10).forEach((movie) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+        <p>${movie.title}</p>
+        `;
+        searchResultsContainer.appendChild(listItem);
+    });
+    }
