@@ -102,8 +102,12 @@
     movieSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
-    rightArrow.addEventListener("click", () => slide("right"));
-    leftArrow.addEventListener("click", () => slide("left"));
+    if (window.location.pathname.includes('index.html')) {
+
+        rightArrow.addEventListener("click", () => slide("right"));
+        leftArrow.addEventListener("click", () => slide("left"));
+
+    }
 
     toggleBall.addEventListener("click", () => {
     const isLightMode = document.body.classList.toggle("light-mode");
