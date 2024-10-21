@@ -67,7 +67,9 @@ body {
 a {
     cursor: pointer;
     text-decoration: none;
+    color: white;
 }
+
 
 a:hover {
     cursor: pointer;
@@ -318,6 +320,13 @@ body.light-mode {
 .active.light-mode li {
     background-color: white;
     color: black;
+}
+
+.navbar-container.light-mode a{
+    color: black;
+}
+.navbar-container.light-mode a.active{
+    color: var(--base-yellow);
 }
 
 .movie-list.light-mode .displayed-movie{
