@@ -47,11 +47,10 @@ body {
     flex: 6;
 }
 
-    .menu-list {
-        display: flex;
-        list-style: none;
-    }
-
+.menu-list {
+    display: flex;
+    list-style: none;
+}
 
 .menu-list.active {
     max-height: 500px;
@@ -69,7 +68,6 @@ a {
     text-decoration: none;
     color: white;
 }
-
 
 a:hover {
     cursor: pointer;
@@ -308,6 +306,7 @@ h1 {
     background-color: #f0b30a;
 }
 
+/* Light Mode Styles */
 body.light-mode {
     background-color: white;
     color: black;
@@ -322,32 +321,23 @@ body.light-mode {
     color: black;
 }
 
-.navbar-container.light-mode a{
+.navbar-container.light-mode a {
     color: black;
 }
-.navbar-container.light-mode a.active{
+
+.navbar-container.light-mode a.active {
     color: var(--base-yellow);
 }
 
-.movie-list.light-mode .displayed-movie{
-    -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
-    -moz-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
-    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.94);
+.movie-list.light-mode .displayed-movie {
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.94);
+    -moz-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.94);
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.94);
 }
-
 
 .toggle-ball.active {
     right: 20px;
     background-color: var(--base-yellow);
-}
-
-.search-bar {
-    width: 100%;
-    padding: 10px;
-    border-radius: 12px;
-    outline: none;
-    font-size: 14px;
-    color: black;
 }
 
 /* Search Results */
@@ -365,7 +355,7 @@ body.light-mode {
     z-index: 1000;
 }
 
-.search-results.light-mode{
+.search-results.light-mode {
     background-color: white;
 }
 
@@ -419,7 +409,7 @@ body.light-mode {
     cursor: pointer;
 }
 
-.menu-button.light-mode{
+.menu-button.light-mode {
     color: var(--darker-gray);
 }
 
@@ -446,7 +436,7 @@ body.light-mode {
     }
 
     .menu-list {
-        display: none; /* Hide by default */
+        display: none; 
         flex-direction: column; 
         position: absolute; 
         background-color: var(--darker-gray); 
@@ -461,5 +451,3 @@ body.light-mode {
         text-align: center; 
     }
 }
-
-

@@ -73,7 +73,6 @@
         .join("");
     }
 
-    // Display all movies in list
     function displayAllMovies(movies) {
     movieListContainer.innerHTML = movies
         .map(
