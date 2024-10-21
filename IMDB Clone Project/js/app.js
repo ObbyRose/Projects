@@ -166,9 +166,11 @@
     const query = searchInput.value.trim();
     if (query.length > 2) {
         const movies = await searchMovies(query);
+        searchResultsContainer.style.display = "block"
         displaySearchResults(movies);
     } else {
-        searchResultsContainer.innerHTML = ""; // Clear results if input is less than 3 characters
+        searchResultsContainer.innerHTML = "";
+        searchResultsContainer.style.display = "none"
     }
     });
 

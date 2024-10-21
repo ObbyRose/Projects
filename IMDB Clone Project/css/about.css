@@ -74,17 +74,6 @@ a:hover {
 
 .search-bar {
     width: 100%;
-    max-width: 200px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    outline: none;
-    font-size: 14px;
-    color: black;
-}
-
-.search-bar {
-    width: 100%;
     padding: 10px;
     border-radius: 12px;
     outline: none;
@@ -95,6 +84,7 @@ a:hover {
 /* Search Results */
 .search-results {
     position: absolute;
+    display: none;
     top: 45px; 
     width: 25vw;
     background-color: var(--darker-gray);
