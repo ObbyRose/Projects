@@ -82,6 +82,10 @@ a:hover {
     color: black;
 }
 
+.search-bar.light-mode {
+    border: 1px solid black;
+}
+
 /* Search Results */
 .search-results {
     position: absolute;
@@ -248,6 +252,11 @@ li {
 
     .main-container {
         padding: 1rem;
+    }
+
+    .search-results{
+        width: fit-content;
+        border: 1px solid var(--darker-gray);
     }
 
     h1 {
