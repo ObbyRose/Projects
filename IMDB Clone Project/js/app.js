@@ -18,7 +18,6 @@
     let movies = [];
     let genres = {};
 
-    // Fetch genres
     async function fetchGenres() {
     try {
         const response = await fetch(
@@ -34,7 +33,6 @@
     }
     }
 
-    // Fetch movies
     async function fetchMovies() {
     try {
         const response = await fetch(
@@ -49,12 +47,10 @@
     }
     }
 
-    // Get movie genres
     function getMovieGenres(genreIds) {
     return genreIds.map((id) => genres[id]).join(", ");
     }
 
-    // Display movies in slider
     function displayMovies(movies) {
     movieSlider.innerHTML = movies
         .map(
@@ -96,7 +92,6 @@
         .join("");
     }
 
-    // Movie slider navigation
     function slide(direction) {
     const totalSlides = movieSlider.childElementCount;
     currentSlide =
@@ -110,7 +105,6 @@
     rightArrow.addEventListener("click", () => slide("right"));
     leftArrow.addEventListener("click", () => slide("left"));
 
-    // Light mode toggle
     toggleBall.addEventListener("click", () => {
     const isLightMode = document.body.classList.toggle("light-mode");
     items.forEach((item) => item.classList.toggle("light-mode"));
@@ -118,19 +112,16 @@
     localStorage.setItem("lightMode", isLightMode);
     });
 
-    // Scroll to movies list
     moviesLink.addEventListener("click", (event) => {
     event.preventDefault();
     moviesList.scrollIntoView({ behavior: "smooth" });
     });
 
-    // Scroll to top
     homeLink.addEventListener("click", (event) => {
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Menu toggle
     const menuButton = document.querySelector(".menu-button");
     const menuList = document.querySelector(".menu-list");
 
@@ -138,7 +129,6 @@
     menuList.classList.toggle("active");
     });
 
-    // Highlight active menu item
     const menuItems = document.querySelectorAll(".menu-list-item");
     menuItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -148,7 +138,6 @@
     });
     });
 
-    // Apply light mode on load
     window.onload = async () => {
     const lightMode = localStorage.getItem("lightMode");
     if (lightMode === "true") {
@@ -161,7 +150,6 @@
     fetchMovies();
     };
 
-    // Search functionality
     searchInput.addEventListener("input", async function () {
     const query = searchInput.value.trim();
     if (query.length > 2) {
@@ -174,7 +162,6 @@
     }
     });
 
-    // Fetch movies based on search input
     async function searchMovies(query) {
     try {
         const response = await fetch(
@@ -188,7 +175,6 @@
     }
     }
 
-    // Display search results
     function displaySearchResults(movies) {
     searchResultsContainer.innerHTML = ""; 
 

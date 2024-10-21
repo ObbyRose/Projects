@@ -75,8 +75,8 @@ a:hover {
 .search-bar {
     width: 100%;
     padding: 10px;
-    border-radius: 12px;
-    outline: none;
+    border-radius: 8px;
+    border: none;
     font-size: 14px;
     color: black;
 }
@@ -148,7 +148,9 @@ a:hover {
 }
 
 .navbar-container.light-mode,
-.slider-container.light-mode {
+.slider-container.light-mode
+.main-container.light-mode
+.menu-button.light-mode {
     background-color: white;
     color: black;
 }
