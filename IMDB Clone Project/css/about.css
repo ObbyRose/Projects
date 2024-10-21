@@ -103,9 +103,6 @@ a:hover {
     color: black;
 }
 
-.search-results.light-mode img{
-    border: 1px solid black;
-}
 
 .main.light-mode{
     background-color: aliceblue;
