@@ -371,6 +371,7 @@ body.light-mode {
 .search-results img {
     width: 40px;
     height: 60px;
+    border-radius: 4px;
     margin-right: 10px;
     object-fit: cover;
 }
