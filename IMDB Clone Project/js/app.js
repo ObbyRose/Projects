@@ -9,7 +9,7 @@
     const rightArrow = document.getElementById("rightArrow");
     const toggleBall = document.querySelector(".toggle-ball");
     const items = document.querySelectorAll(
-    ".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button, .main-container"
+    ".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button, .main-container, .search-results"
     );
     const searchInput = document.getElementById("searchInput");
     const searchResultsContainer = document.getElementById("searchResults");
@@ -115,7 +115,7 @@
     toggleBall.classList.toggle("active");
     localStorage.setItem("lightMode", isLightMode);
     });
-
+    if (window.location.pathname.includes('index.html')) {
     moviesLink.addEventListener("click", (event) => {
     event.preventDefault();
     moviesList.scrollIntoView({ behavior: "smooth" });
@@ -125,7 +125,7 @@
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
+    }
     const menuButton = document.querySelector(".menu-button");
     const menuList = document.querySelector(".menu-list");
 

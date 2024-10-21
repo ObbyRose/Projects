@@ -97,6 +97,20 @@ a:hover {
     z-index: 1000;
 }
 
+.search-results.light-mode,
+.main-container.light-mode{
+    background-color: white;
+    color: black;
+}
+
+.search-results.light-mode img{
+    border: 1px solid black;
+}
+
+.main.light-mode{
+    background-color: aliceblue;
+}
+
 .search-results li {
     display: flex;
     align-items: center;

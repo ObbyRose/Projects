@@ -356,6 +356,10 @@ body.light-mode {
     z-index: 1000;
 }
 
+.search-results.light-mode{
+    background-color: white;
+}
+
 .search-results li {
     display: flex;
     align-items: center;
