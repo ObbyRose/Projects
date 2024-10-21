@@ -113,7 +113,8 @@ a:hover {
 }
 
 .search-results.light-mode,
-.main-container.light-mode {
+.main-container.light-mode,
+.active.light-mode li {
     background-color: white;
     color: black;
 }
@@ -266,6 +267,34 @@ li {
 @media (max-width: 940px) {
     .menu-list {
         display: none;
+    }
+
+    .menu-list {
+        display: none; 
+        flex-direction: column; 
+        position:absolute;
+        text-align: center;
+        background-color: var(--darker-gray); 
+        border-bottom: 1px solid black;
+        top: 50px; 
+        right: 0; 
+        width: 100%; 
+        z-index: 1000;
+    }
+
+    .search-results{
+        max-width: 40vw;
+        overflow-x: hidden;
+    }
+
+    li{
+        margin: 0;
+        padding: 0.2rem;
+    }
+
+    .menu-list-item {
+        padding: 10px 20px; 
+        text-align: center; 
     }
 
     .menu-button {

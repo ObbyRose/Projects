@@ -435,11 +435,16 @@ body.light-mode {
         justify-content: space-between; 
     }
 
+    .search-results{
+        width: fit-content;
+    }
+
     .menu-list {
         display: none; 
         flex-direction: column; 
         position: absolute; 
         background-color: var(--darker-gray); 
+        border-bottom: 2px solid black;
         top: 50px; 
         right: 0; 
         width: 100%; 
