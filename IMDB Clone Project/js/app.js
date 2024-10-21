@@ -188,7 +188,7 @@
 
     // Display search results
     function displaySearchResults(movies) {
-    searchResultsContainer.innerHTML = ""; // Clear previous results
+    searchResultsContainer.innerHTML = ""; 
 
     movies.slice(0, 10).forEach((movie) => {
         const listItem = document.createElement("li");
