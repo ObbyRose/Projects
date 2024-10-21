@@ -209,9 +209,27 @@ li {
     margin-bottom: 0.5rem;
 }
 
-@media (max-width: 670px) {
+.menu-button {
+    display: none;
+    margin-right: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px; 
+    cursor: pointer;
+}
+
+.menu-button.light-mode{
+    color: var(--darker-gray);
+}
+
+@media (max-width: 940px) {
     .menu-list {
         display: none;
+    }
+
+    .menu-button {
+        display: block;
     }
 
     .main-container {
