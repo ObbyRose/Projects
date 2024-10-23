@@ -1,0 +1,403 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --darker-gray: #121212;
+    --base-yellow: #ff002b;
+}
+
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    height: 50px;
+    background-color: var(--darker-gray);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Favorites List Styles */
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.favorite-movie {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--darker-gray); /* Matches your theme */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.favorite-movie-img {
+    width: 100px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.favorite-movie-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.favorite-movie-details h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--base-yellow); /* Highlighted color */
+}
+
+.favorite-movie-details p {
+    font-size: 1rem;
+    color: white;
+}
+
+.remove-favorite {
+    background-color: var(--base-yellow);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+.remove-favorite:hover {
+    background-color: #f0b30a;
+}
+
+/* Light Mode Styles for Favorites */
+body.light-mode .favorites-list {
+    background-color: white;
+}
+
+body.light-mode .favorite-movie {
+    background-color: #f9f9f9; /* Light mode background for favorites */
+}
+
+body.light-mode .favorite-movie-details h2,
+body.light-mode .favorite-movie-details p {
+    color: black; /* Text color in light mode */
+}
+
+body.light-mode .remove-favorite {
+    background-color: var(--base-yellow);
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    height: 100%;
+    color: white;
+    font-family: "Sen", sans-serif;
+}
+
+.logo-container {
+    flex: 1;
+}
+
+.logo {
+    height: 7rem;
+    width: 7rem;
+}
+
+.menu-container {
+    flex: 6;
+}
+
+.menu-button {
+    display: none;
+    margin-right: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px; 
+    cursor: pointer;
+}
+
+.menu-button.light-mode {
+    color: var(--darker-gray);
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+}
+
+.menu-list.active {
+    max-height: 500px;
+    display: flex;
+    list-style-type: none;
+}
+
+.menu-list-item {
+    margin-right: 30px;
+    padding: 10px;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.menu-list-item.active {
+    font-weight: bold;
+    color: var(--base-yellow);
+}
+
+/* Search Styles */
+.search-container {
+    margin-right: 1rem;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    color: black;
+}
+
+/* Toggle Mode Styles */
+.toggle-mode {
+    width: 40px;
+    height: 20px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+}
+
+.toggle-icon {
+    color: var(--base-yellow);
+}
+
+.toggle-ball {
+    width: 18px;
+    height: 18px;
+    background-color: black;
+    position: absolute;
+    right: 1px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 1s ease all;
+}
+
+.toggle-ball.active {
+    right: 20px;
+    background-color: var(--base-yellow);
+}
+
+/* Main Content */
+.main {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background-color: black;
+    color: white;
+    height: 100vh;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--darker-gray);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    color: var(--base-yellow);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Favorites List */
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.favorite-movie {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.favorite-movie-img {
+    width: 100px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.favorite-movie-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.favorite-movie-details h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--base-yellow);
+}
+
+.favorite-movie-details p {
+    font-size: 1rem;
+    color: white;
+}
+
+.remove-favorite {
+    background-color: var(--base-yellow);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+.remove-favorite:hover {
+    background-color: #f0b30a;
+}
+
+/* Light Mode Styles */
+body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.navbar-container.light-mode,
+.main-container.light-mode,
+.favorites-list.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.navbar-container.light-mode a {
+    color: black;
+}
+
+.navbar-container.light-mode a.active {
+    color: var(--base-yellow);
+}
+
+.toggle-ball.active {
+    right: 20px;
+    background-color: var(--base-yellow);
+}
+
+/* Search Results */
+.search-results {
+    position: absolute;
+    display: none;
+    top: 45px;
+    width: 25vw;
+    background-color: var(--darker-gray);
+    border-radius: 8px;
+    list-style: none;
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.search-results.light-mode {
+    background-color: white;
+}
+
+.search-results li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+
+.search-results li:hover {
+    background-color: #343434;
+    cursor: pointer;
+}
+
+.search-results img {
+    width: 40px;
+    height: 60px;
+    border-radius: 4px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.search-results p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.favorites-list {
+    border: 1px solid red; /* Temporary for debugging */
+}
+
+
+/* Responsive Styles */
+@media only screen and (max-width: 940px) {
+    .menu-list {
+        display: none;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .navbar-container {
+        justify-content: space-between;
+    }
+
+    .menu-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background-color: var(--darker-gray);
+        border-bottom: 2px solid black;
+        top: 50px;
+        right: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .menu-list-item {
+        padding: 10px 20px;
+        text-align: center;
+    }
+}

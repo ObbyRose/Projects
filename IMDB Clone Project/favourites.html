@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/favorite.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:wght@100;300;400;500;700,900|Sen:wght@400;700,800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Favorites - IMDB Clone</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img class="logo" src="./images/Film-removebg-preview.png" alt="IMDB Logo">
+            </div>
+            <div class="menu-container">
+                <button class="menu-button" id="menuButton">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="menu-list">
+                    <li><a href="./index.html" id="home" class="menu-list-item">Home</a></li>
+                    <li><a href="./about.html" class="menu-list-item">About</a></li>
+                    <li><a href="./favourites.html" class="menu-list-item active">Favorites</a></li>
+                </ul>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search...">
+                <ul id="searchResults" class="search-results"></ul>
+            </div>
+
+            <!-- Toggle Mode -->
+            <div class="toggle-mode">
+                <i class="fas fa-moon toggle-icon"></i>
+                <i class="fas fa-sun toggle-icon"></i>
+                <div class="toggle-ball"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="main-container">
+            <h1>Your Favorite Movies</h1>
+            <div class="favorites-list" id="favoritesList"></div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>
