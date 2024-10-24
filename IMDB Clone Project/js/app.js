@@ -33,6 +33,10 @@ function saveFavoritesToLocalStorage(favorites) {
 function addToFavorites(movie) {
     let favorites = getFavoritesFromLocalStorage();
 
+    if (!Array.isArray(favorites)) {
+        favorites = []; // Ensure favorites is an array
+    }
+
     // Check if the movie is already in favorites
     const isFavorite = favorites.some(fav => fav.id === movie.id);
 
@@ -45,6 +49,7 @@ function addToFavorites(movie) {
         alert(`${movie.title} is already in your favorites.`);
     }
 }
+
 
 // Setup event listeners for adding movies to favorites
 function setupAddToFavoritesButtons(movies) {
@@ -66,34 +71,47 @@ function setupAddToFavoritesButtons(movies) {
 function displayFavorites() {
     console.log('Displaying favorites...'); // Log to check function execution
     const favoritesContainer = document.querySelector('.favorites-list');
+    
+    // Check if the container exists
+    if (!favoritesContainer) {
+        console.error("Favorites container not found. Make sure you have an element with class 'favorites-list'.");
+        return;
+    }
+
+    // Retrieve the favorites from local storage
     let favorites = getFavoritesFromLocalStorage();
+    
+    // Log the retrieved favorites from local storage
+    console.log('Favorites from local storage:', favorites); 
 
-    console.log('Favorites from local storage:', favorites); // Check the content of favorites
-
+    // Clear the container's content
     favoritesContainer.innerHTML = '';
 
-    if (favorites.length === 0) {
+    // Check if there are no favorites
+    if (!favorites || favorites.length === 0) {
         favoritesContainer.innerHTML = '<p>You have no favorite movies yet.</p>';
-    } else {
-        favorites.forEach(movie => {
-            const movieElement = `
-                <div class="favorite-movie">
-                    <img src="${movie.poster}" alt="${movie.title}">
-                    <h3>${movie.title}</h3>
-                    <button class="remove-favorite" data-movie-id="${movie.id}">Remove</button>
-                </div>
-            `;
-            favoritesContainer.innerHTML += movieElement;
-        });
-
-        // Set up remove buttons
-        document.querySelectorAll('.remove-favorite').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const movieId = e.target.getAttribute('data-movie-id');
-                removeFromFavorites(movieId);
-            });
-        });
+        return; // Exit early if no favorites
     }
+
+    // Iterate over each favorite movie and create an HTML element for it
+    favorites.forEach(movie => {
+        const movieElement = `
+            <div class="favorite-movie">
+                <img src="${movie.poster}" alt="${movie.title}">
+                <h3>${movie.title}</h3>
+                <button class="remove-favorite" data-movie-id="${movie.id}">Remove</button>
+            </div>
+        `;
+        favoritesContainer.innerHTML += movieElement;
+    });
+
+    // Set up remove buttons for each favorite movie
+    document.querySelectorAll('.remove-favorite').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const movieId = e.target.getAttribute('data-movie-id');
+            removeFromFavorites(movieId); // Implement this function to handle removal from local storage
+        });
+    });
 }
 
 // Function to fetch genres
