@@ -133,7 +133,7 @@ a:hover {
 }
 
 .remove-favorite:hover {
-    background-color: #f0b30a;
+    background-color: #f0b30a !important;
 }
 
 /* Light Mode Styles */
