@@ -95,15 +95,19 @@ a:hover {
 
 /* Favorites List Styles */
 .favorites-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 1rem;
-    border: 1px solid red; /* temporary */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Set 3 columns */
+    gap: 20px;
+    padding: 2rem;
+    overflow-x: auto;
+    max-height: 320px;
 }
 
 .favorite-movie {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
     padding: 1rem;
     background-color: var(--darker-gray);
@@ -111,29 +115,11 @@ a:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
-.favorite-movie-img {
+.favorite-movie img {
     width: 100px;
     height: 150px;
     border-radius: 8px;
     object-fit: cover;
-}
-
-.favorite-movie-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.favorite-movie-details h2 {
-    font-size: 1.5rem;
-    margin: 0;
-    color: var(--base-yellow); 
-}
-
-.favorite-movie-details p {
-    font-size: 1rem;
-    color: white;
 }
 
 .remove-favorite {
