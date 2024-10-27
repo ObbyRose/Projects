@@ -85,9 +85,10 @@ a:hover {
 
 .search-bar {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
+    max-width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
     outline: none;
     font-size: 14px;
     color: black;
