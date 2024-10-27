@@ -242,7 +242,7 @@ body.light-mode .remove-favorite {
 
 /* Toggle Mode Styles */
 .toggle-mode {
-    width: 40px;
+    min-width: 40px;
     height: 20px;
     background-color: white;
     border-radius: 30px;
