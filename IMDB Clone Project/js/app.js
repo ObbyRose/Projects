@@ -81,14 +81,36 @@
 
     favorites.forEach((movie) => {
         const movieElement = `
-            <div class="favorite-movie">
-            <img src="${movie.poster}" alt="${movie.title}">
-                    <h3>${movie.title}</h3>
-                    <button id="remove-button" class="remove-favorite" data-movie-id="${movie.id}">Remove</button>
-                </div>
-                `;
+                                    <div class="favorite-movie">
+                                    <img src="${movie.poster}" alt="${movie.title}">
+                                            <h3>${movie.title}</h3>
+                                            <button id="remove-button" class="remove-favorite" data-movie-id="${movie.id}">Remove</button>
+                                        </div>
+                                        `;
         favoritesContainer.innerHTML += movieElement;
     });
+
+    function removeFromFavorites(movieId) {
+        let favoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies")) || [];
+        movieId = parseInt(movieId, 10);
+        const movieIndex = favoriteMovies.findIndex((movie) => movie.id === movieId);
+
+        if (movieIndex !== -1) {
+        favoriteMovies.splice(movieIndex, 1);
+        localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
+
+        const movieElement = document.querySelector(
+            `[data-movie-id="${movieId}"]`
+        );
+        if (movieElement) {
+            movieElement.parentNode.removeChild(movieElement);
+        }
+
+        displayFavorites();
+        } else {
+        console.error("Movie with ID", movieId, "not found in favorites.");
+        }
+    }
 
     document.querySelectorAll(".remove-favorite").forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -136,24 +158,30 @@
     movieSlider.innerHTML = movies
         .map(
         (movie) => `
-                        <div class="displayed-slider">
-                            <div class="movie-slider-text">
-                                <img src="https://image.tmdb.org/t/p/w500${
-                                movie.poster_path
-                                }" alt="${movie.title}">
-                                <div class="movie-info" style="margin-left: 10px;">
-                                    <p class="title">${movie.title}</p>
-                                    <div class="movie-rating">
-                                        <p>${movie.overview}</p>
-                                        <p>Rating: ${movie.vote_average}</p>
-                                        <p><span>${getMovieGenres(
-                                        movie.genre_ids
-                                        )}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `
+                                                <div class="displayed-slider">
+                                                    <div class="movie-slider-text">
+                                                        <img src="https://image.tmdb.org/t/p/w500${
+                                                        movie.poster_path
+                                                        }" alt="${movie.title}">
+                                                        <div class="movie-info" style="margin-left: 10px;">
+                                                            <p class="title">${
+                                                            movie.title
+                                                            }</p>
+                                                            <div class="movie-rating">
+                                                                <p>${
+                                                                movie.overview
+                                                                }</p>
+                                                                <p>Rating: ${
+                                                                movie.vote_average
+                                                                }</p>
+                                                                <p><span>${getMovieGenres(
+                                                                movie.genre_ids
+                                                                )}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `
         )
         .join("");
     }
@@ -163,20 +191,24 @@
     movieListContainer.innerHTML = movies
         .map(
         (movie) => `
-                        <div class="displayed-movie">
-                            <img src="https://image.tmdb.org/t/p/w500${
-                            movie.poster_path
-                            }" alt="${movie.title}">
-                            <div class="movie-details">
-                                <h3>${movie.title}</h3>
-                                <p>Rating: ${movie.vote_average}</p>
-                                <p>Genres: ${getMovieGenres(movie.genre_ids)}</p>
-                                <button class="add-to-favorites" data-movie-id="${
-                                movie.id
-                                }">Add to Favorites</button>
-                            </div>
-                        </div>
-                    `
+                                                <div class="displayed-movie">
+                                                    <img src="https://image.tmdb.org/t/p/w500${
+                                                    movie.poster_path
+                                                    }" alt="${movie.title}">
+                                                    <div class="movie-details">
+                                                        <h3>${movie.title}</h3>
+                                                        <p>Rating: ${
+                                                        movie.vote_average
+                                                        }</p>
+                                                        <p>Genres: ${getMovieGenres(
+                                                        movie.genre_ids
+                                                        )}</p>
+                                                        <button class="add-to-favorites" data-movie-id="${
+                                                        movie.id
+                                                        }">Add to Favorites</button>
+                                                    </div>
+                                                </div>
+                                            `
         )
         .join("");
     }
@@ -283,9 +315,9 @@
     movies.slice(0, 10).forEach((movie) => {
         const listItem = document.createElement("li");
         listItem.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
-                    <p>${movie.title}</p>
-                `;
+                                            <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+                                            <p>${movie.title}</p>
+                                        `;
         searchResultsContainer.appendChild(listItem);
     });
     }

@@ -64,6 +64,7 @@ body {
 .menu-list {
     display: flex;
     list-style: none;
+    gap: 0.5rem;
 }
 
 .menu-list.active {
@@ -100,7 +101,7 @@ a:hover {
     gap: 20px;
     padding: 2rem;
     overflow-x: auto;
-    max-height: 320px;
+    max-height: 330px;
 }
 
 .favorite-movie {
