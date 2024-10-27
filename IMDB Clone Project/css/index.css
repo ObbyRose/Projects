@@ -457,6 +457,6 @@ body.light-mode {
     }
 
     .movies-container .movie-list {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid for smaller screens */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
