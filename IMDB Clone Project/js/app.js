@@ -14,9 +14,7 @@ const movieListContainer = document.querySelector(".movie-list");
 const leftArrow = document.getElementById("leftArrow");
 const rightArrow = document.getElementById("rightArrow");
 const toggleBall = document.querySelector(".toggle-ball");
-const items = document.querySelectorAll(
-    ".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button, .main-container, .search-results, .search-bar"
-);
+const items = document.querySelectorAll(".navbar-container, .toggle-mode, .movie-slider, .movie-list, .main, .menu-list, .menu-button, .main-container, .search-results, .search-bar");
 const searchInput = document.getElementById("searchInput");
 const searchResultsContainer = document.getElementById("searchResults");
 
