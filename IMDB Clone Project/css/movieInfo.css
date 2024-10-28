@@ -222,6 +222,28 @@ body.light-mode {
     background-color: black;
 }
 
+.main-content {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+.movie-poster {
+    max-width: 300px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+#movie-title {
+    font-size: 2em;
+    color: var(--base-yellow); /* Optional: match IMDB theme color */
+}
+
+#movie-overview {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
 /* Responsive Styles */
 @media only screen and (max-width: 940px) {
     .menu-list {

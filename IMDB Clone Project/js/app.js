@@ -24,6 +24,12 @@ let currentSlide = 0;
 let movies = [];
 let genres = [];
 
+// Save selected movie ID to session storage and navigate to movieInfo.html
+function handleMovieClick(movie) {
+    sessionStorage.setItem("selectedMovieId", movie.id);
+    window.location.href = "./movieInfo.html";
+}
+
 async function fetchGenres() {
     try {
         const response = await fetch(
@@ -62,7 +68,7 @@ function displayMovies(movies) {
     movieSlider.innerHTML = movies
         .map(
             (movie) => `
-                <div class="displayed-slider">
+                <div class="displayed-slider" data-movie-id="${movie.id}">
                     <div class="movie-slider-text">
                         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                         <div class="movie-info" style="margin-left: 10px;">
@@ -78,13 +84,22 @@ function displayMovies(movies) {
             `
         )
         .join("");
+
+    // Add event listeners to the movie elements in the slider
+    document.querySelectorAll(".displayed-slider").forEach((slider) => {
+        const movieId = slider.getAttribute("data-movie-id");
+        slider.addEventListener("click", () => {
+            const movie = movies.find(m => m.id == movieId);
+            handleMovieClick(movie);
+        });
+    });
 }
 
 function displayAllMovies(movies) {
     movieListContainer.innerHTML = movies
         .map(
             (movie) => `
-                <div class="displayed-movie">
+                <div class="displayed-movie" data-movie-id="${movie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                     <div class="movie-details">
                         <h3>${movie.title}</h3>
@@ -96,11 +111,21 @@ function displayAllMovies(movies) {
             `
         )
         .join("");
+
+    // Add event listeners to the movie elements in the list
+    document.querySelectorAll(".displayed-movie").forEach((movie) => {
+        const movieId = movie.getAttribute("data-movie-id");
+        movie.addEventListener("click", () => {
+            const selectedMovie = movies.find(m => m.id == movieId);
+            handleMovieClick(selectedMovie);
+        });
+    });
 }
 
 function setupAddToFavoritesButtons(movies) {
     document.querySelectorAll(".add-to-favorites").forEach((button) => {
         button.addEventListener("click", (e) => {
+            e.stopPropagation();
             const movieId = e.target.getAttribute("data-movie-id");
             const movie = movies.find((m) => m.id == movieId);
             if (movie) {
@@ -177,6 +202,8 @@ window.onload = async () => {
         fetchMovies();
     } else if (window.location.pathname.includes("favorites.html")) {
         displayFavorites();
+    } else if (window.location.pathname.includes("movieInfo.html")) {
+        displaySelectedMovie();
     }
 };
 
@@ -212,6 +239,24 @@ function displaySearchResults(movies) {
             <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
             <p>${movie.title}</p>
         `;
+        listItem.addEventListener("click", () => handleMovieClick(movie));
         searchResultsContainer.appendChild(listItem);
     });
+}
+
+async function displaySelectedMovie() {
+    const movieId = sessionStorage.getItem("selectedMovieId");
+    if (movieId) {
+        try {
+            const response = await fetch(
+                `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
+            );
+            const movie = await response.json();
+            document.getElementById("movie-title").textContent = movie.title;
+            document.getElementById("movie-poster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+            document.getElementById("movie-overview").textContent = movie.overview;
+        } catch (error) {
+            console.error("Error fetching movie details:", error);
+        }
+    }
 }
