@@ -24,7 +24,6 @@ let currentSlide = 0;
 let movies = [];
 let genres = [];
 
-// Save selected movie ID to session storage and navigate to movieInfo.html
 function handleMovieClick(movie) {
     sessionStorage.setItem("selectedMovieId", movie.id);
     window.location.href = "./movieInfo.html";
@@ -85,7 +84,6 @@ function displayMovies(movies) {
         )
         .join("");
 
-    // Add event listeners to the movie elements in the slider
     document.querySelectorAll(".displayed-slider").forEach((slider) => {
         const movieId = slider.getAttribute("data-movie-id");
         slider.addEventListener("click", () => {
@@ -112,7 +110,6 @@ function displayAllMovies(movies) {
         )
         .join("");
 
-    // Add event listeners to the movie elements in the list
     document.querySelectorAll(".displayed-movie").forEach((movie) => {
         const movieId = movie.getAttribute("data-movie-id");
         movie.addEventListener("click", () => {
