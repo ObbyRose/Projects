@@ -259,9 +259,9 @@ async function displaySelectedMovie() {
                     <img id="movie-poster" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                     <div id="movie-details">
                         <p id="movie-overview">${movie.overview}</p>
-                        <p>Release Date: ${movie.release_date}</p>
-                        <p>Rating: ${movie.vote_average}</p>
-                        <p>Genres: ${movie.genres.map(genre => genre.name).join(", ")}</p>
+                        <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                        <p><strong>Rating:</strong> ${movie.vote_average}</p>
+                        <p><strong>Genres:</strong> ${movie.genres.map(genre => genre.name).join(", ")}</p>
                     </div>
                     <button id="favorite-button" class="favorite-button">
                         ${isFavorite ? "Remove from Favorites" : "Add to Favorites"}
