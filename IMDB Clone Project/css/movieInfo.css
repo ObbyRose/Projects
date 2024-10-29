@@ -216,27 +216,59 @@ body.light-mode {
     background-color: aliceblue;
 }
 
+.search-results.light-mode,
+.main-container.light-mode,
+.active.light-mode li {
+    background-color: white;
+    color: black;
+}
+
 .main {
-    height: 100vh;
+    height: 100%;
     width: 100%;
+    padding: 4rem;
     background-color: black;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    margin: auto;
+    background-color: var(--darker-gray);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    max-width: 800px; /* Control the maximum width */
+    overflow: hidden; /* Prevent overflow */
+    height: fit-content; /* Ensure it takes the height of its content */
+}
+
 .main-content {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex-direction: column;
+    width: 100%;
     padding: 20px;
     color: white;
 }
 
 .movie-poster {
+    height: 14rem;
     max-width: 300px;
     border-radius: 8px;
-    margin: 20px 0;
 }
 
 #movie-title {
-    font-size: 2em;
-    color: var(--base-yellow); /* Optional: match IMDB theme color */
+    background-color: var(--base-yellow);
+    color: black;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
 }
 
 #movie-overview {

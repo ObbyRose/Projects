@@ -58,7 +58,7 @@ export function displayFavorites() {
 
     favorites.forEach((movie) => {
         const movieElement = `
-            <div class="favorite-movie">
+            <div class="favorite-movie" data-movie-id="${movie.id}">
                 <img src="${movie.poster}" alt="${movie.title}">
                 <h3>${movie.title}</h3>
                 <button class="remove-favorite" data-movie-id="${movie.id}">Remove</button>
@@ -67,8 +67,17 @@ export function displayFavorites() {
         favoritesContainer.innerHTML += movieElement;
     });
 
+    document.querySelectorAll(".favorite-movie").forEach((movieElement) => {
+        const movieId = movieElement.getAttribute("data-movie-id");
+        movieElement.addEventListener("click", () => {
+            sessionStorage.setItem("selectedMovieId", movieId);
+            window.location.href = "./movieInfo.html";
+        });
+    });
+
     document.querySelectorAll(".remove-favorite").forEach((button) => {
         button.addEventListener("click", (e) => {
+            e.stopPropagation();
             const movieId = e.target.getAttribute("data-movie-id");
             removeFromFavorites(movieId);
             displayFavorites();
