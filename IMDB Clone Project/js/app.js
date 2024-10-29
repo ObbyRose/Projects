@@ -250,22 +250,25 @@ async function displaySelectedMovie() {
             );
             const movie = await response.json();
 
+            const releaseDate = new Date(movie.release_date);
+            const formattedReleaseDate = `${String(releaseDate.getDate()).padStart(2, '0')}/${String(releaseDate.getMonth() + 1).padStart(2, '0')}/${releaseDate.getFullYear()}`;
+
             const favorites = getFavoritesFromLocalStorage();
             let isFavorite = favorites.some((fav) => fav.id === parseInt(movieId, 10));
 
             movieContainer.innerHTML = `
-                <div class="movie-info">
-                    <h1 id="movie-title">${movie.title}</h1>
-                    <img id="movie-poster" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-                    <div id="movie-details">
+                    <div class="movie-info">
+                    <img id="movieInfo-img" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                    <div class="movieInfo-details">
+                    <h1>${movie.title}</h1>
                         <p id="movie-overview">${movie.overview}</p>
-                        <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                        <p><strong>Release Date:</strong> ${formattedReleaseDate}</p>
                         <p><strong>Rating:</strong> ${movie.vote_average}</p>
                         <p><strong>Genres:</strong> ${movie.genres.map(genre => genre.name).join(", ")}</p>
+                        <button id="favorite-button" class="favorite-button">
+                            ${isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                        </button>
                     </div>
-                    <button id="favorite-button" class="favorite-button">
-                        ${isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-                    </button>
                 </div>
             `;
 
@@ -280,7 +283,6 @@ async function displaySelectedMovie() {
                         title: movie.title,
                         poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                     });
-                    alert(`${movie.title} has been added to your favorites!`);
                 }
                 isFavorite = !isFavorite;
                 favoriteButton.textContent = isFavorite ? "Remove from Favorites" : "Add to Favorites";
