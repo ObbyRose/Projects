@@ -241,17 +241,56 @@ function displaySearchResults(movies) {
 
 async function displaySelectedMovie() {
     const movieId = sessionStorage.getItem("selectedMovieId");
-    if (movieId) {
+    const movieContainer = document.getElementById("movie-info-container");
+
+    if (movieId && movieContainer) {
         try {
             const response = await fetch(
                 `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
             );
             const movie = await response.json();
-            document.getElementById("movie-title").textContent = movie.title;
-            document.getElementById("movie-poster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-            document.getElementById("movie-overview").textContent = movie.overview;
+
+            const favorites = getFavoritesFromLocalStorage();
+            let isFavorite = favorites.some((fav) => fav.id === parseInt(movieId, 10));
+
+            movieContainer.innerHTML = `
+                <div class="movie-info">
+                    <h1 id="movie-title">${movie.title}</h1>
+                    <img id="movie-poster" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                    <div id="movie-details">
+                        <p id="movie-overview">${movie.overview}</p>
+                        <p>Release Date: ${movie.release_date}</p>
+                        <p>Rating: ${movie.vote_average}</p>
+                        <p>Genres: ${movie.genres.map(genre => genre.name).join(", ")}</p>
+                    </div>
+                    <button id="favorite-button" class="favorite-button">
+                        ${isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                    </button>
+                </div>
+            `;
+
+            const favoriteButton = document.getElementById("favorite-button");
+            favoriteButton.addEventListener("click", () => {
+                if (isFavorite) {
+                    removeFromFavorites(movie.id);
+                    alert(`${movie.title} has been removed from your favorites.`);
+                } else {
+                    addToFavorites({
+                        id: movie.id,
+                        title: movie.title,
+                        poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    });
+                    alert(`${movie.title} has been added to your favorites!`);
+                }
+                isFavorite = !isFavorite;
+                favoriteButton.textContent = isFavorite ? "Remove from Favorites" : "Add to Favorites";
+            });
+
         } catch (error) {
             console.error("Error fetching movie details:", error);
+            movieContainer.innerHTML = "<p>Failed to load movie details. Please try again later.</p>";
         }
+    } else {
+        console.error("Movie ID or container element not found.");
     }
 }
