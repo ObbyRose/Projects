@@ -33,11 +33,11 @@ app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist"))); // update the directory place
+	app.use(express.static(path.join(__dirname, "/frontend/"))); // update the directory place
 
 	// react app
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html")); // update to scope the react app we are using
+		res.sendFile(path.resolve(__dirname, "frontend", "index.html")); // update to scope the react app we are using
 	});
 }
 
