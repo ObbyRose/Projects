@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/User');
+const User = require('../models/User.js');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
@@ -29,7 +29,7 @@ router.post('/signin', async (req, res) => {
     if (!user) return res.status(400).json({ message: 'User not found' });
 
     const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    if (!isMatch) return res.status(400).json({ message: 'Invalid password' });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
