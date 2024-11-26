@@ -18,6 +18,7 @@ const SignUp = () => {
         setError('Please fill in all fields');
         return;
     }
+
     if (password !== confirmPassword) {
         setError('Passwords do not match');
         return;
@@ -51,7 +52,7 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button type="submit">Sign Up</button>
-        <p>Already have an Account? <Link to="/signin">Sign in</Link></p>
+        <p>Already have an account? <Link to="/signin">Sign in</Link></p>
         </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {success && <p style={{ color: 'green' }}>{success}</p>}

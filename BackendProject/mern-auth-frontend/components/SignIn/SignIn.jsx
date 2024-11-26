@@ -42,7 +42,7 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
             />
         <button type="submit">Sign In</button>
-        <p>Don't have an account yet? <Link to='/signup'> Sign Up </Link></p>
+        <p>Don't have an account? <Link to='/signup'> Sign Up </Link></p>
         </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {success && <p style={{ color: 'green' }}>{success}</p>}
