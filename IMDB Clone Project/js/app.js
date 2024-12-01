@@ -1,4 +1,4 @@
-import API_KEY from 'dotenv'
+require('dotenv');
 
 const API_KEY = process.env.API_KEY;
 
