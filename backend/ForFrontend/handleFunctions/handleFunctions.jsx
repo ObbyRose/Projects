@@ -12,13 +12,13 @@ const handleLogin = async () => {
         });
         const data = await res.json();
         if (data.error) {
-            res.error("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
         localStorage.setItem("user-instagram", JSON.stringify(data));
         setUser(data);
     } catch (error) {
-        res.error("Error", error, "error");
+        showSnackbar("Error", error, "error");
     } finally {
         setLoading(false);
     }
@@ -36,14 +36,14 @@ const handleLogout = async () => {
         const data = await res.json();
 
         if (data.error) {
-            showToast("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
 
         localStorage.removeItem("user-instagram");
         setUser(null);
     } catch (error) {
-        showToast("Error", error, "error");
+        showSnackbar("Error", error, "error");
     }
 };
 
@@ -60,20 +60,20 @@ const handleSignup = async () => {
         const data = await res.json();
 
         if (data.error) {
-            res.error("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
 
         localStorage.setItem("user-instagram", JSON.stringify(data));
         setUser(data);
     } catch (error) {
-        res.error("Error", error, "error");
+        showSnackbar("Error", error, "error");
     }
 };
 
 // Handle Like Unlike
 const handleLikeAndUnlike = async () => {
-    if (!user) return showToast("Error", "You must be logged in to like a post", "error");
+    if (!user) return showSnackbar("Error", "You must be logged in to like a post", "error");
     if (isLiking) return;
     setIsLiking(true);
     try {
@@ -84,7 +84,7 @@ const handleLikeAndUnlike = async () => {
             },
         });
         const data = await res.json();
-        if (data.error) return res.error("Error", data.error, "error");
+        if (data.error) return showSnackbar("Error", data.error, "error");
 
         if (!liked) {
             const updatedPosts = posts.map((p) => {
@@ -106,7 +106,7 @@ const handleLikeAndUnlike = async () => {
 
         setLiked(!liked);
     } catch (error) {
-        res.error("Error", error.message, "error");
+        showSnackbar("Error", error.message, "error");
     } finally {
         setIsLiking(false);
     }
@@ -114,7 +114,7 @@ const handleLikeAndUnlike = async () => {
 
 // Handle Reply
 const handleReply = async () => {
-    if (!user) return showToast("Error", "You must be logged in to reply to a post", "error");
+    if (!user) return showSnackbar("Error", "You must be logged in to reply to a post", "error");
     if (isReplying) return;
     setIsReplying(true);
     try {
@@ -126,7 +126,7 @@ const handleReply = async () => {
             body: JSON.stringify({ text: reply }),
         });
         const data = await res.json();
-        if (data.error) return res.error("Error", data.error, "error");
+        if (data.error) return showSnackbar("Error", data.error, "error");
 
         const updatedPosts = posts.map((p) => {
             if (p._id === post._id) {
@@ -135,11 +135,11 @@ const handleReply = async () => {
             return p;
         });
         setPosts(updatedPosts);
-        res.error("Success", "Reply posted successfully", "success");
+        showSnackbar("Success", "Reply posted successfully", "success");
         onClose();
         setReply("");
     } catch (error) {
-        res.error("Error", error.message, "error");
+        showSnackbar("Error", error.message, "error");
     } finally {
         setIsReplying(false);
     }
@@ -174,10 +174,10 @@ const handleCreatePost = async () => {
 
         const data = await res.json();
         if (data.error) {
-            res.error("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
-        showToast("Success", "Post created successfully", "success");
+        showSnackbarf("Success", "Post created successfully", "success");
         if (username === user.username) {
             setPosts([data, ...posts]);
         }
@@ -185,7 +185,7 @@ const handleCreatePost = async () => {
         setPostText("");
         setImgUrl("");
     } catch (error) {
-        res.error("Error", error, "error");
+        showSnackbar("Error", error, "error");
     } finally {
         setLoading(false);
     }
@@ -213,7 +213,7 @@ const handleSendMessage = async (e) => {
         });
         const data = await res.json();
         if (data.error) {
-            res.error("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
         console.log(data);
@@ -237,7 +237,7 @@ const handleSendMessage = async (e) => {
         setMessageText("");
         setImgUrl("");
     } catch (error) {
-        res.error("Error", error.message, "error");
+        showSnackbar("Error", error.message, "error");
     } finally {
         setIsSending(false);
     }
@@ -250,18 +250,18 @@ useEffect(() => {
             const res = await fetch("/api/users/profile/" + postedBy);
             const data = await res.json();
             if (data.error) {
-                res.error("Error", data.error, "error");
+                showSnackbar("Error", data.error, "error");
                 return;
             }
             setUser(data);
         } catch (error) {
-            res.error("Error", error.message, "error");
+            showSnackbar("Error", error.message, "error");
             setUser(null);
         }
     };
 
     getUser();
-}, [postedBy, showToast]);
+}, [postedBy, showSnackbar]);
 
 const handleDeletePost = async (e) => {
     try {
@@ -273,13 +273,13 @@ const handleDeletePost = async (e) => {
         });
         const data = await res.json();
         if (data.error) {
-            res.error("Error", data.error, "error");
+            showSnackbar("Error", data.error, "error");
             return;
         }
-        res.error("Success", "Post deleted", "success");
+        showSnackbar("Success", "Post deleted", "success");
         setPosts(posts.filter((p) => p._id !== post._id));
     } catch (error) {
-        res.error("Error", error.message, "error");
+        showSnackbar("Error", error.message, "error");
     }
 };
 
@@ -293,12 +293,12 @@ useEffect(() => {
             const res = await fetch("/api/users/suggested");
             const data = await res.json();
             if (data.error) {
-                res.error("Error", data.error, "error");
+                showSnackbar("Error", data.error, "error");
                 return;
             }
             setSuggestedUsers(data);
         } catch (error) {
-            res.error("Error", error.message, "error");
+            showSnackbar("Error", error.message, "error");
         } finally {
             setLoading(false);
         }
