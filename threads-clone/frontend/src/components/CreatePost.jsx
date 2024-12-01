@@ -106,7 +106,7 @@ const CreatePost = () => {
 					<ModalBody pb={6}>
 						<FormControl>
 							<Textarea
-								placeholder='Post content goes here..'
+								placeholder='Content...'
 								onChange={handleTextChange}
 								value={postText}
 							/>

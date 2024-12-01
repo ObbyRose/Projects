@@ -15,7 +15,7 @@ const UserPost = ({ postImg, postTitle, likes, replies }) => {
 					<Avatar size='md' name='Mark Zuckerberg' src='/zuck-avatar.png' />
 					<Box w='1px' h={"full"} bg='gray.light' my={2}></Box>
 					<Box position={"relative"} w={"full"}>
-						<Avatar
+						{/* <Avatar
 							size='xs'
 							name='John doe'
 							src='https://bit.ly/dan-abramov'
@@ -41,14 +41,14 @@ const UserPost = ({ postImg, postTitle, likes, replies }) => {
 							bottom={"0px"}
 							left='4px'
 							padding={"2px"}
-						/>
+						/> */}
 					</Box>
 				</Flex>
 				<Flex flex={1} flexDirection={"column"} gap={2}>
 					<Flex justifyContent={"space-between"} w={"full"}>
 						<Flex w={"full"} alignItems={"center"}>
 							<Text fontSize={"sm"} fontWeight={"bold"}>
-								markzuckerberg
+								
 							</Text>
 							<Image src='/verified.png' w={4} h={4} ml={1} />
 						</Flex>

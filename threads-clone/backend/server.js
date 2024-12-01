@@ -24,20 +24,22 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-app.use(express.json({ limit: "50mb" }));
+// Middlewares
+app.use(express.json({ limit: "50mb" })); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/"))); // update the directory place
 
-	// react app
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "index.html")); // update to scope the react app we are using
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 	});
 }
 

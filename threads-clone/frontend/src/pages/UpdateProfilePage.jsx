@@ -44,7 +44,7 @@ export default function UpdateProfilePage() {
 				},
 				body: JSON.stringify({ ...inputs, profilePic: imgUrl }),
 			});
-			const data = await res.json(); // updated user object
+			const data = await res.json();
 			if (data.error) {
 				showToast("Error", data.error, "error");
 				return;
@@ -89,7 +89,7 @@ export default function UpdateProfilePage() {
 					<FormControl>
 						<FormLabel>Full name</FormLabel>
 						<Input
-							placeholder='John Doe'
+							placeholder='Name'
 							value={inputs.name}
 							onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -99,7 +99,7 @@ export default function UpdateProfilePage() {
 					<FormControl>
 						<FormLabel>User name</FormLabel>
 						<Input
-							placeholder='johndoe'
+							placeholder='Username'
 							value={inputs.username}
 							onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -109,7 +109,7 @@ export default function UpdateProfilePage() {
 					<FormControl>
 						<FormLabel>Email address</FormLabel>
 						<Input
-							placeholder='your-email@example.com'
+							placeholder='Email address'
 							value={inputs.email}
 							onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -119,7 +119,7 @@ export default function UpdateProfilePage() {
 					<FormControl>
 						<FormLabel>Bio</FormLabel>
 						<Input
-							placeholder='Your bio.'
+							placeholder='bio.'
 							value={inputs.bio}
 							onChange={(e) => setInputs({ ...inputs, bio: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
