@@ -1,8 +1,5 @@
-require('dotenv');
-
-const API_KEY = process.env.API_KEY;
-
-import {    
+import API_KEY from './api.js'
+import { 
     getFavoritesFromLocalStorage, 
     addToFavorites, 
     removeFromFavorites, 
