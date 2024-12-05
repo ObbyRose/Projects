@@ -43,7 +43,7 @@ const Conversation = ({ conversation, isOnline }) => {
 				})
 			}
 			bg={
-				selectedConversation?._id === conversation._id ? (colorMode === "light" ? "gray.400" : "gray.dark") : ""
+				selectedConversation?._id === conversation._id ? (colorMode === "dark" ? "gray.dark" : "white.600") : ""
 			}
 			borderRadius={"md"}
 		>
