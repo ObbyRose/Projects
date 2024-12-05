@@ -1,4 +1,5 @@
 import { Avatar, Divider, Flex, Text } from "@chakra-ui/react";
+import userAtom from "../atoms/userAtom";
 
 const Comment = ({ reply, lastReply }) => {
 	return (
