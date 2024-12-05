@@ -58,8 +58,8 @@ export default function LoginCard() {
 		<Flex align={"center"} justify={"center"}>
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
 				<Stack align={"center"}>
-					<Heading fontSize={"4xl"} textAlign={"center"}>
-						Login
+					<Heading fontSize={"16"} textAlign={"center"}>
+						Log in with your instagram account
 					</Heading>
 				</Stack>
 				<Box
