@@ -93,8 +93,8 @@ const UserHeader = ({ user }) => {
 								<CgMoreO size={24} cursor={"pointer"} />
 							</MenuButton>
 							<Portal>
-								<MenuList bg={"gray.dark"}>
-									<MenuItem bg={"gray.dark"} onClick={copyURL}>
+								<MenuList bg={"white"}>
+									<MenuItem bg={"white"} color={"black"} onClick={copyURL}>
 										Copy link
 									</MenuItem>
 								</MenuList>

@@ -19,7 +19,14 @@ function App() {
 			<Container maxW={pathname === "/" ? { base: "620px", md: "900px" } : "620px"}>
 				<Header />
 				<Routes>
-					<Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
+				<Route path="/" element={user ? (
+				<>
+					<HomePage />
+					<CreatePost /> </>
+					) : (
+					<Navigate to="/auth" />
+					)} 
+				/>
 					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
 					<Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
 

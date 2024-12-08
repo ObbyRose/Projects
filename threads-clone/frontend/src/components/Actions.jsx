@@ -108,6 +108,7 @@ const Actions = ({ post }) => {
 			<Flex gap={3} my={2} onClick={(e) => e.preventDefault()}>
 				<svg
 					aria-label='Like'
+					cursor={"pointer"}
 					color={liked ? "rgb(237, 73, 86)" : ""}
 					fill={liked ? "rgb(237, 73, 86)" : "transparent"}
 					height='19'
@@ -125,6 +126,7 @@ const Actions = ({ post }) => {
 
 				<svg
 					aria-label='Comment'
+					cursor={"pointer"}
 					color=''
 					fill=''
 					height='20'
@@ -189,6 +191,7 @@ const RepostSVG = () => {
 	return (
 		<svg
 			aria-label='Repost'
+			cursor={"pointer"}
 			color='currentColor'
 			fill='currentColor'
 			height='20'
@@ -209,6 +212,7 @@ const ShareSVG = () => {
 	return (
 		<svg
 			aria-label='Share'
+			cursor={"pointer"}
 			color=''
 			fill='rgb(243, 245, 247)'
 			height='20'

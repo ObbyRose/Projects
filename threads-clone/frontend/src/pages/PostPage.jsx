@@ -100,14 +100,14 @@ const PostPage = () => {
 				</Box>
 			)}
 
-			<Flex gap={3} my={3}>
+			<Flex gap={3} my={3}> 
 				<Actions post={currentPost} />
 			</Flex>
 
 			<Divider my={4} />
 
 			<Flex justifyContent={"space-between"}>
-				<Flex gap={2} alignItems={"center"}>
+				<Flex gap={2} alignItems={"center"} > 
 					<Text fontSize={"2xl"}>👋</Text>
 					<Text color={"gray.light"}>Get the app to like, reply and post.</Text>
 				</Flex>
