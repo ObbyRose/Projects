@@ -19,7 +19,7 @@ const Message = ({ ownMessage, message }) => {
 							<Box
 								alignSelf={"flex-end"}
 								ml={1}
-								color={message.seen ? "blue.400" : ""}
+								color={message.seen ? "blue.400" : "white.400"}
 								fontWeight={"bold"}
 							>
 								<BsCheck2All size={16} />
@@ -45,7 +45,7 @@ const Message = ({ ownMessage, message }) => {
 							<Box
 								alignSelf={"flex-end"}
 								ml={1}
-								color={message.seen ? "blue.400" : ""}
+								color={message.seen ? "blue.400" : "white.400"}
 								fontWeight={"bold"}
 							>
 								<BsCheck2All size={16} />

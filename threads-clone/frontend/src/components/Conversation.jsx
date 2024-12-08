@@ -22,7 +22,6 @@ const Conversation = ({ conversation, isOnline }) => {
 	const [selectedConversation, setSelectedConversation] = useRecoilState(selectedConversationAtom);
 	const colorMode = useColorMode();
 
-	console.log("selectedConverstion", selectedConversation);
 	return (
 		<Flex
 			gap={4}
@@ -43,7 +42,11 @@ const Conversation = ({ conversation, isOnline }) => {
 				})
 			}
 			bg={
-				selectedConversation?._id === conversation._id ? (colorMode === "dark" ? "gray.dark" : "white.600") : ""
+				selectedConversation?._id === conversation._id
+					? colorMode === "dark"
+						? "gray.dark"
+						: "white.600"
+					: ""
 			}
 			borderRadius={"md"}
 		>
@@ -56,17 +59,17 @@ const Conversation = ({ conversation, isOnline }) => {
 					}}
 					src={user.profilePic}
 				>
-					{isOnline ? <AvatarBadge boxSize='1em' bg='green.500' /> : ""}
+					{isOnline ? <AvatarBadge boxSize="1em" bg="green.500" /> : ""}
 				</Avatar>
 			</WrapItem>
 
 			<Stack direction={"column"} fontSize={"sm"}>
-				<Text fontWeight='700' display={"flex"} alignItems={"center"}>
-					{user.username} <Image src='/verified.png' w={4} h={4} ml={1} />
+				<Text fontWeight="700" display={"flex"} alignItems={"center"}>
+					{user.username} <Image src="/verified.png" w={4} h={4} ml={1} />
 				</Text>
-				<Text fontSize={"xs"} display={"flex"} alignItems={"center"} gap={1}>
+				<Box fontSize={"xs"} display={"flex"} alignItems={"center"} gap={1}>
 					{currentUser._id === lastMessage.sender ? (
-						<Box color={lastMessage.seen ? "blue.400" : ""}>
+						<Box color={lastMessage.seen ? "blue.400" : "white.400"}>
 							<BsCheck2All size={16} />
 						</Box>
 					) : (
@@ -75,7 +78,7 @@ const Conversation = ({ conversation, isOnline }) => {
 					{lastMessage.text.length > 18
 						? lastMessage.text.substring(0, 18) + "..."
 						: lastMessage.text || <BsFillImageFill size={16} />}
-				</Text>
+				</Box>
 			</Stack>
 		</Flex>
 	);
