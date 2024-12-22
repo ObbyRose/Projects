@@ -1,0 +1,33 @@
+.social-media {
+    background-color: #141414;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.social-media__title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.social-media__icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-media__icon {
+    color: #fff;
+    font-size: 2rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-media__icon:hover {
+    color: #f77062; 
+}
+
+.social-media__icon i {
+    margin-right: 0.5rem; 
+}
