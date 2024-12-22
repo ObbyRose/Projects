@@ -11,7 +11,7 @@ const Socials: React.FC = () => {
             </Helmet>
             <section className="social-media">
                 <div className="social-media__container">
-                    <h2 className="social-media__title">Follow OnPoint on</h2>
+                    <h2 className="social-media__title">Follow Asteriks on</h2>
                     <a href="https://twitter.com" className="social-media__icon" target="_blank" rel="noopener noreferrer" title="Follow us on X">
                         <i className="fab fa-twitter"></i>
                     </a>

@@ -2,6 +2,7 @@
     background-color: #141414;
     color: #fff;
     padding: 2rem 0;
+    height: 90vh;
 }
 
 .products__container {
@@ -9,7 +10,6 @@
     margin: 0 auto;
     padding: 0 2rem;
     text-align: center;
-    height: 90vh;
 }
 
 .products__title {
@@ -32,6 +32,9 @@
 }
 
 @media(max-width: 640px) {
+    .products{
+        height: 100%;
+    }
     .products__items {
         align-items: center;
         flex-direction: column;

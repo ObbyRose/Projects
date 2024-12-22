@@ -15,9 +15,11 @@ const Home: React.FC = () => {
                         <h1>Asteriks</h1>
                         <h2>Code and Design Services</h2>
                         <p>See what makes us stand out</p>
-                        <button className="main__btn">
-                            <Link to="/about">Get Started</Link>
-                        </button>
+                            <Link to="/about">
+                                <button className="main__btn">
+                                    Get Started
+                                </button>
+                            </Link>
                     </div>
                     <div className="main__img--container">
                         <img src='../../assets/images/pic1.svg' alt="pic1" id="main__img" />
