@@ -11,19 +11,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => console.log("MongoDB Connected"))
 	.catch((err) => console.log(err));
 
-// Initialize Socket.io
 const server = http.createServer(app);
 const io = new Server(server);
-
-// Socket.io integration
 require("./socket")(io);
 
-// Routes
 const authRoutes = require("./router/auth");
 const businessRoutes = require("./router/business");
 
