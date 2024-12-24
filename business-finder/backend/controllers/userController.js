@@ -16,7 +16,7 @@ const guestLogin = (_req, res) => {
 
 // Signup a new user
 const signup = async (req, res) => {
-	const { name, email, password, plan } = req.body;
+	const { name, email, password, plan, role } = req.body;
 
 	try {
 		const userExists = await User.findOne({ email });
@@ -25,7 +25,7 @@ const signup = async (req, res) => {
 		}
 
 		const hashedPassword = await bcrypt.hash(password, 12);
-		const newUser = new User({ name, email, password: hashedPassword, plan: plan || "Standard" });
+		const newUser = new User({ name, email, password: hashedPassword,role: role, plan: plan || "Standard" });
 		await newUser.save();
 
 		const token = generateTokenAndSetCookie(newUser.id)

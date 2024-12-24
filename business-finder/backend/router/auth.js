@@ -5,7 +5,7 @@ import adminMiddleware from "../middlewares/adminMiddleware.js";
 import UserController from "../controllers/userController.js";
 
 // Guest login
-router.post("/auth/guest-login", UserController.guestLogin);
+router.post("/guest-login", UserController.guestLogin);
 
 // User login and signup
 router.post("/signup", UserController.signup);
