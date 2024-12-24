@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
 const UserController = require("../controllers/userController");
 
-router.post("/auth/guest-login", authController.guestLogin);
+router.post("/auth/guest-login", UserController.guestLogin);
 router.post("/signup", UserController.signup);
 router.post("/login", UserController.login); 
 router.post("/logout", authMiddleware, UserController.logout);

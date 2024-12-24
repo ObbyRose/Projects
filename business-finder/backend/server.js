@@ -1,9 +1,14 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const http = require("http");
-const { Server } = require("socket.io");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import http from "http";
+import { Server } from "socket.io";
+import socket from "./socket/socketIO.js";
+socket(io);
+import authRoutes from "./router/auth.js";
+import businessRoutes from "./router/business.js";
+
 
 dotenv.config();
 const app = express();
@@ -17,10 +22,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 const server = http.createServer(app);
 const io = new Server(server);
-require("./socket")(io);
-
-const authRoutes = require("./router/auth");
-const businessRoutes = require("./router/business");
 
 app.use("/auth", authRoutes);
 app.use("/businesses", businessRoutes);
