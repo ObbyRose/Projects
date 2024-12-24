@@ -7,11 +7,12 @@ const generateTokenAndSetCookie = (userId, res) => {
 
 	res.cookie("jwt", token, {
 		httpOnly: true,
-		maxAge: 10 * 60 * 1000,
+		maxAge: 60 * 60 * 1000,
 		sameSite: "strict",
+		secure: process.env.NODE_ENV === "production",
 	});
 
 	return token;
 };
 
-export default generateTokenAndSetCookie;
+export { generateTokenAndSetCookie };

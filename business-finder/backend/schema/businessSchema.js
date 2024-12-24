@@ -1,4 +1,5 @@
-const { Schema, model, Types } = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model, Types } = mongoose;
 
 const businessSchema = new Schema({
 	name: { type: String, required: true },
@@ -16,5 +17,4 @@ const businessSchema = new Schema({
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });
-
-module.exports = model("Business", businessSchema);
+export default mongoose.model("Business", businessSchema);

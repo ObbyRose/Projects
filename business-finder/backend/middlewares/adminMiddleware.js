@@ -1,4 +1,4 @@
-const User = require("../schema/userSchema.js");
+import User from "../schema/userSchema.js";
 
 const adminMiddleware = async (req, res, next) => {
 	try {
@@ -17,4 +17,4 @@ const adminMiddleware = async (req, res, next) => {
 	}
 };
 
-module.exports = adminMiddleware;
+export default adminMiddleware;

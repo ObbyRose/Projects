@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const authMiddleware = require("../middlewares/authMiddleware");
-const adminMiddleware = require("../middlewares/adminMiddleware");
-const BusinessController = require("../controllers/businessController");
+import authMiddleware from "../middlewares/authMiddleware.js";
+import adminMiddleware from "../middlewares/adminMiddleware.js";
+import BusinessController from "../controllers/businessController.js";
 
 router.get("/", BusinessController.getBusinesses);
 router.post("/", authMiddleware, BusinessController.createBusiness);
@@ -14,4 +14,4 @@ router.post("/:id/review", authMiddleware, BusinessController.addReview);
 router.get("/:id/reviews", BusinessController.getReviews);
 router.delete("/:id/review/:reviewId", adminMiddleware, BusinessController.deleteReview);
 
-module.exports = router;
+export default router;

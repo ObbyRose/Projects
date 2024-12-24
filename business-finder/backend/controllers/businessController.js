@@ -1,5 +1,5 @@
-const Business = require("../schema/businessSchema");
-const User = require("../schema/userSchema");
+import Business from "../schema/businessSchema.js";
+import User from "../schema/userSchema.js";
 
 // Get all businesses with optional filters (name and category)
 const getBusinesses = async (req, res) => {
@@ -196,7 +196,7 @@ const deleteReview = async (req, res) => {
 	}
 };
 
-module.exports = {
+export default {
 	getBusinesses,
 	createBusiness,
 	updateBusiness,

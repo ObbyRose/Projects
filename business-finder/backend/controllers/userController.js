@@ -1,25 +1,18 @@
-const bcrypt = require("bcryptjs");
-const User = require("../schema/userSchema.js");
-const { default: generateTokenAndSetCookie } = require("../utils/jwtUtils");
-const { JWT_SECRET } = process.env;
+import bcrypt from "bcryptjs";
+import User from "../schema/userSchema.js";
+import { generateTokenAndSetCookie } from "../utils/jwtUtils.js";
 
 // Guest login handler
-const guestLogin = (req, res) => {
-
-    const guestUser = {
-        id: "guest",
-        name: "Guest User",
-        email: "guest@example.com",
-        plan: "Guest",
-    };
-	const token = generateTokenAndSetCookie()
-    res.status(200).json({ message: "Logged in as guest", token });
+const guestLogin = (_req, res) => {
+	const guestUser = {
+		id: "guest",
+		name: "Guest User",
+		email: "guest@example.com",
+		plan: "Guest",
+	};
+	const token = generateTokenAndSetCookie(guestUser.id, res)
+	res.status(200).json({ message: "Logged in as guest", token });
 };
-
-module.exports = {
-    guestLogin,
-};
-
 
 // Signup a new user
 const signup = async (req, res) => {
@@ -58,7 +51,7 @@ const login = async (req, res) => {
 			return res.status(400).send("Invalid email or password.");
 		}
 
-		const token = generateTokenAndSetCookie(newUser.id)
+		const token = generateTokenAndSetCookie(user.id)
 
 		res.status(200).json({ token, user });
 	} catch (err) {
@@ -67,12 +60,11 @@ const login = async (req, res) => {
 };
 
 // Logout a user (invalidate JWT token)
-const logout = (req, res) => {
-	// This is just a placeholder since the token is stored client-side (cookie or localStorage).
+// Logout a user (invalidate JWT token)
+const logout = (_req, res) => {
 	// On the frontend, you'd typically remove the token from storage to log out.
 	res.status(200).send("Logged out successfully.");
 };
-
 // Get user profile (authenticated)
 const getProfile = async (req, res) => {
 	try {
@@ -139,7 +131,7 @@ const upgradePlan = async (req, res) => {
 	}
 };
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (_req, res) => {
 	try {
 		const users = await User.find();
 		res.status(200).json(users);
@@ -164,7 +156,8 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-module.exports = {
+export default {
+	guestLogin,
 	signup,
 	login,
 	logout,
