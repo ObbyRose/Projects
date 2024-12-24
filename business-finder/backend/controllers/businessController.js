@@ -1,5 +1,5 @@
-const Business = require("../models/business");
-const User = require("../models/user");
+const Business = require("../schema/businessSchema");
+const User = require("../schema/userSchema");
 
 // Get all businesses with optional filters (name and category)
 const getBusinesses = async (req, res) => {
@@ -19,6 +19,10 @@ const getBusinesses = async (req, res) => {
 
 // Create a new business (Owner must be authenticated)
 const createBusiness = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot create businesses. Please log in.");
+	}
+
 	const { name, description, category } = req.body;
 
 	try {
@@ -46,6 +50,10 @@ const createBusiness = async (req, res) => {
 
 // Update a business (Owner must be authenticated)
 const updateBusiness = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot update businesses. Please log in.");
+	}
+
 	const { name, description, category } = req.body;
 
 	try {
@@ -69,6 +77,10 @@ const updateBusiness = async (req, res) => {
 
 // Delete a business (Owner must be authenticated)
 const deleteBusiness = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot delete businesses. Please log in.");
+	}
+
 	try {
 		const business = await Business.findById(req.params.id);
 		if (!business) return res.status(404).send("Business not found");
@@ -86,6 +98,10 @@ const deleteBusiness = async (req, res) => {
 
 // Subscribe to a business (Authenticated users)
 const subscribeToBusiness = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot subscribe to businesses. Please log in.");
+	}
+
 	const businessId = req.params.id;
 	try {
 		const business = await Business.findById(businessId);
@@ -105,6 +121,10 @@ const subscribeToBusiness = async (req, res) => {
 
 // Unsubscribe from a business (Authenticated users)
 const unsubscribeFromBusiness = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot unsubscribe from businesses. Please log in.");
+	}
+
 	const businessId = req.params.id;
 	try {
 		const business = await Business.findById(businessId);
@@ -122,6 +142,10 @@ const unsubscribeFromBusiness = async (req, res) => {
 
 // Add a review to a business (Authenticated users)
 const addReview = async (req, res) => {
+	if (req.user && req.user.role === "guest") {
+		return res.status(403).send("Guests cannot add reviews. Please log in.");
+	}
+
 	const businessId = req.params.id;
 	const { comment } = req.body;
 
