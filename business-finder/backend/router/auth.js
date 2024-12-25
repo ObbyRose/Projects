@@ -19,6 +19,6 @@ router.put("/upgrade-plan/:id", authMiddleware, UserController.upgradePlan);
 
 // Admin routes (require admin privileges)
 router.get("/", adminMiddleware, UserController.getAllUsers);
-router.delete("/:id", adminMiddleware, UserController.deleteUser);
+router.delete("/delete/:id", adminMiddleware, UserController.deleteUser);
 
 export default router;

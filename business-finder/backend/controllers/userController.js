@@ -139,13 +139,16 @@ const upgradePlan = async (req, res) => {
 };
 
 const getAllUsers = async (_req, res) => {
-	try {
-		const users = await User.find();
-		res.status(200).json(users);
-	} catch (err) {
+    try {
+        const users = await User.find();
+        if (users.length === 0) {
+            return res.status(404).send("No users found");
+        }
+        res.status(200).json(users);
+    } catch (err) {
 		res.status(500).send("Error fetching users");
 	}
-};
+}
 
 const deleteUser = async (req, res) => {
 	const userId = req.params.id;
@@ -155,11 +158,12 @@ const deleteUser = async (req, res) => {
 		if (!user) {
 			return res.status(404).send("User not found");
 		}
-
-		await user.remove();
+		await User.deleteOne({ _id: userId });
 		res.status(200).send("User deleted successfully");
 	} catch (err) {
 		res.status(500).send("Error deleting user");
+		console.log(userId);
+		
 	}
 };
 

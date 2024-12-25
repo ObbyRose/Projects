@@ -24,12 +24,22 @@ const createBusiness = async (req, res) => {
 	}
 
 	const { name, description, category } = req.body;
-
+	if (!req.user) {
+		return res.status(401).send("Authentication required");
+	}
+	if (req.user.role === "user") {
+		
+		return res.status(403).send("Only business accounts can create businesses");
+	}
 	try {
-		const user = await User.findById(req.user.id);
-		const maxBusinesses = user.plan === "Platinum" ? 10 : user.plan === "Gold" ? 3 : 1;
-
-		const businessesCount = await Business.countDocuments({ owner: req.user.id });
+		const user = await User.findById(req.user.userId);
+		console.log(req.user.userId);
+		
+		if (!user) {
+			return res.status(404).send("User not found");
+		}
+		const maxBusinesses = user.plan ? (user.plan === "Platinum" ? 10 : user.plan === "Gold" ? 3 : 1) : 1;
+		const businessesCount = await Business.countDocuments({ owner: user.id });
 		if (businessesCount >= maxBusinesses) {
 			return res.status(400).send("Business limit reached. Upgrade your plan.");
 		}
@@ -38,7 +48,7 @@ const createBusiness = async (req, res) => {
 			name,
 			description,
 			category,
-			owner: req.user.id,
+			owner: req.user.userId,
 		});
 
 		await business.save();
