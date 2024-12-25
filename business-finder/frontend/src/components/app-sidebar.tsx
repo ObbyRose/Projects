@@ -1,7 +1,7 @@
 import * as React from "react"
 import {
   BookOpen,
-  Bot,
+  Contact,
   HomeIcon,
   Settings2,
 } from "lucide-react"
@@ -15,6 +15,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { ModeToggle } from "./mode-toggle"
 
 // This is sample data.
 const data = {
@@ -26,74 +27,24 @@ const data = {
   navMain: [
     {
       title: "Home",
-      url: "#",
+      url: "/",
       icon: HomeIcon,
       isActive: true,
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      title: "About",
+      url: "/about",
+      icon: BookOpen,
     },
     {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      title: "Contact us!",
+      url: "/contact-us",
+      icon: Contact,
     },
     {
       title: "Settings",
-      url: "#",
+      url: "/settings",
       icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
     },
   ],
 }
@@ -107,6 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
+        <ModeToggle />
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
