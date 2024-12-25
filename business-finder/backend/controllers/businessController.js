@@ -33,8 +33,7 @@ const createBusiness = async (req, res) => {
 	}
 	try {
 		const user = await User.findById(req.user.userId);
-		console.log(req.user.userId);
-		
+
 		if (!user) {
 			return res.status(404).send("User not found");
 		}
@@ -70,7 +69,7 @@ const updateBusiness = async (req, res) => {
 		const business = await Business.findById(req.params.id);
 		if (!business) return res.status(404).send("Business not found");
 
-		if (business.owner.toString() !== req.user.id) {
+		if (business.owner.toString() !== req.user.userId) {
 			return res.status(403).send("You are not the owner of this business");
 		}
 
@@ -95,11 +94,11 @@ const deleteBusiness = async (req, res) => {
 		const business = await Business.findById(req.params.id);
 		if (!business) return res.status(404).send("Business not found");
 
-		if (business.owner.toString() !== req.user.id) {
+		if (business.owner.toString() !== req.user.userId) {
 			return res.status(403).send("You are not the owner of this business");
 		}
 
-		await business.remove();
+		await Business.findByIdAndDelete(req.params.id);
 		res.status(200).send("Business deleted successfully");
 	} catch (err) {
 		res.status(500).send("Error deleting business");
