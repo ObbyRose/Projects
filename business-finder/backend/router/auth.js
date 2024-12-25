@@ -13,9 +13,9 @@ router.post("/login", UserController.login);
 
 // Protected routes (require authentication)
 router.post("/logout", authMiddleware, UserController.logout);
-router.get("/profile", authMiddleware, UserController.getProfile);
-router.put("/profile", authMiddleware, UserController.updateProfile);
-router.put("/upgrade-plan", authMiddleware, UserController.upgradePlan);
+router.get("/profile/:id", UserController.getProfile);
+router.put("/profile/:id", authMiddleware, UserController.updateProfile);
+router.put("/upgrade-plan/:id", authMiddleware, UserController.upgradePlan);
 
 // Admin routes (require admin privileges)
 router.get("/", adminMiddleware, UserController.getAllUsers);

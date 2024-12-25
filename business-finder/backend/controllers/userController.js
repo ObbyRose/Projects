@@ -60,19 +60,25 @@ const login = async (req, res) => {
 };
 
 // Logout a user (invalidate JWT token)
-// Logout a user (invalidate JWT token)
-const logout = (_req, res) => {
+const logout = (req, res) => {
+	console.log(req.user);
+	
+	if (!req.user.userId) {
+		return res.status(401).send("Access denied");
+	}
+	res.clearCookie("jwt");
 	// On the frontend, you'd typically remove the token from storage to log out.
 	res.status(200).send("Logged out successfully.");
 };
 
 // Get user profile (authenticated)
 const getProfile = async (req, res) => {
+	console.log("baba");
 	try {
-		const user = await User.findById(req.user.id);
+		const user = await User.findById(req.params.id);
 		if (!user) {
 			return res.status(404).send("User not found");
-		}
+		};
 		res.status(200).json(user);
 	} catch (err) {
 		res.status(500).send("Error fetching user profile");
@@ -84,7 +90,7 @@ const updateProfile = async (req, res) => {
 	const { name, email, plan } = req.body;
 
 	try {
-		const user = await User.findById(req.user.id);
+		const user = await User.findById(req.params.id);
 		if (!user) {
 			return res.status(404).send("User not found");
 		}
@@ -113,7 +119,7 @@ const upgradePlan = async (req, res) => {
 	const { plan } = req.body;
 
 	try {
-		const user = await User.findById(req.user.id);
+		const user = await User.findById(req.user.userId);
 		if (!user) {
 			return res.status(404).send("User not found");
 		}
