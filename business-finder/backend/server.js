@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import http from "http";
 import { Server } from "socket.io";
 import socket from "./socket/socketIO.js";
-import authRoutes from "./router/auth.js";
+import authRouter from "./router/auth.js";
 import businessRoutes from "./router/business.js";
 
 
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
 const server = http.createServer(app);
 const io = new Server(server);
 socket(io);
-app.use("/auth", authRoutes);
+app.use("/auth", authRouter);
 app.use("/businesses", businessRoutes);
 
 const PORT = process.env.PORT || 5000;

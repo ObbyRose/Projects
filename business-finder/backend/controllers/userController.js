@@ -25,10 +25,10 @@ const signup = async (req, res) => {
 		}
 
 		const hashedPassword = await bcrypt.hash(password, 12);
-		const newUser = new User({ name, email, password: hashedPassword,role: role, plan: plan || "Standard" });
+		const newUser = new User({ name, email, password: hashedPassword, role, plan: plan || "Standard" });
 		await newUser.save();
 
-		const token = generateTokenAndSetCookie(newUser.id)
+		const token = generateTokenAndSetCookie(newUser.id,res)
 
 		res.status(201).json({ token, user: newUser });
 	} catch (err) {
@@ -51,7 +51,7 @@ const login = async (req, res) => {
 			return res.status(400).send("Invalid email or password.");
 		}
 
-		const token = generateTokenAndSetCookie(user.id)
+		const token = generateTokenAndSetCookie(user.id, res)
 
 		res.status(200).json({ token, user });
 	} catch (err) {
@@ -65,6 +65,7 @@ const logout = (_req, res) => {
 	// On the frontend, you'd typically remove the token from storage to log out.
 	res.status(200).send("Logged out successfully.");
 };
+
 // Get user profile (authenticated)
 const getProfile = async (req, res) => {
 	try {
