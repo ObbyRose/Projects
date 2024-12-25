@@ -116,11 +116,11 @@ const subscribeToBusiness = async (req, res) => {
 		const business = await Business.findById(businessId);
 		if (!business) return res.status(404).send("Business not found");
 
-		if (business.subscribers.includes(req.user.id)) {
+		if (business.subscribers.includes(req.user.userId)) {
 			return res.status(400).send("Already subscribed");
 		}
 
-		business.subscribers.push(req.user.id);
+		business.subscribers.push(req.user.userId);
 		await business.save();
 		res.status(200).send("Subscribed successfully");
 	} catch (err) {
@@ -140,7 +140,7 @@ const unsubscribeFromBusiness = async (req, res) => {
 		if (!business) return res.status(404).send("Business not found");
 
 		business.subscribers = business.subscribers.filter(
-			(subscriberId) => subscriberId.toString() !== req.user.id
+			(subscriberId) => subscriberId.toString() !== req.user.userId
 		);
 		await business.save();
 		res.status(200).send("Unsubscribed successfully");
@@ -163,7 +163,7 @@ const addReview = async (req, res) => {
 		if (!business) return res.status(404).send("Business not found");
 
 		business.reviews.push({
-			userId: req.user.id,
+			userId: req.user.userId,
 			comment,
 		});
 
