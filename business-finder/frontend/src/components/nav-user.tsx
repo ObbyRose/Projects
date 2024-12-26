@@ -102,7 +102,8 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem onClick={() => console.log('Log out')
+            } className="cursor-pointer">
               <LogOut />
               Log out
             </DropdownMenuItem>

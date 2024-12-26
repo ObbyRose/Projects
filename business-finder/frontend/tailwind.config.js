@@ -61,7 +61,10 @@ module.exports = {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			}
-		}
+		},
+	colors:{
+		purpleCustom: '#6c63ff'
+	},
 	},
 	plugins: [require("tailwindcss-animate")],
 	}

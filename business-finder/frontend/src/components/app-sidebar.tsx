@@ -1,6 +1,8 @@
 import * as React from "react"
 import {
   BookOpen,
+  Building,
+  Building2,
   Contact,
   HomeIcon,
   Settings2,
@@ -46,6 +48,11 @@ const data = {
       url: "/settings",
       icon: Settings2,
     },
+    {
+      title: "Businesses",
+      url: "/businesslistings",
+      icon: Building2,
+    },
   ],
 }
 
@@ -59,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <ModeToggle />
-        <NavUser user={data.user} />
+      {true ? <NavUser user={data.user} /> : 'baba'}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

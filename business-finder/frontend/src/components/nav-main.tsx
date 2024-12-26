@@ -34,7 +34,7 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <h1 className="text-center">Connect</h1>
+      <img className="w-28 h-28 m-auto" src="src/assets/Connect.svg" alt="" />
       <SidebarGroupLabel></SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (

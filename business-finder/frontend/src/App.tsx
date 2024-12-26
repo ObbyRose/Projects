@@ -6,8 +6,10 @@ import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
 import Contact from './pages/Contact.tsx'
 import Error404 from './pages/Error404.tsx'
-import { LoginForm } from './components/login-form.tsx'
-import { SignUpForm } from './components/sign-up-form.tsx'
+import Login from './pages/Login.tsx'
+import Signup from './pages/Signup.tsx'
+import Tos from './pages/Tos.tsx'
+import Policy from './pages/Policy.tsx'
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
           <Route path="/" element= {<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
-          <Route path="/sign-in" element={<LoginForm />} />
-          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/terms" element={<Tos />} />
+          <Route path="/policy" element={<Policy />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </SidebarProvider>
