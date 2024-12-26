@@ -10,13 +10,14 @@ import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
 import Tos from './pages/Tos.tsx'
 import Policy from './pages/Policy.tsx'
+import Header from './components/header.tsx'
 
 function App() {
   return (
     <ThemeProvider>
+        <Header />
       <SidebarProvider defaultOpen={false}>
         <AppSidebar />
-        <SidebarTrigger />
         <Routes>
           <Route path="/" element= {<Home />} />
           <Route path="/about" element={<About />} />

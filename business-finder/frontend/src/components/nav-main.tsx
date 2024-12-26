@@ -34,7 +34,6 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <img className="w-28 h-28 m-auto" src="src/assets/Connect.svg" alt="" />
       <SidebarGroupLabel></SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (

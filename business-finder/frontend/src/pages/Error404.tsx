@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 
 const Error404: React.FC = () => {
     return (
-        <ThemeProvider>
             <div className="flex m-auto">
                 <AppSidebar />
-                <div className="flex-1 p-6 min-h-screen flex flex-col items-center justify-center">
+                <div className="flex-1 min-h-screen flex flex-col items-center justify-center">
                     <div className="flex flex-col md:flex-row items-center mb-8">
                         <div className="md:mr-6">
                             <h2 className="text-6xl font-semibold mb-6">Page Not Found</h2>
@@ -26,7 +25,6 @@ const Error404: React.FC = () => {
                     </Link>
                 </div>
             </div>
-        </ThemeProvider>
     );
 };
 
