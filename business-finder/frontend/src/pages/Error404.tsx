@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppSidebar } from '../components/app-sidebar.tsx';
-import { ThemeProvider } from '../components/theme-provider.tsx';
 import { Link } from 'react-router-dom';
 
 const Error404: React.FC = () => {

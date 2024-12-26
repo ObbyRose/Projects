@@ -1,7 +1,6 @@
 import * as React from "react"
 import {
   BookOpen,
-  Building,
   Building2,
   Contact,
   HomeIcon,

@@ -1,6 +1,6 @@
 import { AppSidebar } from './components/app-sidebar'
 import { ThemeProvider } from './components/theme-provider'
-import { SidebarProvider, SidebarTrigger } from './components/ui/sidebar'
+import { SidebarProvider } from './components/ui/sidebar'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
@@ -12,10 +12,11 @@ import Tos from './pages/Tos.tsx'
 import Policy from './pages/Policy.tsx'
 import Header from './components/header.tsx'
 
+
 function App() {
   return (
     <ThemeProvider>
-        <Header />
+      <Header />
       <SidebarProvider defaultOpen={false}>
         <AppSidebar />
         <Routes>
