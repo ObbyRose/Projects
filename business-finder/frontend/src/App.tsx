@@ -11,6 +11,8 @@ import Signup from './pages/Signup.tsx'
 import Tos from './pages/Tos.tsx'
 import Policy from './pages/Policy.tsx'
 import Header from './components/header.tsx'
+import Setting from './pages/Settings.tsx'
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
         <AppSidebar />
         <Routes>
           <Route path="/" element= {<Home />} />
+          <Route path="/settings" element= {<Setting />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/login" element={<Login />} />
