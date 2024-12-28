@@ -1,6 +1,6 @@
 import { AppSidebar } from './components/app-sidebar'
 import { ThemeProvider } from './components/theme-provider'
-import { SidebarProvider } from './components/ui/sidebar'
+import { SidebarProvider, SidebarTrigger } from './components/ui/sidebar'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
@@ -12,6 +12,7 @@ import Tos from './pages/Tos.tsx'
 import Policy from './pages/Policy.tsx'
 import Header from './components/header.tsx'
 import Setting from './pages/Settings.tsx'
+import Team from './pages/Team.tsx'
 
 
 
@@ -20,6 +21,7 @@ function App() {
     <ThemeProvider>
       <Header />
       <SidebarProvider defaultOpen={false}>
+        {window.innerWidth <= 768 && <SidebarTrigger />}
         <AppSidebar />
         <Routes>
           <Route path="/" element= {<Home />} />
@@ -30,6 +32,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/terms" element={<Tos />} />
           <Route path="/policy" element={<Policy />} />
+          <Route path="/our-team" element={<Team />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </SidebarProvider>

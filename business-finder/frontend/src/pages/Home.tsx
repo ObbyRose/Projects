@@ -16,7 +16,7 @@ const Home = () => {
                     Start connecting today!
                 </p>
                 <Link to="/signup">
-                    <button className="text-xl bg-purpleCustom py-3 px-8 border-none rounded text-white mt-4 cursor-pointer relative transition-all duration-300 outline-none hover:after:w-full after:content-[''] after:absolute after:top-0 after:left-0 after:w-0 after:h-full after:bg-[#4837ff] after:transition-all after:duration-300 after:rounded">
+                    <button className="text-xl bg-purpleCustom py-3 px-8 border-none rounded text-white mb-4 mt-4 cursor-pointer relative transition-all duration-300 outline-none hover:after:w-full after:content-[''] after:absolute after:top-0 after:left-0 after:w-0 after:h-full after:bg-[#4837ff] after:transition-all after:duration-300 after:rounded">
                         Get Started
                     </button>
                 </Link>
@@ -25,7 +25,7 @@ const Home = () => {
                 <img src='src/assets/undraw_online-connection_c56e.svg' alt="pic1" className="h-4/5 w-4/5 mx-auto" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-center m-auto justify-center items-center">
-                <Card>
+                <Card className="flex justify-center m-auto mb-3 flex-col">
                     <CardHeader>
                         <UserRound className="flex justify-center m-auto mb-3" />
                         <CardTitle>Users Connected</CardTitle>
@@ -34,7 +34,7 @@ const Home = () => {
                         <p className="text-purpleCustom text-4xl text-center">5,000+</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="flex justify-center m-auto mb-3 flex-col">
                     <CardHeader>
                         <Star className="flex justify-center m-auto mb-3" />
                         <CardTitle>5-Star reviews</CardTitle>
@@ -43,7 +43,7 @@ const Home = () => {
                         <p className="text-purpleCustom text-4xl text-center">400+</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="flex justify-center m-auto mb-3 flex-col">
                     <CardHeader>
                         <Building2 className="flex justify-center m-auto mb-3" />
                         <CardTitle>Businesses Listed</CardTitle>
