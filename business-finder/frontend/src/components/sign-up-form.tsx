@@ -4,11 +4,16 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
+import { useToast } from "@/hooks/use-toast"
+import { useSignUp } from "@/hooks/use-signup"
+import { useGuestLogin } from "@/hooks/use-login"
+
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const toast = useToast()
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">

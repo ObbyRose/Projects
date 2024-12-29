@@ -13,6 +13,7 @@ import Policy from './pages/Policy.tsx'
 import Header from './components/header.tsx'
 import Setting from './pages/Settings.tsx'
 import Team from './pages/Team.tsx'
+import { Toaster } from './components/ui/toaster.tsx'
 
 
 
@@ -23,6 +24,7 @@ function App() {
       <SidebarProvider defaultOpen={false}>
         {window.innerWidth <= 768 && <SidebarTrigger />}
         <AppSidebar />
+        <Toaster />
         <Routes>
           <Route path="/" element= {<Home />} />
           <Route path="/settings" element= {<Setting />} />

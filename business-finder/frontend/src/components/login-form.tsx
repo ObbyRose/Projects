@@ -5,11 +5,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
 import { useLogin, useGuestLogin } from "@/hooks/use-login"
+import { useToast } from "@/hooks/use-toast"
+
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { toast } = useToast()
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
@@ -42,7 +45,12 @@ export function LoginForm({
                 </div>
                 <Input id="password" type="password" placeholder="Enter your Password" required />
               </div>
-              <Button type="submit" className="w-full bg-purpleCustom">
+              <Button onClick={() => {
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Friday, February 10, 2023 at 5:57 PM",
+        })
+      }} type="submit" className="w-full bg-purpleCustom">
                 Login
               </Button>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
