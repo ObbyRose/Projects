@@ -114,8 +114,16 @@ const deleteReview = async ({ businessId, reviewId }: { businessId: string, revi
     try {
         const { data } = await axios.delete(`${API_URL}/businesses/${businessId}/review/${reviewId}`);
         return data;
-    } catch (error) {
-        console.error('Error deleting review:', error);
+    } catch (error: any) {
+        if (error.response) {
+            if (error.response.status === 500) {
+                console.error('Error checking admin privileges:', error.response.data);
+            } else {
+                console.error(`Error deleting review: ${error.response.status} - ${error.response.data}`);
+            }
+        } else {
+            console.error('Error deleting review:', error.message);
+        }
         throw error;
     }
 };
@@ -125,7 +133,14 @@ export const useDeleteReview = () => {
     return useMutation({
         mutationFn: deleteReview,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['review'] });
+            queryClient.invalidateQueries({ queryKey: ['reviews'] });
+        },
+        onError: (error: any) => {
+            if (error.response && error.response.status === 500) {
+                console.error('Server error while deleting review:', error);
+            } else {
+                console.error('Error deleting review:', error);
+            }
         },
     });
 };

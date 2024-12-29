@@ -19,6 +19,7 @@ const adminMiddleware = async (req, res, next) => {
 		}
 		next();
 	} catch (err) {
+		console.error("Error checking admin privileges:", err);
 		res.status(500).send("Error checking admin privileges");
 	}
 };
