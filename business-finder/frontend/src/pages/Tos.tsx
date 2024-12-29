@@ -3,7 +3,7 @@ import React from 'react';
 const Tos: React.FC = () => {
     return (
         <div className="p-5">
-            <div className="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+            <div className="max-w-4xl mx-auto p-8 shadow-md rounded-lg">
                 <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
                 <p className="mb-4">Last updated: October 2023</p>
                 

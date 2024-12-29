@@ -3,7 +3,7 @@ import React from 'react';
 const Policy: React.FC = () => {
     return (
         <div className="p-5">
-            <div className="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+            <div className="max-w-4xl mx-auto p-8 shadow-md rounded-lg">
                 <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
                 <p className="mb-4">
                     Welcome to Connect Ind. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.
