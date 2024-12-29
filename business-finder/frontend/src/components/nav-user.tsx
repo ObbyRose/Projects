@@ -124,7 +124,9 @@ export function NavUser({
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <Bell />
+              <Link to="/notifications" className="flex items-center gap-2">
                 Notifications
+              </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

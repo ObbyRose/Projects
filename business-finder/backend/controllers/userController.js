@@ -73,7 +73,6 @@ const logout = (req, res) => {
 
 // Get user profile (authenticated)
 const getProfile = async (req, res) => {
-	console.log("baba");
 	try {
 		const user = await User.findById(req.params.id);
 		if (!user) {

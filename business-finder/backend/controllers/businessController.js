@@ -205,8 +205,19 @@ const deleteReview = async (req, res) => {
 	}
 };
 
+const getBusinessById = async (req, res) => {
+	try {
+		const business = await Business.findById(req.params.id).populate("owner", "name email");
+		if (!business) return res.status(404).send("Business not found");
+		res.status(200).json(business);
+	} catch (err) {
+		res.status(500).send("Error fetching business");
+	}
+};
+
 export default {
 	getBusinesses,
+	getBusinessById,
 	createBusiness,
 	updateBusiness,
 	deleteBusiness,

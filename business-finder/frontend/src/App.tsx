@@ -17,6 +17,7 @@ import Team from './pages/Team.tsx';
 import { Toaster } from './components/ui/toaster.tsx';
 import { useAuth } from './hooks/use-login.tsx';
 import UpgradePlan from './pages/UpgradePlan.tsx';
+import NotificationsPage from './pages/Notifications.tsx';
 
 function App() {
   const isLoggedIn = useAuth();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/login" element={isLoggedIn ? <Navigate to="/about" /> : <Login />} />
           <Route path="/signup" element={isLoggedIn ? <Navigate to="/about" /> : <Signup />} />
           <Route path="/upgrade-plan" element={isLoggedIn ? <UpgradePlan /> : <Signup />} />
+          <Route path="/notifications" element={isLoggedIn ? <NotificationsPage /> : <Signup />} />
 
           {/* Profile Route */}
           {/* <Route path="/profile" element={isLoggedIn ? <Profile userId="someUserId" /> : <Navigate to="/login" />} /> */}
