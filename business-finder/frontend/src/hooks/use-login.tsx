@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 interface LoginData {
     email: string;
@@ -21,31 +21,16 @@ interface GuestLoginResponse {
     token: string;
 }
 
-
 export const useAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [userId, setUserId] = useState<string | null>(null);
-  
+
     useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        setIsLoggedIn(true);
-        try {
-          const decodedToken = JSON.parse(atob(token.split('.')[1]));
-          setUserId(decodedToken.id);  // Assuming the token contains the `id` field
-        } catch (error) {
-          console.error('Error decoding token', error);
-          setIsLoggedIn(false);
-          setUserId(null);
-        }
-      } else {
-        setIsLoggedIn(false);
-        setUserId(null);
-      }
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
     }, []);
-  
-    return { isLoggedIn, userId };
-  };
+
+    return isLoggedIn;
+};
 
 export const useGuestLogin = () => {
     const mutation = useMutation<GuestLoginResponse, Error, void>({

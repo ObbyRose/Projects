@@ -37,7 +37,8 @@ export function SignUpForm({
         onSuccess: (data) => {
           toast.toast({ title: "Sign up successful", description: "Welcome!" });
           localStorage.setItem("token", data.token);
-          window.location.href = "/";
+          localStorage.setItem("user", JSON.stringify(data.user));
+          window.location.href = "/upgrade-plan";
         },
         onError: (error) => {
           toast.toast({ title: "Sign up failed", description: error.message });

@@ -74,7 +74,7 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg bg-purpleCustom"></AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -93,7 +93,7 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg bg-purpleCustom"></AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
@@ -103,16 +103,18 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer">
                 <Sparkles />
-                Upgrade your Plan
-              </DropdownMenuItem>
+                <Link to="/upgrade-plan" className="flex items-center gap-2">
+                  Upgrade your Plan
+                </Link>
+                </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                   <DropdownMenuItem className="cursor-pointer">
-                  <Link to="/profile" className="flex items-center gap-2">
                     <BadgeCheck />
+                  <Link to="/profile" className="flex items-center gap-2">
                     Account
                   </Link>
                   </DropdownMenuItem>

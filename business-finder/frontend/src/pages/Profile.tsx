@@ -1,38 +1,27 @@
-import React, { useEffect } from 'react';
-import useProfileFunctions from '../hooks/use-profile-functions';
+// src/context/UserContext.tsx
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface ProfileProps {
+interface UserContextProps {
     userId: string;
+    setUserId: (userId: string) => void;
 }
 
-const Profile: React.FC<ProfileProps> = ({ userId }) => {
-    const { profile, loading, error, refetchProfile } = useProfileFunctions(userId);
+const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-    useEffect(() => {
-        refetchProfile();
-    }, [userId, refetchProfile]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error loading profile</div>;
-    }
+export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [userId, setUserId] = useState<string>('');
 
     return (
-        <div>
-            <h1>User Profile</h1>
-            {profile ? (
-                <div>
-                    <p>Name: {profile.name}</p>
-                    <p>Email: {profile.email}</p>
-                </div>
-            ) : (
-                <div>No profile data available</div>
-            )}
-        </div>
+        <UserContext.Provider value={{ userId, setUserId }}>
+            {children}
+        </UserContext.Provider>
     );
 };
 
-export default Profile;
+export const useUser = (): UserContextProps => {
+    const context = useContext(UserContext);
+    if (!context) {
+        throw new Error('useUser must be used within a UserProvider');
+    }
+    return context;
+};

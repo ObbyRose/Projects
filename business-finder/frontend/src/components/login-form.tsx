@@ -44,6 +44,8 @@ export function LoginForm({
       { email, password },
       {
         onSuccess: (data) => {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user)); 
           toast.toast({
             title: "Login successful",
             description: `Welcome back, ${data.user.name}!`,
