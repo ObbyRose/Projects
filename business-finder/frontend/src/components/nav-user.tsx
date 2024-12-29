@@ -29,6 +29,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useLogout } from "@/hooks/use-login"
+import { useToast } from "@/hooks/use-toast"
+import { Link } from "react-router-dom"
 
 export function NavUser({
   user,
@@ -40,6 +43,25 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { mutate: logout } = useLogout()
+  const toast = useToast() 
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      toast.toast({
+        title: "Logged out",
+        description: "You have been logged out successfully.",
+      })
+      localStorage.removeItem('token')
+      window.location.href = "/login"
+    } catch (error) {
+      toast.toast({
+        title: "Logout failed",
+        description: "There was an error logging out. Please try again.",
+      })
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -88,10 +110,12 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                  <Link to="/profile" className="flex items-center gap-2">
+                    <BadgeCheck />
+                    Account
+                  </Link>
+                  </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <CreditCard />
                 Billing
@@ -102,10 +126,12 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => console.log('Log out')
-            } className="cursor-pointer">
+            <DropdownMenuItem 
+              onClick={handleLogout} 
+              className="cursor-pointer"
+            >
               <LogOut />
-              Log out
+              Log Out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

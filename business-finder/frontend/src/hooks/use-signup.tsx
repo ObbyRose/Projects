@@ -5,6 +5,9 @@ interface SignUpData {
     email: string;
     password: string;
     name: string;
+    role: "user" | "admin" | "business";
+    plan: "Standard" | "Gold" | "Platinum";
+    savedBusinesses?: string[];
 }
 
 interface SignUpResponse {
@@ -13,6 +16,8 @@ interface SignUpResponse {
         id: string;
         email: string;
         name: string;
+        role: "user" | "admin" | "business";
+        plan: "Standard" | "Gold" | "Platinum";
     };
 }
 

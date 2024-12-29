@@ -16,26 +16,28 @@ export function SignUpForm({
 }: React.ComponentProps<"div">) {
   const toast = useToast();
   const { mutate: signUp, status } = useSignUp();
-  const { mutate: guestLogin,} = useGuestLogin();
+  const { mutate: guestLogin } = useGuestLogin();
   const isLoading = status === 'pending';
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const [role, setRole] = useState<"user" | "admin" | "business">("user");
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     signUp(
       {
         email,
         name,
-        password
+        password,
+        role,
+        plan: "Standard",
       },
       {
         onSuccess: (data) => {
+          toast.toast({ title: "Sign up successful", description: "Welcome!" });
           localStorage.setItem("token", data.token);
           window.location.href = "/";
-
-            toast.toast({ title: "Sign up successful", description: "Welcome!" });
         },
         onError: (error) => {
           toast.toast({ title: "Sign up failed", description: error.message });
@@ -51,8 +53,8 @@ export function SignUpForm({
       undefined,
       {
         onSuccess: () => {
-            window.location.href = "/";
-            toast.toast({ title: "Guest login successful", description: "You are logged in as a guest." });
+          toast.toast({ title: "Guest login successful", description: "You are logged in as a guest." });
+          window.location.href = "/";
         },
         onError: (error) => {
           toast.toast({ title: "Guest login failed", description: error.message });
@@ -61,16 +63,20 @@ export function SignUpForm({
     );
   }
 
+  const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRole(e.target.value as "user" | "admin" | "business");
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center text-center">
-                <p className="text-balance text-muted-foreground">
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-4 p-6">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-semibold tracking-tight">
                   Create a Connect Account
-                </p>
+                </h1>
                 <Link to="/login" className="underline underline-offset-4 text-muted-foreground">
                   Already have an account?
                 </Link>
@@ -111,6 +117,16 @@ export function SignUpForm({
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <Label className="mt-4" htmlFor="role">Please Select Account Type:</Label>
+                <select
+                  id="role"
+                  className="bg-purpleCustom p-1 rounded"
+                  value={role}
+                  onChange={handleRoleChange}
+                >
+                  <option className="rounded" value="user">Regular</option>
+                  <option className="rounded" value="business">Business</option>
+                </select>
               </div>
               <Button type="submit" className="w-full bg-purpleCustom" disabled={isLoading}>
                 {isLoading ? "Signing up..." : "Sign up"}
@@ -132,7 +148,7 @@ export function SignUpForm({
                 </Button>
                 <Button variant="outline" className="w-full" onClick={handleGuestLogin}>
                   <span className="sr-only"></span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                   Guest Login
                 </Button>
                 <Button variant="outline" className="w-full">

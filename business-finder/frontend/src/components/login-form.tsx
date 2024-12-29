@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
-import { useLogin, useGuestLogin } from "@/hooks/use-login"
+import { useLogin, useGuestLogin, useAuth } from "@/hooks/use-login"
 import { useToast } from "@/hooks/use-toast"
 
 
@@ -12,12 +12,81 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { toast } = useToast()
+  const toast = useToast();
+  const { mutate: guestLogin,} = useGuestLogin();
+  const { mutate: login, status } = useLogin();
+  const isLoading = status === 'pending';
+  const isLoggedIn = useAuth();
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    if (!email || !password) {
+      toast.toast({
+        title: "Error",
+        description: "Please enter both email and password.",
+      });
+      return;
+    }
+
+    if (isLoggedIn) {
+      toast.toast({
+        title: "Already logged in",
+        description: "You are already logged in. Please log out first.",
+      });
+      return;
+    }
+
+    login(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          toast.toast({
+            title: "Login successful",
+            description: `Welcome back, ${data.user.name}!`,
+          });
+          window.location.href = "/";
+        },
+        onError: (error: any) => {
+          const errorMessage =
+            error.response?.status === 400
+              ? "Invalid credentials. Please check your email and password."
+              : error.message || "Something went wrong. Please try again.";
+
+          toast.toast({
+            title: "Login failed",
+            description: errorMessage,
+          });
+        },
+      }
+    );
+  };
+
+  const handleGuestLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.toast({ title: "Guest login successful", description: "You are logged in as a guest." });
+    guestLogin(
+      undefined,
+      {
+        onSuccess: () => {
+          toast.toast({ title: "Guest login successful", description: "You are logged in as a guest." });
+            window.location.href = "/";
+        },
+        onError: (error) => {
+          toast.toast({ title: "Guest login failed", description: error.message });
+        },
+      }
+    );
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form onSubmit={handleLogin} className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back!</h1>
@@ -29,6 +98,7 @@ export function LoginForm({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="Enter your Email"
                   required
@@ -38,20 +108,13 @@ export function LoginForm({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <Link className="ml-auto text-sm underline-offset-2 hover:underline" to={"/forgot-password"}>	
-                  <a>
                     Forgot your password?
-                  </a>
                   </Link>
                 </div>
-                <Input id="password" type="password" placeholder="Enter your Password" required />
+                <Input id="password" name="password" type="password" placeholder="Enter your Password" required />
               </div>
-              <Button onClick={() => {
-        toast({
-          title: "Scheduled: Catch up",
-          description: "Friday, February 10, 2023 at 5:57 PM",
-        })
-      }} type="submit" className="w-full bg-purpleCustom">
-                Login
+              <Button type="submit" className="w-full bg-purpleCustom" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
               </Button>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
@@ -68,9 +131,9 @@ export function LoginForm({
                   </svg>
                   <span className="sr-only">Login with Meta</span>
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={handleGuestLogin}>
                   <span className="sr-only"></span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                   Guest Login
                 </Button>
                 <Button variant="outline" className="w-full">
@@ -82,10 +145,8 @@ export function LoginForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link to="/signup">
-                <a className="underline underline-offset-4">
+                <Link to="/signup" className="underline underline-offset-4">
                   Sign up
-                </a>
                 </Link>
               </div>
             </div>
@@ -100,8 +161,8 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <a href="/terms">Terms of Service</a>{" "}
-        and <a href="/policy">Privacy Policy</a>.
+        By clicking continue, you agree to our <Link to={"/terms"}>Terms of Service</Link>{" "}
+        and <Link to={"/policy"}>Privacy Policy</Link>.
       </div>
     </div>
   )
