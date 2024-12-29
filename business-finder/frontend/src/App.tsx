@@ -18,6 +18,7 @@ import { Toaster } from './components/ui/toaster.tsx';
 import { useAuth } from './hooks/use-login.tsx';
 import UpgradePlan from './pages/UpgradePlan.tsx';
 import NotificationsPage from './pages/Notifications.tsx';
+import BusinessListings from './pages/BusinessListings.tsx';
 
 function App() {
   const isLoggedIn = useAuth();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/terms" element={<Tos />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/our-team" element={<Team />} />
+          <Route path="/business-listings" element={<BusinessListings />} />
           
           {/* Protected Routes */}
           <Route path="/settings" element={isLoggedIn ? <Setting /> : <Navigate to="/login" />} />

@@ -87,7 +87,7 @@ export const useUnsubscribeFromBusiness = () => {
 };
 
 const addReview = async ({ businessId, review }: { businessId: string, review: unknown }) => {
-    const { data } = await axios.post(`${API_URL}/businesses/${businessId}/reviews`, review);
+    const { data } = await axios.post(`${API_URL}/businesses/${businessId}/review`, review);
     return data;
 };
 
@@ -96,7 +96,7 @@ export const useAddReview = () => {
     return useMutation({
         mutationFn: addReview,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['reviews'] });
+            queryClient.invalidateQueries({ queryKey: ['review'] });
         },
     });
 };
@@ -111,7 +111,13 @@ export const useReviews = (id: string) => {
 };
 
 const deleteReview = async ({ businessId, reviewId }: { businessId: string, reviewId: string }) => {
-    await axios.delete(`${API_URL}/businesses/${businessId}/reviews/${reviewId}`);
+    try {
+        const { data } = await axios.delete(`${API_URL}/businesses/${businessId}/review/${reviewId}`);
+        return data;
+    } catch (error) {
+        console.error('Error deleting review:', error);
+        throw error;
+    }
 };
 
 export const useDeleteReview = () => {
@@ -119,7 +125,7 @@ export const useDeleteReview = () => {
     return useMutation({
         mutationFn: deleteReview,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['reviews'] });
+            queryClient.invalidateQueries({ queryKey: ['review'] });
         },
     });
 };
