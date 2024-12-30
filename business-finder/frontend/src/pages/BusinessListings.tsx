@@ -176,6 +176,7 @@ const BusinessListings: React.FC = () => {
                         <p className='mb-8'>{business.category}</p>
                         <p className="font-medium">Owner:</p>
                         <p className='mb-8'>{business.owner.name}</p>
+                        <div className='flex justify-center items-center m-auto mb-8'>
                         <Button className="mb-2 mr-4" onClick={() => {
                             setCurrentBusinessId(business._id);
                             setCurrentBusinessName(business.name);
@@ -191,6 +192,7 @@ const BusinessListings: React.FC = () => {
                             setCurrentBusinessId(business._id);
                             setIsReviewSheetOpen(true);
                         }}>Add Review</Button>
+                        </div>
                         {business.reviews.map((review: any) => (
                             <div key={`${business._id}-${review._id}`} className="mb-2">
                                 <p>{review.comment}</p>
