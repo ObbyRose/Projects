@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useToast } from './use-toast';
+import { title } from 'process';
+import { Description } from '@radix-ui/react-dialog';
 
 interface LoginData {
     email: string;
@@ -33,10 +36,11 @@ export const useAuth = () => {
 };
 
 export const useGuestLogin = () => {
+    const toast = useToast();
     const mutation = useMutation<GuestLoginResponse, Error, void>({
         mutationFn: async () => {
             const response = await axios.post('http://localhost:5000/auth/guest-login');
-            console.log("logged in as guest");
+            toast.toast({ title: "Logged in as guest", description: "You have been logged in as a guest." });
             
             return response.data;
         }
