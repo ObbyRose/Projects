@@ -14,7 +14,6 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-    SheetTrigger,
 } from "@/components/ui/sheet";
 
 const BusinessListings: React.FC = () => {
@@ -61,7 +60,7 @@ const BusinessListings: React.FC = () => {
                         updateBusinessMutation.mutate({ id: currentBusinessId, updatedBusiness }, {
                                 onSuccess: () => {
                                         toast.toast({ title: 'Success', description: 'Business updated successfully' });
-                                        setIsBusinessSheetOpen(false); // Close the sheet after update
+                                        setIsBusinessSheetOpen(false);
                                 },
                                 onError: (error) => {
                                         toast.toast({ title: 'Error', description: 'Error updating business: ' + error.message });
@@ -101,31 +100,38 @@ const BusinessListings: React.FC = () => {
         };
 
         const handleAddReview = () => {
-                if (currentBusinessId) {
-                        const review = { rating, comment: reviewText };
-                        addReviewMutation.mutate({ businessId: currentBusinessId, review }, {
-                                onSuccess: () => {
-                                        toast.toast({ title: 'Success', description: 'Review added successfully' });
-                                        setIsReviewSheetOpen(false); // Close the sheet after adding review
-                                        setReviewText('');
-                                        setRating(5);
-                                        // Optionally update the local cache here too
-                                },
-                                onError: (error) => {
-                                        toast.toast({ title: 'Error', description: 'Error adding review: ' + error.message });
+            if (currentBusinessId) {
+                const review = { rating, comment: reviewText };
+    
+                addReviewMutation.mutate({ businessId: currentBusinessId, review }, {
+                    onSuccess: (newReview) => {
+                        queryClient.setQueryData(['businesses'], (oldBusinesses: any) => {
+                            return oldBusinesses.map((business: any) => {
+                                if (business._id === currentBusinessId) {
+                                    business.reviews = [...business.reviews, newReview]; 
                                 }
+                                return business;
+                            });
                         });
-                }
+        
+                        toast.toast({ title: 'Success', description: 'Review added successfully' });
+                        setIsReviewSheetOpen(false);
+                        setReviewText('');
+                        setRating(5);
+                    },
+                    onError: (error) => {
+                        toast.toast({ title: 'Error', description: 'Error adding review: ' + error.message });
+                    }
+                });
+            }
         };
 
         const handleDeleteReview = (businessId: string, reviewId: string) => {
                 deleteReviewMutation.mutate({ businessId, reviewId }, {
                         onSuccess: () => {
-                                // Optimistically update the cache by removing the deleted review
                                 queryClient.setQueryData(['businesses'], (oldBusinesses: any) => {
                                         return oldBusinesses.map((business: any) => {
                                                 if (business._id === businessId) {
-                                                        // Remove the review from the specific business
                                                         business.reviews = business.reviews.filter((review: any) => review._id !== reviewId);
                                                 }
                                                 return business;

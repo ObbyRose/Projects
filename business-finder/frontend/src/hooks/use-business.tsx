@@ -141,7 +141,10 @@ export const useUnsubscribeFromBusiness = () => {
 };
 
 const addReview = async ({ businessId, review }: { businessId: string, review: unknown }) => {
-    const { data } = await axios.post(`${API_URL}/businesses/${businessId}/review`, review);
+    const config = {
+        headers: getAuthHeader()
+    };
+    const { data } = await axios.post(`${API_URL}/businesses/${businessId}/review`, review, config);
     return data;
 };
 

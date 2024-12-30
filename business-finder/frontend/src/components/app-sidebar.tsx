@@ -47,7 +47,7 @@ const navMainData = [
   },
   {
     title: "Businesses",
-    url: "/businesslistings",
+    url: "/business-listings",
     icon: Building2,
   },
 ]
