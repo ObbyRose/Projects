@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 
 const adminMiddleware = async (req, res, next) => {
 	try {
-		const token = req.header("Authorization").replace("Bearer ", "");
+		const authHeader = req.headers["authorization"] || req.headers["Authorization"];
+		if (!authHeader) {
+			return res.status(401).send("Authorization header missing");
+		}
+		const token = authHeader.replace("Bearer ", "");
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 		req.user = decoded;
 		const user = await User.findById(req.user.userId);
