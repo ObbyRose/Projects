@@ -2,19 +2,31 @@ import React from 'react';
 import { useNotifications } from '@/hooks/use-notifications';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 interface Notification {
     message: string;
 }
 
 const NotificationsPage: React.FC = () => {
+    const toast = useToast();
     const [businessId, setBusinessId] = useState<number | null>(null);
-    const notifications = useNotifications(businessId ? businessId.toString() : '');
+    const notifications = useNotifications(businessId ? businessId.toString() : '') as Notification[];
+
+    useEffect(() => {
+        if (notifications && notifications.length > 0) {
+            toast.toast({
+                title: 'New Notification',
+                description: notifications[notifications.length - 1].message,
+                duration: 3000,
+            });
+        }
+    }, [notifications]);
 
     useEffect(() => {
         const fetchBusinessId = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/businesses/:id', {
+                const response = await axios.get('http://localhost:5000/businesses', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
