@@ -14,8 +14,12 @@ const NotificationsPage: React.FC = () => {
     useEffect(() => {
         const fetchBusinessId = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/businesses/:id');
-                setBusinessId(response.data.id);
+                const response = await axios.get('http://localhost:5000/businesses/:id', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                setBusinessId(response.data._id);
             } catch (error) {
                 console.error('Error fetching business ID:', error);
             }

@@ -25,8 +25,17 @@ const createBusiness = async (newBusiness: unknown) => {
     const config = {
         headers: getAuthHeader()
     };
-    const { data } = await axios.post(`${API_URL}/businesses`, newBusiness, config);
-    return data;
+    try {
+        const { data } = await axios.post(`${API_URL}/businesses`, newBusiness, config);
+        return data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.error("Error response:", error.response?.data || error.response);
+        } else {
+            console.error("Unexpected error:", error);
+        }
+        throw error;
+    }
 };
 
 export const useCreateBusiness = () => {
@@ -40,7 +49,7 @@ export const useCreateBusiness = () => {
         },
         onError: (error: any) => {
             console.error("Error creating business:", error);
-            toast.toast({ title: 'Error', description: 'Error creating business: ' + error.message });
+            toast.toast({ title: 'Error', description: 'Error creating business: ' + (error.response?.data || error.message) });
         },
     });
 };
