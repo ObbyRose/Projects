@@ -35,11 +35,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-
-if (process.env.NODE_ENV === "production") {
 	app.get("*", (req, res) => {
 		res.sendFile(frontendPath, "index.html");
 	});
-}
+
 
 server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
