@@ -22,11 +22,13 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const frontendPath = path.join(__dirname, "../../frontend/dist");
+
 // Middlewares
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.use(express.static(frontendPath));
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -36,7 +38,7 @@ app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "../../frontend/dist", "index.html"));
+		res.sendFile(frontendPath, "index.html");
 	});
 }
 
