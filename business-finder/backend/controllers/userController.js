@@ -67,7 +67,6 @@ const logout = (req, res) => {
 		return res.status(401).send("Access denied");
 	}
 	res.clearCookie("jwt");
-	// On the frontend, you'd typically remove the token from storage to log out.
 	res.status(200).send("Logged out successfully.");
 };
 

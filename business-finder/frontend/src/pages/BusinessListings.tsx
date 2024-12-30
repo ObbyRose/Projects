@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from '@tanstack/react-query';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import {
     Sheet,
     SheetClose,
@@ -15,6 +16,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/components/ui/sheet";
+import { Plus } from 'lucide-react';
 
 const BusinessListings: React.FC = () => {
     const toast = useToast();
@@ -163,7 +165,7 @@ const BusinessListings: React.FC = () => {
     return (
         <div className='m-auto flex flex-col items-center'>
             <h1 className="text-2xl font-bold mb-4">Business Listings</h1>
-            <Button className="mb-4" onClick={() => setIsCreateBusinessSheetOpen(true)}>Add Business</Button>
+            <Button className="mb-4 bg-transparent hover:bg-black flex ml-auto" onClick={() => setIsCreateBusinessSheetOpen(true)}><Plus color='white' /></Button>
             {businesses && businesses.map((business: any) => (
                 <Card className='flex flex-col m-auto items-center mb-4 p-4 shadow-lg' key={business._id}>
                     <CardHeader>
@@ -176,29 +178,43 @@ const BusinessListings: React.FC = () => {
                         <p className='mb-8'>{business.category}</p>
                         <p className="font-medium">Owner:</p>
                         <p className='mb-8'>{business.owner.name}</p>
-                        <div className='flex justify-center items-center m-auto mb-8'>
-                        <Button className="mb-2 mr-4" onClick={() => {
-                            setCurrentBusinessId(business._id);
-                            setCurrentBusinessName(business.name);
-                            setCurrentBusinessDescription(business.description);
-                            setCurrentBusinessCategory(business.category);
-                            setCurrentBusinessOwner(business.owner);
-                            setIsBusinessSheetOpen(true);
-                        }}>Update</Button>
-                        <Button className="mb-2 mr-4" onClick={() => handleDeleteBusiness(business._id)}>Delete</Button>
-                        <Button className="mb-2 mr-4" onClick={() => handleSubscribeToBusiness(business._id)}>Subscribe</Button>
-                        <Button className="mb-2 mr-4" onClick={() => handleUnsubscribeFromBusiness(business._id)}>Unsubscribe</Button>
-                        <Button className="mb-2 mr-4" onClick={() => {
-                            setCurrentBusinessId(business._id);
-                            setIsReviewSheetOpen(true);
-                        }}>Add Review</Button>
-                        </div>
-                        {business.reviews.map((review: any) => (
-                            <div key={`${business._id}-${review._id}`} className="mb-2">
-                                <p>{review.comment}</p>
-                                <Button onClick={() => handleDeleteReview(business._id, review._id)}>Delete Review</Button>
-                            </div>
-                        ))}
+                        <Accordion className='mb-12' type="single" collapsible>
+                            <AccordionItem value="actions">
+                                <AccordionTrigger>Actions</AccordionTrigger>
+                                <AccordionContent>
+                                    <div className='flex justify-center items-center m-auto mb-8'>
+                                        <Button className="mb-2 mr-4 bg-purpleCustom" onClick={() => {
+                                            setCurrentBusinessId(business._id);
+                                            setCurrentBusinessName(business.name);
+                                            setCurrentBusinessDescription(business.description);
+                                            setCurrentBusinessCategory(business.category);
+                                            setCurrentBusinessOwner(business.owner);
+                                            setIsBusinessSheetOpen(true);
+                                        }}>Update</Button>
+                                        <Button className="mb-2 mr-4 bg-purpleCustom" onClick={() => handleDeleteBusiness(business._id)}>Delete</Button>
+                                        <Button className="mb-2 mr-4 bg-purpleCustom" onClick={() => handleSubscribeToBusiness(business._id)}>Subscribe</Button>
+                                        <Button className="mb-2 mr-4 bg-purpleCustom" onClick={() => handleUnsubscribeFromBusiness(business._id)}>Unsubscribe</Button>
+                                        <Button className="mb-2 mr-4 bg-purpleCustom" onClick={() => {
+                                            setCurrentBusinessId(business._id);
+                                            setIsReviewSheetOpen(true);
+                                        }}>Add Review</Button>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                        <div className='m-auto mb-4 text-2xl flex justify-center items-center'><h1>Reviews</h1></div>
+
+                        <Accordion type="single" collapsible>
+                            {business.reviews.map((review: any) => (
+                                <AccordionItem key={`${business._id}-${review._id}`} value={review._id}>
+                                    <AccordionTrigger>{review.comment}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <p className='mb-4'>Rating: {review.rating}</p>
+                                        <Button onClick={() => handleDeleteReview(business._id, review._id)}>Delete Review</Button>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
                     </CardContent>
                     <CardFooter>
                     </CardFooter>
