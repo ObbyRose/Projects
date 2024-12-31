@@ -15,6 +15,6 @@ const PlaylistSchema = new mongoose.Schema({
     ],
     customAlbumCover: { type: String }, // URL of the album cover (selected from the songs list)
     totalDuration: { type: Number, default: 0 }, // Total duration of all songs in seconds
-    isPublic: { type: Boolean, default: false }, // Public visibility flag
+    isPublic: { type: Boolean, default: true }, // Public visibility flag
     createdAt: { type: Date, default: Date.now }, // Playlist creation date
 });
