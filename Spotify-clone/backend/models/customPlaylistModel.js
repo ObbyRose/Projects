@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const PlaylistSchema = new mongoose.Schema({
     PlaylistTitle: { type: String, required: true }, // Playlist title
     description: { type: String, default: '' }, // Optional description
@@ -18,3 +20,5 @@ const PlaylistSchema = new mongoose.Schema({
     isPublic: { type: Boolean, default: true }, // Public visibility flag
     createdAt: { type: Date, default: Date.now }, // Playlist creation date
 });
+
+export default PlaylistSchema;

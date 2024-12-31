@@ -1,21 +1,27 @@
-import User from "../models/userModel.js";
+import User from "../models/userModel.js"; // Ensure this path is correct and the User model is properly defined
+
+if (!User || typeof User.findOne !== 'function') {
+    throw new Error("User model is not defined or findOne is not a function");
+}
+
+
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateTokenAndSetCookie.js";
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
 const getUserProfile = async (req, res) => {
-    const { query } = req.params;
-
+    const { query } = req.query;
+    
     try {
         let user;
-
+        
         if (mongoose.Types.ObjectId.isValid(query)) {
             user = await User.findOne({ _id: query }).select("-password").select("-updatedAt");
         } else {
             user = await User.findOne({ displayName: query }).select("-password").select("-updatedAt");
         }
-
+        
         if (!user) return res.status(404).json({ error: "User not found" });
 
         res.status(200).json(user);
@@ -27,39 +33,55 @@ const getUserProfile = async (req, res) => {
 
 const signupUser = async (req, res) => {
     try {
-        const { displayName, email, password } = req.body;
-        const user = await User.findOne({ email });
+        const { UserId, displayName, email, password, accessToken, refreshToken, expiresIn, profilePicture } = req.body;
+        
+        // Log incoming data
+        console.log('Signup request body:', req.body);
 
-        if (user) {
+        if (!accessToken || !refreshToken || !expiresIn) {
+            return res.status(400).json({ error: "Spotify tokens are required for signup" });
+        }
+
+        const existingUser = await User.findOne({ UserId });
+        console.log('Existing user:', existingUser);
+
+        if (existingUser) {
             return res.status(400).json({ error: "User already exists" });
         }
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
 
         const newUser = new User({
-            displayName,
+            UserId,
             email,
             password: hashedPassword,
-            accessToken: "", // Set default or generate as needed
-            refreshToken: "", // Set default or generate as needed
-            expiresIn: 3600, // Set default or generate as needed
+            displayName,
+            accessToken,
+            refreshToken,
+            expiresIn,
+            profilePicture,
         });
-        await newUser.save();
 
-        if (newUser) {
-            generateTokenAndSetCookie(newUser._id, res);
+        const savedUser = await newUser.save();
+        console.log('New user saved:', savedUser);
 
-            res.status(201).json({
-                _id: newUser._id,
-                displayName: newUser.displayName,
-                email: newUser.email,
-            });
-        } else {
-            res.status(400).json({ error: "Invalid user data" });
-        }
+        // Generate token and set cookie
+        generateTokenAndSetCookie(savedUser._id, res);
+
+        res.status(201).json({
+            _id: savedUser._id,
+            displayName: savedUser.displayName,
+            email: savedUser.email,
+            profilePicture: savedUser.profilePicture,
+        });
     } catch (err) {
+        console.error('Error during signup:', err.message);
+
+        if (err.code === 11000) { // Handle unique constraint errors
+            return res.status(400).json({ error: "User already exists" });
+        }
+
         res.status(500).json({ error: err.message });
-        console.log("Error in signupUser: ", err.message);
     }
 };
 

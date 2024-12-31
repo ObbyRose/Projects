@@ -1,6 +1,9 @@
+import mongoose from "mongoose";
+
 const UserSchema = new mongoose.Schema({
     UserId: { type: String, unique: true, required: true }, // Spotify-provided user ID
     email: { type: String }, // Optional: for additional app features
+    password: { type: String }, // Optional: for additional app features
     displayName: { type: String }, // User's name on Spotify
     accessToken: { type: String, required: true }, // Spotify API access token
     refreshToken: { type: String, required: true }, // Spotify API refresh token
@@ -14,3 +17,7 @@ const UserSchema = new mongoose.Schema({
     ],
     createdAt: { type: Date, default: Date.now }, // Track user creation
 });  
+
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
+
+export default User;

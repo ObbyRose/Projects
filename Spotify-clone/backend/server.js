@@ -2,11 +2,11 @@ import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import connectDB from './config/connectDB.js';
+import connectDB from './db/connectDb.js';
 import routes from './routes/index.js';
 import path from 'path';
 import cloudinary from 'cloudinary';
-import User from './models/User.js';
+import User from './models/userModel.js';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
@@ -65,17 +65,30 @@ app.get('/spotify/callback', async (req, res) => {
 
         const { access_token, refresh_token, expires_in } = response.data;
 
-        const token = req.cookies.token || req.headers['authorization'].split(' ')[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const token = req.cookies.token || (req.headers['authorization'] ? req.headers['authorization'].split(' ')[1] : null);
+
+        if (!token) {
+            return res.status(401).send('Authentication token is missing');
+        }
+
+        let decoded;
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            return res.status(401).send('Invalid or expired authentication token');
+        }
 
         const userId = decoded.userId;
 
-        // Save Spotify tokens to your database, linked to your user
-        await User.findByIdAndUpdate(userId, {
-            accessToken: access_token,
-            refreshToken: refresh_token,
-            tokenExpiresIn: Date.now() + expires_in * 1000, 
-        });
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        user.accessToken = access_token;
+        user.refreshToken = refresh_token;
+        user.tokenExpiresIn = Date.now() + expires_in * 1000;
+        await user.save();
 
         console.log('Access Token:', access_token);
         console.log('Refresh Token:', refresh_token);
@@ -84,12 +97,10 @@ app.get('/spotify/callback', async (req, res) => {
         const userProfile = await axios.get('https://api.spotify.com/v1/me', {
             headers: { Authorization: `Bearer ${access_token}` },
         });
-        
         console.log('User Profile:', userProfile.data);
-
         res.send('Successfully authenticated with Spotify!');
     } catch (error) {
-        console.error('Error during token exchange or API call:', error);
+        console.error('Error during token exchange or API call:', error.message);
         res.status(500).send('Failed to authenticate with Spotify');
     }
 });
