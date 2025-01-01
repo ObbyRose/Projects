@@ -1,20 +1,19 @@
 import Playlist from "../models/customPlaylistModel.js";
-import { fetchSongDetails } from "../controllers/apiCallsController.js";
 import mongoose from "mongoose";
 
 const createPlaylist = async (req, res) => {
 	try {
-		const { PlaylistTitle, description, songs, customAlbumCover, isPublic } = req.body;
+		const { PlaylistTitle, description, tracks, customAlbumCover, isPublic } = req.body;
 		const owner = req.user._id;
 
 		const newPlaylist = new Playlist({
 			PlaylistTitle,
 			description,
 			owner,
-			songs,
+			tracks,
 			customAlbumCover,
 			isPublic,
-			totalDuration: songs.reduce((acc, song) => acc + song.duration, 0),
+			totalDuration: tracks.reduce((acc, track) => acc + track.duration, 0),
 		});
 
 		await newPlaylist.save();
@@ -48,7 +47,7 @@ const getPlaylistById = async (req, res) => {
 const updatePlaylist = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { PlaylistTitle, description, songs, customAlbumCover, isPublic } = req.body;
+		const { PlaylistTitle, description, tracks, customAlbumCover, isPublic } = req.body;
 
 		if (!mongoose.Types.ObjectId.isValid(id)) {
 			return res.status(400).json({ error: "Invalid playlist ID" });
@@ -65,10 +64,10 @@ const updatePlaylist = async (req, res) => {
 
 		playlist.PlaylistTitle = PlaylistTitle || playlist.PlaylistTitle;
 		playlist.description = description || playlist.description;
-		playlist.songs = songs || playlist.songs;
+		playlist.tracks = tracks || playlist.tracks;
 		playlist.customAlbumCover = customAlbumCover || playlist.customAlbumCover;
 		playlist.isPublic = isPublic !== undefined ? isPublic : playlist.isPublic;
-		playlist.totalDuration = songs ? songs.reduce((acc, song) => acc + song.duration, 0) : playlist.totalDuration;
+		playlist.totalDuration = tracks ? tracks.reduce((acc, track) => acc + track.duration, 0) : playlist.totalDuration;
 
 		await playlist.save();
 		res.status(200).json(playlist);
@@ -114,55 +113,10 @@ const getPublicPlaylists = async (req, res) => {
 };
 
 
-const addSongToPlaylist = async (req, res) => {
-    try {
-        const { id, songid } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "Invalid playlist ID" });
-        }
-
-        const songDetails = await fetchSongDetails(req, res); 
-
-        if (!songDetails) {
-            return res.status(500).json({ error: "Song details not found" });
-        }
-
-        const playlist = await Playlist.findById(id);
-        if (!playlist) {
-            return res.status(404).json({ error: "Playlist not found" });
-        }
-
-        if (playlist.owner.toString() !== req.user._id.toString()) {
-            return res.status(403).json({ error: "You are not authorized to add a song to this playlist" });
-        }
-
-        const newSong = {
-            spotifySongId: songDetails.spotifySongId,
-            title: songDetails.title,
-            artist: songDetails.artist,
-            albumName: songDetails.albumName,
-            albumCover: songDetails.albumCover,
-            duration: songDetails.duration,
-            addedAt: new Date(),
-        };
-
-        playlist.songs.push(newSong);
-        playlist.totalDuration += songDetails.duration;
-
-        await playlist.save();
-        res.status(200).json(playlist);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-        console.log("Error in addSongToPlaylist:", err.message);
-    }
-};
-
 export {
 	createPlaylist,
 	getPlaylistById,
 	updatePlaylist,
 	deletePlaylist,
 	getPublicPlaylists,
-	addSongToPlaylist,
 };

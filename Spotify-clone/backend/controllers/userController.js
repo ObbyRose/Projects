@@ -1,4 +1,4 @@
-import User from "../models/userModel.js"; // Ensure this path is correct and the User model is properly defined
+import User from "../models/userModel.js"; 
 import bcrypt from "bcryptjs";
 import axios from "axios";
 import generateTokenAndSetCookie from "../utils/generateTokenAndSetCookie.js";

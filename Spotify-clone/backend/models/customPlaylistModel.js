@@ -4,9 +4,9 @@ const PlaylistSchema = new mongoose.Schema({
     PlaylistTitle: { type: String, required: true }, // Playlist title
     description: { type: String, default: '' }, // Optional description
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the playlist owner
-    songs: [
+    tracks: [
     {
-        spotifySongId: { type: String, required: true }, // ID of the song in Spotify's API
+        spotifyTrackId: { type: String, required: true }, // ID of the song in Spotify's API
         title: { type: String, required: true }, // Song title for convenience
         artist: { type: String, required: true }, // Artist name
         albumName: { type: String, required: true }, // Album name
