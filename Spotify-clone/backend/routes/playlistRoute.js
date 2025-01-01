@@ -6,13 +6,14 @@ import {
     deletePlaylist,
     getPublicPlaylists,
 } from '../controllers/customPlayilistController.js';
+import protectRoute from '../middleware/protectRoute.js';
 
 const router = express.Router();
 
-router.post('/', createPlaylist);
+router.post('/', protectRoute ,createPlaylist);
 router.get('/:id', getPlaylistById);
-router.put('/:id', updatePlaylist);
-router.delete('/:id', deletePlaylist);
+router.put('/:id', protectRoute ,updatePlaylist);
+router.delete('/:id', protectRoute ,deletePlaylist);
 router.get('/', getPublicPlaylists);
 
 export default router;

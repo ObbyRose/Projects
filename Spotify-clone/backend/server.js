@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(frontendPath));
 
 app.use('/api/users', userRoutes);
-app.use('/api/playlist', PlaylistRoutes);
+app.use('/api/playlists', PlaylistRoutes);
 
 app.use('/spotify/callback', async (req, res) => {
     const code = req.query.code;

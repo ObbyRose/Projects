@@ -6,7 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
 const getUserProfile = async (req, res) => {
-    const query = req.query;
+    const query = req.params.query;
     
     try {
         let user;
@@ -122,7 +122,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-const logoutUser = (req, res) => {
+const logoutUser = (res) => {
     try {
         res.cookie("jwt", "", { maxAge: 1 });
         res.status(200).json({ message: "User logged out successfully" });
@@ -136,9 +136,11 @@ const followUnFollowUser = async (req, res) => {
     try {
         const { id } = req.params;
         const userToModify = await User.findById(id);
-        const currentUser = await User.findById(req.user._id);
+        const currentUser = await User.findById(req.user?._id);
 
-        if (id === req.user._id.toString())
+        if (!req.user) return res.status(400).json({ error: "User not authenticated" });
+
+        if (id.toString() === req.user._id.toString())
             return res.status(400).json({ error: "You cannot follow/unfollow yourself" });
 
         if (!userToModify || !currentUser) return res.status(400).json({ error: "User not found" });
@@ -163,6 +165,9 @@ const followUnFollowUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
     const { displayName, email, password } = req.body;
     let { profilePicture } = req.body;
 
