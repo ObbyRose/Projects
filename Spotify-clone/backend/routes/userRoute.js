@@ -15,6 +15,6 @@ router.post('/login', loginUser);
 router.post('/logout', logoutUser);
 router.post('/:id/follow', followUnFollowUser);
 router.put('/:id', updateUser);
-router.get('/:query', getUserProfile); // so you also can get users by name
+router.get('/', getUserProfile); // so you also can get users by name
 
 export default router;

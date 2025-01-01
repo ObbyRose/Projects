@@ -3,7 +3,8 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import connectDB from './db/connectDb.js';
-import routes from './routes/index.js';
+import userRoutes from './routes/userRoute.js';
+import PlaylistRoutes from './routes/playlistRoute.js';
 import path from 'path';
 import cloudinary from 'cloudinary';
 import User from './models/userModel.js';
@@ -34,16 +35,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(frontendPath));
 
-app.use('/api', routes);
+app.use('/api/users', userRoutes);
+app.use('/api/playlist', PlaylistRoutes);
 
-app.get('/spotify/login', (req, res) => {
-    const scopes = 'user-library-read playlist-modify-public playlist-modify-private';
-    const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
-    
-    res.redirect(authUrl);
-});
-
-app.get('/spotify/callback', async (req, res) => {
+app.use('/spotify/callback', async (req, res) => {
     const code = req.query.code;
 
     if (!code) {
@@ -94,14 +89,10 @@ app.get('/spotify/callback', async (req, res) => {
         console.log('Refresh Token:', refresh_token);
         console.log('Expires In:', expires_in);
 
-        const userProfile = await axios.get('https://api.spotify.com/v1/me', {
-            headers: { Authorization: `Bearer ${access_token}` },
-        });
-        console.log('User Profile:', userProfile.data);
-        res.send('Successfully authenticated with Spotify!');
+        res.status(200).send('Tokens saved successfully');
     } catch (error) {
-        console.error('Error during token exchange or API call:', error.message);
-        res.status(500).send('Failed to authenticate with Spotify');
+        console.error('Error during Spotify callback:', error);
+        res.status(500).send('Failed to handle Spotify callback');
     }
 });
 
@@ -141,10 +132,6 @@ app.get('/spotify/profile', async (req, res) => {
         if (isAccessTokenExpired(accessToken)) {
             accessToken = await refreshAccessToken(storedRefreshToken);
         }
-
-        const userProfile = await axios.get('https://api.spotify.com/v1/me', {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
 
         res.json(userProfile.data);
     } catch (error) {

@@ -1,20 +1,16 @@
 import User from "../models/userModel.js"; // Ensure this path is correct and the User model is properly defined
-
-if (!User || typeof User.findOne !== 'function') {
-    throw new Error("User model is not defined or findOne is not a function");
-}
-
-
 import bcrypt from "bcryptjs";
+import axios from "axios";
 import generateTokenAndSetCookie from "../utils/generateTokenAndSetCookie.js";
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
 const getUserProfile = async (req, res) => {
-    const { query } = req.query;
+    const query = req.query;
     
     try {
         let user;
+        console.log("Query: ", query);
         
         if (mongoose.Types.ObjectId.isValid(query)) {
             user = await User.findOne({ _id: query }).select("-password").select("-updatedAt");
@@ -33,54 +29,74 @@ const getUserProfile = async (req, res) => {
 
 const signupUser = async (req, res) => {
     try {
-        const { UserId, displayName, email, password, accessToken, refreshToken, expiresIn, profilePicture } = req.body;
-        
-        // Log incoming data
-        console.log('Signup request body:', req.body);
+        const { displayName, email, password } = req.body;
 
-        if (!accessToken || !refreshToken || !expiresIn) {
-            return res.status(400).json({ error: "Spotify tokens are required for signup" });
+        // Check if the user already exists
+        let existingUser;
+        try {
+            existingUser = await User.findOne({ email });
+        } catch (err) {
+            return res.status(500).json({ error: "Error checking for existing user" });
         }
-
-        const existingUser = await User.findOne({ UserId });
-        console.log('Existing user:', existingUser);
-
         if (existingUser) {
             return res.status(400).json({ error: "User already exists" });
         }
 
-        const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
+        // Fetch the Spotify application access token using Client Credentials Flow
+        let accessToken, expiresIn;
+        try {
+            const tokenResponse = await axios.post(
+                'https://accounts.spotify.com/api/token',
+                new URLSearchParams({ grant_type: 'client_credentials' }).toString(),
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Basic ${Buffer.from(
+                            `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+                        ).toString('base64')}`,
+                    },
+                }
+            );
 
+            accessToken = tokenResponse.data.access_token;
+            expiresIn = tokenResponse.data.expires_in; // Store expiresIn to know when the token expires
+        } catch (error) {
+            console.error(
+                'Error fetching Spotify application access token:',
+                error.response?.data || error.message
+            );
+            return res.status(500).json({ error: 'Failed to fetch Spotify application access token' });
+        }
+
+        // Hash the user's password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user in your database
         const newUser = new User({
-            UserId,
+            displayName,
             email,
             password: hashedPassword,
-            displayName,
-            accessToken,
-            refreshToken,
-            expiresIn,
-            profilePicture,
+            accessToken, // Use the appAccessToken from the client credentials flow
+            refreshToken: null, // Optional: null for client credentials flow
+            expiresIn, // Store expiresIn to know when the token expires
+            profilePicture: null, // You can store the profile picture URL if you want
         });
 
+        // Save the new user to the database
         const savedUser = await newUser.save();
-        console.log('New user saved:', savedUser);
 
-        // Generate token and set cookie
+        // Generate a token and set it in a cookie
         generateTokenAndSetCookie(savedUser._id, res);
 
+        // Send a response with user details
         res.status(201).json({
             _id: savedUser._id,
             displayName: savedUser.displayName,
             email: savedUser.email,
-            profilePicture: savedUser.profilePicture,
+            accessToken: savedUser.accessToken, // Optional: send the access token in response
         });
     } catch (err) {
         console.error('Error during signup:', err.message);
-
-        if (err.code === 11000) { // Handle unique constraint errors
-            return res.status(400).json({ error: "User already exists" });
-        }
-
         res.status(500).json({ error: err.message });
     }
 };
@@ -99,7 +115,6 @@ const loginUser = async (req, res) => {
             _id: user._id,
             displayName: user.displayName,
             email: user.email,
-            profilePicture: user.profilePicture,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -179,17 +194,6 @@ const updateUser = async (req, res) => {
         user.profilePicture = profilePicture || user.profilePicture;
 
         user = await user.save();
-
-        await Post.updateMany(
-            { "replies.userId": userId },
-            {
-                $set: {
-                    "replies.$[reply].email": user.email,
-                    "replies.$[reply].userProfilePic": user.profilePicture,
-                },
-            },
-            { arrayFilters: [{ "reply.userId": userId }] }
-        );
 
         user.password = null;
 
