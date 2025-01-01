@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './db/connectDb.js';
 import userRoutes from './routes/userRoute.js';
 import PlaylistRoutes from './routes/playlistRoute.js';
+import apiCallsRoutes from './routes/apiCallsRoute.js';
 import path from 'path';
 import cloudinary from 'cloudinary';
 import User from './models/userModel.js';
@@ -37,6 +38,7 @@ app.use(express.static(frontendPath));
 
 app.use('/api/users', userRoutes);
 app.use('/api/playlists', PlaylistRoutes);
+app.use('/api/', apiCallsRoutes);
 
 app.use('/spotify/callback', async (req, res) => {
     const code = req.query.code;
