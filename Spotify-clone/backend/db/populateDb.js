@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import axios from 'axios';
-import { Track } from './trackModel.js'; // Adjust the path as necessary
-import { fetchAppAccessToken } from '../controllers/apiCallsController.js';
+import { Track } from '../models/trackModel.js'; // Adjust the path as necessary
+import fetchAppAccessToken from '../controllers/apiCallsController.js';
 
 const artists = [
     'Adele', 'Beyoncé', 'Drake', 'Ed Sheeran', 'Taylor Swift', 'The Weeknd', 'Billie Eilish', 'Bruno Mars', 'Kanye West', 'Rihanna',
@@ -26,10 +26,8 @@ const artists = [
     'Kaveret', 'Ethnix', 'Eifo HaYeled', 'Shlomo Artzi', 'Yoni Rechter', 'Matt Caseli', 'Jane Bordeaux', 'Tuna', 'Avraham Tal', 'Hatikva 6', 
     'Cafe Shahor Hazak', 'Red Band', 'The Angelcy', 'A-WA', 'Tomer Yosef', 'Geva Alon', 'Eliad', 'Noga Erez', 'Lola Marsh'
 ];
-
-const SPOTIFY_API_URL = 'https://api.spotify.com/v1';
 let SPOTIFY_ACCESS_TOKEN = '';
-
+const SPOTIFY_API_URL = 'https://api.spotify.com/v1';
 const updateAccessToken = async () => {
     SPOTIFY_ACCESS_TOKEN = await fetchAppAccessToken();
 };
@@ -44,7 +42,7 @@ async function fetchTracksByArtist(artist) {
             params: {
                 q: artist,
                 type: 'track',
-                limit: 40
+                limit: 20
             }
         });
 
@@ -56,10 +54,7 @@ async function fetchTracksByArtist(artist) {
 }
 
 async function populateDb() {
-    await mongoose.connect('mongodb://localhost:27017/spotify-clone', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+    await connectDB();
 
     for (const artist of artists) {
         const tracks = await fetchTracksByArtist(artist);
@@ -73,12 +68,16 @@ async function populateDb() {
                 albumCoverUrl: track.album.images[0]?.url || '',
                 durationMs: track.duration_ms
             };
-
             try {
-                await Track.create(trackData);
-                console.log(`Added track ${track.name} by ${trackData.artist} to the database.`);
+                const existingTrack = await Track.findOne({ spotifyTrackId: track.id });
+                if (!existingTrack) {
+                    await Track.create(trackData);
+                    console.log(`Added track ${track.name} by ${trackData.artist} to the database.`);
+                } else {
+                    console.log(`Track ${track.name} by ${trackData.artist} already exists in the database.`);
+                }
             } catch (error) {
-                console.error(`Error adding track ${track.name} to the database:`, error);
+                console.error(`Error processing track ${track.name}:`, error);
             }
         }
     }
@@ -90,3 +89,5 @@ populateDb().catch(error => {
     console.error('Error populating the database:', error);
     mongoose.connection.close();
 });
+
+export default populateDb;
