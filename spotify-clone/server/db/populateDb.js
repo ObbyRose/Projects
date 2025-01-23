@@ -4,6 +4,7 @@ import Artist from '../models/artistModel.js'; // Adjust the path as necessary
 import fetchAppAccessToken from '../controllers/apiCallsController.js';
 import connectDB from './connectDb.js'; // Adjust the path as necessary
 import Album from '../models/albumModel.js'; // Adjust the path as necessary
+import {Track} from '../models/trackModel.js'; // Adjust the path as necessary
 
 // const artists = [
 //     'Adele', 'Beyoncé', 'Drake', 'Ed Sheeran', 'Taylor Swift', 'The Weeknd', 'Billie Eilish', 'Bruno Mars', 'Kanye West', 'Rihanna',
@@ -229,3 +230,222 @@ import Album from '../models/albumModel.js'; // Adjust the path as necessary
 // });
 
 // export default populateArtistsDb;
+// async function populateDB() {
+//     await updateAccessToken();
+//     await connectDB();
+
+//     const tracks = await Track.find({});
+//     const albums = await Album.find({});
+//     const artistNames = new Set();
+
+//     tracks.forEach(track => {
+//         track.artist.split(', ').forEach(artist => artistNames.add(artist));
+//     });
+
+//     albums.forEach(album => {
+//         album.artist.split(', ').forEach(artist => artistNames.add(artist));
+//     });
+
+//     for (const artistName of artistNames) {
+//         const artistData = await fetchArtistData(artistName);
+
+//         if (artistData) {
+//             const artist = {
+//                 name: artistData.name,
+//                 genres: artistData.genres,
+//                 popularity: artistData.popularity,
+//                 followers: {
+//                     href: artistData.followers.href,
+//                     total: artistData.followers.total
+//                 },
+//                 images: artistData.images.map(image => ({
+//                     height: image.height,
+//                     url: image.url,
+//                     width: image.width
+//                 })),
+//                 external_urls: {
+//                     spotify: artistData.external_urls.spotify
+//                 }
+//             };
+
+//             try {
+//                 const existingArtist = await Artist.findOne({ name: artistData.name });
+//                 if (!existingArtist) {
+//                     await Artist.create(artist);
+//                     console.log(`Added artist ${artist.name} to the database.`);
+//                 } else {
+//                     console.log(`Artist ${artist.name} already exists in the database.`);
+//                 }
+//             } catch (error) {
+//                 console.error(`Error processing artist ${artist.name}:`, error);
+//             }
+//         }
+//     }
+
+//     mongoose.connection.close();
+// }
+
+// populateDB().catch(error => {
+//     console.error('Error populating the database:', error);
+//     mongoose.connection.close();
+// });
+
+// export default populateDB;
+
+// const SPOTIFY_API_URL = 'https://api.spotify.com/v1';
+
+// // Function to fetch tracks by artist from Spotify API
+// const fetchTracksByArtist = async (artistName, accessToken) => {
+//   try {
+//     const response = await axios.get(`${SPOTIFY_API_URL}/search`, {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//       params: {
+//         q: artistName,
+//         type: 'track',
+//         limit: 50, // Fetch up to 50 tracks per artist
+//       },
+//     });
+
+//     return response.data.tracks.items;
+//   } catch (error) {
+//     console.error(`Error fetching tracks for artist ${artistName}:`, error.response?.data || error.message);
+//     return [];
+//   }
+// };
+
+// // Function to populate Tracks collection based on Artists
+// const populateDB = async () => {
+//   try {
+//     console.log('Connecting to the database...');
+//     await connectDB();
+
+//     console.log('Fetching app access token...');
+//     const accessToken = await fetchAppAccessToken();
+
+//     console.log('Fetching artists from database...');
+//     const artists = await Artist.find({});
+
+//     if (!artists.length) {
+//       console.log('No artists found in the database. Exiting...');
+//       return;
+//     }
+
+//     for (const artist of artists) {
+//       console.log(`Fetching tracks for artist: ${artist.name}`);
+//       const tracks = await fetchTracksByArtist(artist.name, accessToken);
+
+//       for (const track of tracks) {
+//         const trackData = {
+//           spotifyTrackId: track.id,
+//           name: track.name,
+//           artist: track.artists.map((artist) => artist.name).join(', '),
+//           album: track.album.name,
+//           albumCoverUrl: track.album.images[0]?.url || '',
+//           durationMs: track.duration_ms,
+//         };
+
+//         try {
+//           const existingTrack = await Track.findOne({ spotifyTrackId: track.id });
+//           if (!existingTrack) {
+//             await Track.create(trackData);
+//             console.log(`Added track: ${track.name} by ${trackData.artist}`);
+//           } else {
+//             console.log(`Track already exists: ${track.name} by ${trackData.artist}`);
+//           }
+//         } catch (error) {
+//           console.error(`Error processing track: ${track.name}`, error.message);
+//         }
+//       }
+//     }
+
+//     console.log('Tracks population complete. Closing database connection.');
+//     mongoose.connection.close();
+//   } catch (error) {
+//     console.error('Error populating the database:', error.message);
+//     mongoose.connection.close();
+//   }
+// };
+
+// // export default populateDB;
+
+
+// const fetchAlbumDetailsByName = async (albumName, accessToken) => {
+//     try {
+//       const response = await axios.get(`${SPOTIFY_API_URL}/search`, {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//         params: {
+//           q: albumName,
+//           type: 'album',
+//           limit: 1, // Fetch only the first matching album
+//         },
+//       });
+  
+//       const albums = response.data.albums.items;
+//       return albums.length ? albums[0] : null; // Return the first matching album or null
+//     } catch (error) {
+//       console.error(`Error fetching album details for album name "${albumName}":`, error.response?.data || error.message);
+//       return null;
+//     }
+//   };
+  
+//   // Function to populate Albums collection based on Tracks
+//   const populateAlbumsFromTracks = async () => {
+//     try {
+//       console.log('Connecting to the database...');
+//       await connectDB();
+  
+//       console.log('Fetching app access token...');
+//       const accessToken = await fetchAppAccessToken();
+  
+//       console.log('Fetching tracks from database...');
+//       const tracks = await Track.find({});
+  
+//       if (!tracks.length) {
+//         console.log('No tracks found in the database. Exiting...');
+//         return;
+//       }
+  
+//       for (const track of tracks) {
+//         console.log(`Fetching album details for album: "${track.album}"`);
+//         const albumDetails = await fetchAlbumDetailsByName(track.album, accessToken);
+  
+//         if (albumDetails) {
+//           const albumData = {
+//             spotifyAlbumId: albumDetails.id,
+//             name: albumDetails.name,
+//             artist: albumDetails.artists.map((artist) => artist.name).join(', '),
+//             releaseDate: albumDetails.release_date,
+//             totalTracks: albumDetails.total_tracks,
+//             albumCoverUrl: albumDetails.images[0]?.url || '',
+//             spotifyUrl: albumDetails.external_urls.spotify,
+//           };
+  
+//           try {
+//             const existingAlbum = await Album.findOne({ spotifyAlbumId: albumDetails.id });
+//             if (!existingAlbum) {
+//               await Album.create(albumData);
+//               console.log(`Added album: ${albumData.name} by ${albumData.artist}`);
+//             } else {
+//               console.log(`Album already exists: ${albumData.name} by ${albumData.artist}`);
+//             }
+//           } catch (error) {
+//             console.error(`Error processing album: ${albumData.name}`, error.message);
+//           }
+//         } else {
+//           console.log(`No album details found for "${track.album}" on Spotify.`);
+//         }
+//       }
+  
+//       console.log('Albums population complete. Closing database connection.');
+//       mongoose.connection.close();
+//     } catch (error) {
+//       console.error('Error populating albums from tracks:', error.message);
+//       mongoose.connection.close();
+//     }
+//   };
+  
+//   export { populateAlbumsFromTracks };

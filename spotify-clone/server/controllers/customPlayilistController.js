@@ -4,15 +4,15 @@ import mongoose from "mongoose";
 
 const createPlaylist = async (req, res) => {
 	try {
-		const { PlaylistTitle, description } = req.body;
+		const { PlaylistTitle } = req.body;
 		const owner = req.user._id;
 
 		const newPlaylist = new Playlist({
 			PlaylistTitle,
-			description,
+			description: req.body.description || "My Playlist",
 			owner,
 			tracks: [],
-			customAlbumCover: null,
+			customAlbumCover: req.body.customAlbumCover || "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84cac866a243e7de267899b06c",
 			isPublic: true,
 			totalDuration: 0,
 		});

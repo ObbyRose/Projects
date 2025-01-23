@@ -1,23 +1,27 @@
-import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import User from "../models/userModel.js";
 
 const protectRoute = async (req, res, next) => {
-	try {
-		const token = req.cookies.jwt;
+  const token = req.cookies.jwt;
 
-		if (!token) return res.status(401).json({ message: "Unauthorized" });
+  if (!token) {
+    return res.status(401).json({ error: "Token not found." });
+  }
 
-		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select("-password");
 
-		const user = await User.findById(decoded.userId).select("-password");
+    if (!req.user) {
+      return res.status(401).json({ error: "User not authenticated." });
+    }
 
-		req.user = user;
-
-		next();
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-		console.log("Error in signupUser: ", err.message);
-	}
+    next();
+  } catch (error) {
+    console.error("JWT verification error:", error.message);
+    return res.status(401).json({ error: "Invalid or expired token." });
+  }
 };
+
 
 export default protectRoute;

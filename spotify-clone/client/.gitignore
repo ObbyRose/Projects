@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+test.tsx
+localhost-cert.pem
+localhost-key.pem
+TestPlayer.tsx
