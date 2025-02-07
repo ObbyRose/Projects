@@ -6,7 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
 const getUserProfile = async (req, res) => {
-	const { query } = req.query.user;
+	const { query } = req.params;
 
 	try {
 		let user;
@@ -25,6 +25,7 @@ const getUserProfile = async (req, res) => {
 		console.log("Error in getUserProfile: ", err.message);
 	}
 };
+
 
 const signupUser = async (req, res) => {
 	try {
