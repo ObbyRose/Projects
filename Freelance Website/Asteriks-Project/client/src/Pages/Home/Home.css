@@ -16,8 +16,6 @@
     align-items: center;
     justify-self: center;
     margin: 0 auto;
-    height: 90vh;
-    background-color: #141414;
     z-index: 1;
     width: 100%;
     max-width: 1300px;
@@ -105,6 +103,9 @@
 
 /* Mobile responsive */
 @media screen and (max-width: 768px) {
+    .main {
+        height: 90vh
+    }
     .main__container {
         display: grid;
         grid-template-columns: auto;
@@ -112,7 +113,6 @@
         justify-self: center;
         width: 100%;
         margin: 0 auto;
-        height: 90vh;
     }
 
     .main__content {

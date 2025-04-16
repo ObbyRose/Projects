@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 
 //components imports
-import Socials from '../../components/Social-Media/Socials.tsx';
-import Navbar from '../../components/Navbar/Navbar.tsx';
+import Socials from '../../components/Social-Media/Socials';
+import Navbar from '../../components/Navbar/Navbar';
 
 const Home: React.FC = () => {
     return (
