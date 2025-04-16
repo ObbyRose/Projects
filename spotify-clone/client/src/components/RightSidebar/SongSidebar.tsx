@@ -1,62 +1,22 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useRef, useMemo, useCallback } from "react";
 import { useAppData } from "@/Context/AppDataContext";
 import { PiDotsThree } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
-import { api } from "@/api";
-import { ITrack } from "@/types/types";
+import { motion } from "framer-motion";
 import { SIDEBAR_CONSTRAINTS } from "@/Context/AppDataContext";
-
-// Define query keys
-export const queryKeys = {
-  songDetails: "songDetails"
-};
-
-// Fetch song details function
-export const fetchSongDetails = async () => {
-  try {
-    const response = await api.get("/api/tracks/offset?offset=0&limit=2");
-    console.log('Song Details API Response:', response);
-    return response.data;
-  } catch (error) {
-    console.error('Song Details API Error:', error);
-    throw error;
-  }
-};
 
 const SongSidebar: React.FC = () => {
   const { 
-    isRsbOpen, 
-    toggleRsb, 
-    setRsbMode, 
     setIsRsbOpen,
-    rsbWidth 
+    setRsbWidth,
+    rsbWidth,
+    currentTrack
   } = useAppData();
 
-  // Song Details Query
-  const {
-    data: songData = [],
-  } = useQuery({
-    queryKey: [queryKeys.songDetails],
-    queryFn: fetchSongDetails,
-    select: useCallback((responseData) => {
-      const data = responseData.data || [];
-      return data
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 2);
-    }, []),
-    staleTime: Infinity,
-    gcTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
-
-  // Derive current and next songs
-  const { currentSong, nextSong } = useMemo(() => ({
-    currentSong: songData[0] || null,
-    nextSong: songData[1] || null
-  }), [songData]);
+  const handleClose = () => {
+    setIsRsbOpen(false);
+    setRsbWidth(SIDEBAR_CONSTRAINTS.RSB_COLLAPSED_WIDTH);
+  };
 
   // Dynamic width calculations
   const contentWidth = useMemo(() => {
@@ -78,8 +38,8 @@ const SongSidebar: React.FC = () => {
         {/* Album Cover */}
         <div className="w-full">
           <img
-            src={currentSong?.albumCoverUrl || "https://via.placeholder.com/300"}
-            alt={currentSong?.name || "Album Cover"}
+            src={currentTrack?.album?.images?.[0]?.url || "https://via.placeholder.com/300"}
+            alt={currentTrack?.name || "Album Cover"}
             className="w-full h-auto rounded shadow-md"
             style={{ maxWidth: `${contentWidth}px` }}
           />
@@ -88,10 +48,10 @@ const SongSidebar: React.FC = () => {
         {/* Song Details */}
         <div className="mt-4" style={{ width: `${contentWidth}px` }}>
           <h2 className="text-lg font-bold text-ellipsis overflow-hidden whitespace-nowrap">
-            {currentSong?.name || "Loading..."}
+            {currentTrack?.name || "No track playing"}
           </h2>
           <p className="text-sm text-gray-400 mt-1 text-ellipsis overflow-hidden whitespace-nowrap">
-            {currentSong?.album || "Unknown Album"}
+            {currentTrack?.artists?.map(artist => artist.name).join(", ") || "Unknown Artist"}
           </p>
         </div>
 
@@ -106,8 +66,8 @@ const SongSidebar: React.FC = () => {
           {/* Artist Picture */}
           <div className="relative w-full h-[48%]">
             <img
-              src={currentSong?.albumCoverUrl || "https://via.placeholder.com/300"}
-              alt={currentSong?.artist || "Artist"}
+              src={currentTrack?.album?.images?.[0]?.url || "https://via.placeholder.com/300"}
+              alt={currentTrack?.artists?.[0]?.name || "Artist"}
               className="w-full h-full object-cover rounded-t-md"
             />
             <h3 className="absolute top-2 left-2 text-sm font-bold text-white bg-black px-2 py-1 rounded">
@@ -118,7 +78,7 @@ const SongSidebar: React.FC = () => {
           {/* Artist Details */}
           <div className="p-4">
             <h2 className="text-lg font-semibold text-white">
-              {currentSong?.artist || "Unknown Artist"}
+              {currentTrack?.artists?.[0]?.name || "Unknown Artist"}
             </h2>
             <p className="text-sm text-gray-400 mt-2">
               {generateMonthlyListeners().toLocaleString()} monthly listeners
@@ -144,112 +104,55 @@ const SongSidebar: React.FC = () => {
             </button>
           </div>
           <div className="space-y-4">
-            <div>
-              <p className="text-base font-semibold">
-                {currentSong?.artist || "Unknown Artist"}
-              </p>
-              <p className="text-sm text-gray-400">Main Artist</p>
-            </div>
-            <div>
-              <p className="text-base font-semibold">Baba</p>
-              <p className="text-sm text-gray-400">Mega Teacher</p>
-            </div>
-            <div>
-              <p className="text-base font-semibold">Mama</p>
-              <p className="text-sm text-gray-400">Mega Mama</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Next in Queue Card */}
-        <div 
-          className="rounded bg-[#1B1B1B] p-4 text-white mt-6"
-          style={{ 
-            width: `${contentWidth}px`, 
-            height: '130px' 
-          }}
-        >
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold">Next in Queue</h2>
-            <button
-              className="text-sm text-gray-400 hover:text-white"
-              onClick={() => {
-                setRsbMode("queue");
-                toggleRsb("queue");
-              }}
-            >
-              Open queue
-            </button>
-          </div>
-          {nextSong && (
-            <div className="flex items-center mt-4">
-              <img
-                src={nextSong.albumCoverUrl || "https://via.placeholder.com/50"}
-                alt={nextSong.name}
-                className="h-[50px] w-[50px] rounded object-cover"
-              />
-              <div className="ml-4">
-                <p className="text-sm font-bold text-ellipsis overflow-hidden whitespace-nowrap">
-                  {nextSong.name}
+            {currentTrack?.artists?.map((artist, index) => (
+              <div key={index}>
+                <p className="text-base font-semibold">
+                  {artist.name}
                 </p>
-                <p className="text-sm text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap">
-                  {nextSong.artist}
+                <p className="text-sm text-gray-400">
+                  {index === 0 ? "Main Artist" : "Featured Artist"}
                 </p>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
       </div>
     );
-  }, [currentSong, nextSong, contentWidth, generateMonthlyListeners, setRsbMode, toggleRsb]);
+  }, [currentTrack, contentWidth, generateMonthlyListeners]);
 
   // Scroll handling effect
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleScroll = (event: Event) => {
-      event.preventDefault();
-    };
-
-    const currentRef = scrollContainerRef.current;
-    if (currentRef) {
-      currentRef.addEventListener('scroll', handleScroll, { passive: false });
-      
-      return () => {
-        currentRef.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
 
   return (
-    <div
+    <motion.div
       ref={scrollContainerRef}
       className="song-sidebar-container relative h-full overflow-y-auto bg-[#111213] text-white no-scrollbar"
-      style={{ width: `${rsbWidth}px` }}
+      style={{ width: rsbWidth }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       {/* Sticky Header */}
       <div
         className="fixed top-[63px] right-[9px] h-[67px] bg-[#111213] flex items-center justify-between px-6 shadow-md z-50 rounded-t"
-        style={{ 
-          width: `${rsbWidth}px`, 
-          color: "#fff" 
-        }}
+        style={{ width: rsbWidth }}
       >
-        <h1 className="text-lg font-bold">
-          {currentSong ? currentSong.name : "Loading..."}
+        <h1 className="text-lg font-bold truncate">
+          {currentTrack?.name || "No track playing"}
         </h1>
-        <div className="flex">
+        <div className="flex items-center shrink-0">
           <PiDotsThree 
             className="text-[#B3B3B3] text-3xl mr-5 cursor-pointer h-6 w-6 rounded-full hover:bg-[#1B1B1B]" 
           />
           <HiMiniXMark
             className="text-[#B3B3B3] text-2xl cursor-pointer h-8 w-8 p-1 rounded-full hover:bg-[#1B1B1B]"
-            onClick={() => setIsRsbOpen(false)}
+            onClick={handleClose}
           />
         </div>
       </div>
       
       {SidebarContent}
-    </div>
+    </motion.div>
   );
 };
 
