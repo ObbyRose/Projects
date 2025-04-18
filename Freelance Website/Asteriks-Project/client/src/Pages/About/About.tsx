@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../../components/Navbar/Navbar.tsx';
-import Socials from '../../components/Social-Media/Socials.tsx';
+import Navbar from '../../components/Navbar/Navbar';
+import Socials from '../../components/Social-Media/Socials';
 import './About.css';
 import { Link } from 'react-router-dom';
 
